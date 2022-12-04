@@ -24,7 +24,7 @@ foreach ($dirs as $value) {
 $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://localhost:8989'=>'sonarr',
-	'http://localhost:8096'=>'emby/jellyfin',
+	'http://localhost:8096'=>'jellyfin',
 	'https://web.whatsapp.com'=>'whatsapp',
     'http://localhost/?q=info'=>'php info'
 ];
@@ -35,7 +35,8 @@ $reading_links = [
 	'https://news.ycombinator.com'=>'hacker news',
 	'https://twitter.com'=>'twitter',
 	'https://techmeme.com'=>'techmeme',
-	'https://nairaland.com'=>'nairaland'
+	'https://nairaland.com'=>'nairaland',
+    'https://cheatography.com'=>'cheatography'
 ];
 
 $work_links = [
@@ -81,7 +82,6 @@ function show_links($links) {
 	foreach ($links as $key=>$value) {
 		echo '<li class="cell small-6 medium-4 large-12 container__list--item">
 			<a class="container__list" href="' . $key . '" rel="noopener noreferrer">
-				<img src="https://www.google.com/s2/favicons?domain='.$key.'&sz=128" />
 				<span>' . strtolower($value). '</span>
 			</a>
 		</li>';
