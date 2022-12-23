@@ -21,10 +21,19 @@ foreach ($dirs as $value) {
 	}
 }
 
+$sections = [
+    'system'=>'System',
+    'readling'=>'reading',
+    'work'=>'work',
+    'games'=>'games',
+    'media'=>'media',
+    'warez'=>'warez'
+];
+
 $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://localhost:8989'=>'sonarr',
-	'http://localhost:8096'=>'jellyfin',
+	'http://localhost:8096'=>'emby/jellyfin',
 	'https://web.whatsapp.com'=>'whatsapp',
     'http://localhost/?q=info'=>'php info'
 ];
@@ -34,8 +43,8 @@ $reading_links = [
 	'https://reddit.com'=>'reddit',
 	'https://news.ycombinator.com'=>'hacker news',
 	'https://twitter.com'=>'twitter',
-	'https://nairaland.com'=>'nairaland',
-    'https://cheatography.com'=>'cheatography'
+	'https://techmeme.com'=>'techmeme',
+	'https://nairaland.com'=>'nairaland'
 ];
 
 $work_links = [
@@ -48,7 +57,8 @@ $work_links = [
 	'https://github.com'=>'github',
 	'https://softalliance.com'=>'soft alliance',
 	'https://campus.college.ch/thesis_repository'=>'robert kennedy',
-    'https://www.iwebfusion.net/'=>'iwebfusion'
+    'https://www.iwebfusion.net/'=>'iwebfusion',
+    'https://mymtn.com.ng/dashboard'=>'myMTN'
 ];
 
 $games_links = [
@@ -81,6 +91,7 @@ function show_links($links) {
 	foreach ($links as $key=>$value) {
 		echo '<li class="cell small-6 medium-4 large-12 container__list--item">
 			<a class="container__list" href="' . $key . '" rel="noopener noreferrer">
+                <img src="https://www.google.com/s2/favicons?domain='.$key.'&sz=128" />
 				<span>' . strtolower($value). '</span>
 			</a>
 		</li>';
@@ -347,18 +358,6 @@ li {
 			<div class="grid-x align-middle container__inner">
 				<div class="cell">
 					<div class="grid-x grid-padding-x">
-						<div class="cell small-12">
-							<div class="grid-x grid-padding-y">
-								<div class="cell medium-11">
-									<form id="searchform" action="https://www.google.com/search" method="get">
-									    <label for="search">
-									    	<img src="https://www.google.com/s2/favicons?domain=https://google.com&sz=128" />
-									    </label>
-									    <input id="search" placeholder="Search" type="text" name="q" autofocus autocomplete="off" data-type="google" />
-									</form>
-								</div>
-							</div>
-						</div>
 						<div class="cell small-12 large-auto">
 							<ul class="grid-x">
 								<li class="cell"><span class="container__list container__list--title">Projects</span></li>
