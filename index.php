@@ -45,7 +45,8 @@ $reading_links = [
 	'https://twitter.com'=>'twitter',
 	'https://techmeme.com'=>'techmeme',
 	'https://nairaland.com'=>'nairaland',
-    'https://chat.openai.com'=>'chatGPT'
+    'https://chat.openai.com'=>'chatGPT',
+    'https://lexica.art/aperture'=>'lexica'
 ];
 
 $work_links = [
