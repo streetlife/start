@@ -99,6 +99,29 @@ function show_links($links) {
 		</li>';
 	}
 }
+
+
+?>
+
+<?php
+
+// // Replace YOUR_ACCESS_KEY with your actual access key
+// $accessKey = 'WYzi0x5lKoriA9SGnjuzf6kTHXqeUFreH6-RopUJ-9k';
+
+// // Query the API to get a list of photos
+// $url = 'https://api.unsplash.com/photos?client_id=' . $accessKey;
+// $response = file_get_contents($url);
+// $photos = json_decode($response, true);
+
+// // Select a random photo from the list
+// $randomIndex = array_rand($photos);
+// $randomPhoto = $photos[$randomIndex];
+// // print_r($photos);
+// // print_r($randomPhoto);
+// // die();
+
+// // Set the background image of the body element to the URL of the random photo
+
 ?>
 
 <!DOCTYPE html>
