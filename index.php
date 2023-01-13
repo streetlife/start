@@ -46,7 +46,9 @@ $reading_links = [
 	'https://techmeme.com'=>'techmeme',
 	'https://nairaland.com'=>'nairaland',
     'https://chat.openai.com'=>'chatGPT',
-    'https://lexica.art/aperture'=>'lexica'
+    'https://lexica.art/aperture'=>'lexica',
+    'https://www.reddit.com/r/Showerthoughts/'=>'shower thoughts',
+    'https://labs.openai.com/'=>'dall-e'
 ];
 
 $work_links = [
@@ -60,7 +62,8 @@ $work_links = [
 	'https://softalliance.com'=>'soft alliance',
 	'https://campus.college.ch/thesis_repository'=>'robert kennedy',
     'https://www.iwebfusion.net/'=>'iwebfusion',
-    'https://mymtn.com.ng/dashboard'=>'myMTN'
+    'https://mymtn.com.ng/dashboard'=>'myMTN',
+    'https://storyset.com/'=>'story set'
 ];
 
 $games_links = [
@@ -69,7 +72,10 @@ $games_links = [
 	'https://crazygames.com'=>'crazy games',
 	'https://epicgames.com'=>'epic games',
 	'https://wordfinderx.com'=>'wordfinderx',
-	'https://livescores.com'=>'livescores'
+	'https://livescores.com'=>'livescores',
+    'https://www.premierleague.com/'=>'premier league',
+    'https://www.arsenal.com/'=>'arsenal',
+    'https://reddit.com/r/footballhighlights'=>'football highlights'
 ];
 
 $media_links = [
@@ -82,7 +88,8 @@ $media_links = [
 	'https://redi1.soccerstreams.net'=>'soccer streams',
     'https://music.youtube.com'=>'Youtube music',
     'https://steamrip.com'=>'steam rip',
-	'https://downloadly.ir/'=>'downloadly'
+	'https://downloadly.ir/'=>'downloadly',
+    'https://bitdownload.ir/'=>'bitdownload'
 ];
 
 
