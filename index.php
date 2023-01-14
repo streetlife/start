@@ -144,30 +144,9 @@ function show_links($links) {
 
 <style>
 /* Variables */
-:root {
-    /* Margins */
-    --padding: 20px;
-    --large-padding: 10vh;
-    --foundation: 0.625rem;
-
-    /* Fonts */
-    --font-family: "Inter", sans-serif;
-    --normal: 500;
-    --bold: 900;
-
-    /* Colors */
-    --white: #fff;
-    --black: #11110e;
-    --gray: #0d0d0d;
-    --grey: #353535;
-
-    /* Animation */
-    --animation: all 0.3s ease-in-out;
-    --animation-long: all 0.6s ease-in-out;
-}
 
 body {
-    background-color: --white;
+    background-color: #122c3a;
     font-size: 17px;
 }
 
@@ -185,12 +164,12 @@ body {
     max-width: 90rem;
 }
 
-* {
+/* * {
     -webkit-transition: var(--animation);
     -moz-transition: var(--animation);
     -o-transition: var(--animation);
     transition: var(--animation);
-}
+} */
 
 body,
 a,
@@ -201,22 +180,22 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-family);
+    font-family: sans-serif;
 }
 
 p {
-    font-weight: var(--normal);
-    color: var(--black);
+    font-weight: 500;
+    color: #fff;
 }
 
 a {
-    color: var(--black);
+    color: #ffffff;
     opacity: 0.5;
 }
 
 a:hover,
 a:focus {
-    color: var(--gray);
+    color: #ffffff;
     opacity: 1;
 }
 
@@ -227,12 +206,12 @@ a:focus img {
 }
 
 .container {
-    padding: var(--padding);
+    padding: 20px;
 }
 
 @media screen and (max-width: 40em) {
     .container {
-        padding: calc(var(--padding) * 3) var(--padding);
+        padding: calc(20px * 3) 20px;
     }
 }
 
@@ -242,7 +221,7 @@ a:focus img {
 }
 
 ul {
-    margin: 0 0 var(--padding);
+    margin: 0 0 20px;
     padding: 0;
 }
 
@@ -259,13 +238,13 @@ li {
 }
 
 .container__list--item:hover {
-    background: rgba(255, 255, 255, 0.025);
+    /* background: rgba(255, 255, 255, 0.025); */
     box-shadow: none;
     border: none;
     outline: none;
-    color: var(--black);
+    color: #000000;
     border-radius: 8px;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     opacity: 1;
     letter-spacing: -0.0225rem;
 }
@@ -290,7 +269,7 @@ li {
 
 @media screen and (min-width: 40em) {
     .container form {
-        margin-bottom: var(--padding);
+        margin-bottom: 20px;
     }
 }
 
@@ -312,12 +291,12 @@ li {
 }
 
 .container__list--title {
-    font-family: var(--font-family);
+    font-family: sans-serif;
     text-transform: uppercase;
     letter-spacing: 10px;
     font-size: 0.9rem;
-    font-weight: var(--bold);
-    color: var(--grey);
+    font-weight: bold;
+    color: #ffffff;
     padding: 10px 10px 10px 0;
 }
 
@@ -354,35 +333,7 @@ li {
 .container label {
     cursor: context-menu;
 }
-.container input {
-    position: relative;
-    background: transparent;
-    box-shadow: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    height: auto;
-    width: calc(100% - 36px);
-    opacity: 0.5;
-    border-radius: 10px;
-    line-height: 3.25rem;
-    color: var(--gray);
-    font-family: var(--font-family);
-    font-weight: var(--bold);
-    outline: none;
-    cursor: zoom-in;
-}
 
-.container input:focus {
-    background: rgba(255, 255, 255, 0.025);
-    box-shadow: none;
-    border: none;
-    outline: none;
-    /*color: var(--white);*/
-    border-radius: 8px;
-    padding: 0 14px;
-    opacity: 1;
-}
 </style>
 	</head>
 	<body>
