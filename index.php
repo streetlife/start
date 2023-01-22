@@ -43,7 +43,6 @@ $reading_links = [
 	'https://reddit.com'=>'reddit',
 	'https://news.ycombinator.com'=>'hacker news',
 	'https://twitter.com'=>'twitter',
-	'https://techmeme.com'=>'techmeme',
 	'https://nairaland.com'=>'nairaland',
     'https://chat.openai.com'=>'chatGPT',
     'https://lexica.art/aperture'=>'lexica',
