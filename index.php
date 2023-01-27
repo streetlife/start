@@ -1,17 +1,4 @@
 <?php 
-// localhost projects
-// $db = new SQLite3('links.db');
-
-// $categories = $db->query('select distinct category from links');
-
-// foreach ($categories as $category) {
-//     $links = $db->query('select link, link_name from links where category = "'.$category.'"');
-
-//     foreach ($links as $link) {
-
-//     }
-// }
-
 $exclude_folders = ['icons','assets','css'];
 $dirs = array_filter(glob('../*'), 'is_dir');
 foreach ($dirs as $value) {
@@ -91,8 +78,6 @@ $media_links = [
     'https://bitdownload.ir/'=>'bitdownload'
 ];
 
-
-
 function show_links($links) {
 	// asort($links);
     natcasesort($links);
@@ -105,29 +90,6 @@ function show_links($links) {
 		</li>';
 	}
 }
-
-
-?>
-
-<?php
-
-// // Replace YOUR_ACCESS_KEY with your actual access key
-// $accessKey = 'WYzi0x5lKoriA9SGnjuzf6kTHXqeUFreH6-RopUJ-9k';
-
-// // Query the API to get a list of photos
-// $url = 'https://api.unsplash.com/photos?client_id=' . $accessKey;
-// $response = file_get_contents($url);
-// $photos = json_decode($response, true);
-
-// // Select a random photo from the list
-// $randomIndex = array_rand($photos);
-// $randomPhoto = $photos[$randomIndex];
-// // print_r($photos);
-// // print_r($randomPhoto);
-// // die();
-
-// // Set the background image of the body element to the URL of the random photo
-
 ?>
 
 <!DOCTYPE html>
@@ -140,200 +102,6 @@ function show_links($links) {
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;900&display=swap" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
-
-<style>
-/* Variables */
-
-body {
-    background-color: #122c3a;
-    font-size: 17px;
-}
-
-@media screen and (max-width: 40em) {
-    body {
-        font-size: 18px;
-    }
-}
-
-.container input {
-    font-size: 26px;
-}
-
-.grid-container {
-    max-width: 90rem;
-}
-
-/* * {
-    -webkit-transition: var(--animation);
-    -moz-transition: var(--animation);
-    -o-transition: var(--animation);
-    transition: var(--animation);
-} */
-
-body,
-a,
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: sans-serif;
-}
-
-p {
-    font-weight: 500;
-    color: #fff;
-}
-
-a {
-    color: #ffffff;
-    opacity: 0.5;
-}
-
-a:hover,
-a:focus {
-    color: #ffffff;
-    opacity: 1;
-}
-
-a:hover img,
-a:focus img {
-    filter: grayscale(0);
-    -webkit-filter: grayscale(0);
-}
-
-.container {
-    padding: 20px;
-}
-
-@media screen and (max-width: 40em) {
-    .container {
-        padding: calc(20px * 3) 20px;
-    }
-}
-
-.container,
-.container__inner {
-    min-height: calc(100vh - 40px);
-}
-
-ul {
-    margin: 0 0 20px;
-    padding: 0;
-}
-
-li {
-    list-style: none;
-}
-
-.container__list--item {
-    letter-spacing: -0.0225rem;
-}
-
-.container__list--item:hover {
-    letter-spacing: -0.05rem;
-}
-
-.container__list--item:hover {
-    /* background: rgba(255, 255, 255, 0.025); */
-    box-shadow: none;
-    border: none;
-    outline: none;
-    color: #000000;
-    border-radius: 8px;
-    /* padding: 0 10px; */
-    opacity: 1;
-    letter-spacing: -0.0225rem;
-}
-
-.container__list {
-    display: flex;
-    align-items: center;
-    padding: 5px 5px 5px 0;
-}
-
-@media screen and (max-width: 64em) {
-    .container__list {
-        padding: 10px 10px 10px 0;
-    }
-}
-
-@media screen and (max-width: 30em) {
-    .container__list span {
-        font-size: 0.9725rem;
-    }
-}
-
-@media screen and (min-width: 40em) {
-    .container form {
-        margin-bottom: 20px;
-    }
-}
-
-.container__list span {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.container__list img {
-    width: 100%;
-    margin-right: 0.5rem;
-    max-width: 23px;
-    max-height: 23px;
-    border-radius: 5px;
-    filter: grayscale(0.75);
-    -webkit-filter: grayscale(0.75);
-}
-
-.container__list--title {
-    font-family: sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 10px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #ffffff;
-    padding: 10px 10px 10px 0;
-}
-
-@media screen and (min-width: 40em) {
-    .container__list--title {
-        padding: 5px 5px 10px 0;
-    }
-}
-
-.container form {
-    display: flex;
-    width: 100%;
-    opacity: 0.5;
-}
-
-.container form.focus {
-    opacity: 1;
-}
-
-.container img.search {
-    width: 100%;
-    min-width: 36px;
-    padding-right: 5px;
-}
-
-.container label {
-    width: 36px;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    /*filter: grayscale(100%) brightness(25%);*/
-}
-
-.container label {
-    cursor: context-menu;
-}
-
-</style>
 	</head>
 	<body>
 		<div class="grid-container container">
