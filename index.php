@@ -49,7 +49,8 @@ $work_links = [
 	'https://campus.college.ch'=>'robert kennedy',
     'https://www.iwebfusion.net/'=>'iwebfusion',
     'https://mymtn.com.ng/dashboard'=>'myMTN',
-    'https://storyset.com/'=>'story set'
+    'https://storyset.com/'=>'story set',
+	'https://123apps.com/'=>'123apps'
 ];
 
 $games_links = [
