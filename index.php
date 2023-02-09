@@ -22,6 +22,7 @@ $system_links = [
 	'http://localhost:8989'=>'sonarr',
 	'http://localhost:8096'=>'emby/jellyfin',
 	'https://web.whatsapp.com'=>'whatsapp',
+	'https://web.telegram.org'=>'telegram',
     'http://localhost/?q=info'=>'php info'
 ];
 
