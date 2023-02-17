@@ -18,9 +18,6 @@ $reading_links = [
 	'https://reddit.com'=>'reddit',
 	'https://twitter.com'=>'twitter',
 	'https://nairaland.com'=>'nairaland',
-    'https://chat.openai.com'=>'chatGPT',
-    'https://lexica.art/aperture'=>'lexica',
-    'https://labs.openai.com/'=>'dall-e',
 ];
 
 $work_links = [
@@ -40,8 +37,9 @@ $media_links = [
 	'https://youtube.com'=>'youtube',
 	'https://tiktok.com'=>'tiktok',
     'https://music.youtube.com'=>'Youtube music',
-	'https://exercism.org/dashboard'=>'exercism',
-	'https://campus.college.ch'=>'robert kennedy',
+];
+
+$games_links = [
 	'https://crazygames.com'=>'crazy games',
 	'https://epicgames.com'=>'epic games',
 	'https://wordfinderx.com'=>'wordfinderx',
@@ -49,10 +47,20 @@ $media_links = [
     'https://reddit.com/r/footballhighlights'=>'football highlights',
 ];
 
+$learning_links = [
+	'https://exercism.org/dashboard'=>'exercism',
+	'https://campus.college.ch'=>'robert kennedy',
+	'https://www.coursera.org'=>'coursera',
+	'https://udemy.com'=>'udemy',
+];
+
 $utilities_links = [
 	'https://123apps.com/'=>'123apps',
     'https://mymtn.com.ng/dashboard'=>'myMTN',
     'https://canarytokens.org'=>'canary tokens',
+];
+
+$warez_links = [
 	'https://wplocker.com'=>'wplocker',
 	'https://torrentgalaxy.to'=>'torrent galaxy',
 	'https://codelist.cc'=>'codelist',
@@ -62,11 +70,12 @@ $utilities_links = [
     'https://bitdownload.ir/'=>'bitdownload'
 ];
 
-// $warez_links = [
-// 	'https://downloadly.ir/'=>'downloadly',
-//     'https://bitdownload.ir/'=>'bitdownload'
-// ];
+$ai_links = [
+    'https://chat.openai.com'=>'chatGPT',
+    'https://lexica.art/aperture'=>'lexica',
+    'https://labs.openai.com/'=>'dall-e',
 
+];
 
 function show_links($links, $title, $newtab=false) {
 	$str_links = '';    
@@ -106,11 +115,14 @@ function show_links($links, $title, $newtab=false) {
 		<title> ~ esquire </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-cyborg.min.css" > -->
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-darkly.min.css" >
+		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-darkly.min.css" > -->
 		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-flatly.min.css" > -->
 		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-lux.min.css" > -->
 		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-minty.min.css" > -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
+		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-superhero.min.css" > -->
 		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-united.min.css" > -->
+		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-vapor.min.css" > -->
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
@@ -126,13 +138,12 @@ function show_links($links, $title, $newtab=false) {
 				show_links($system_links, 'system');
 				show_links($work_links, 'work'); 
 				show_links($reading_links, 'reading');
+				show_links($learning_links, 'learning');
 				show_links($media_links, 'media'); 
-				/* A function that displays links in a list. */
-				// show_links($learning_links, 'learning'); 
-				// show_links($games_links, 'games'); 
-				// show_links($ai_links, 'ai tools'); 
 				show_links($utilities_links, 'utilities', true); 
-				// show_links($warez_links, 'warez', true); 
+				show_links($warez_links, 'warez', true); 
+				show_links($ai_links, 'ai');
+				show_links($games_links, 'games');
 			?>
 			</div>
 		</div>
