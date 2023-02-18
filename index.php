@@ -18,6 +18,7 @@ $reading_links = [
 	'https://reddit.com'=>'reddit',
 	'https://twitter.com'=>'twitter',
 	'https://nairaland.com'=>'nairaland',
+	'https://reddit.com/r/blackpeopletwitter'=>'blackpeopletwitter',
 ];
 
 $work_links = [
@@ -28,7 +29,7 @@ $work_links = [
 	'https://websguy.com/cpanel'=>'websguy',
 	'https://goodday.work'=>'goodday',
 	'https://github.com'=>'github',
-    'https://www.iwebfusion.net/'=>'iwebfusion',
+    'https://iwebfusion.net/'=>'iwebfusion',
     'https://storyset.com/'=>'story set',
 	'https://keep.google.com'=>'keep',
 ];
@@ -50,8 +51,9 @@ $games_links = [
 $learning_links = [
 	'https://exercism.org/dashboard'=>'exercism',
 	'https://campus.college.ch'=>'robert kennedy',
-	'https://www.coursera.org'=>'coursera',
+	'https://coursera.org'=>'coursera',
 	'https://udemy.com'=>'udemy',
+	'https://freecodecamp.org'=>'freecodecamp',
 ];
 
 $utilities_links = [
@@ -62,10 +64,10 @@ $utilities_links = [
 
 $warez_links = [
 	'https://wplocker.com'=>'wplocker',
-	'https://torrentgalaxy.to'=>'torrent galaxy',
+	'https://torrentgalaxy.to'=>'torrentgalaxy',
 	'https://codelist.cc'=>'codelist',
 	'https://themelock.com'=>'themelock',
-    'https://steamrip.com'=>'steam rip',
+    'https://steamrip.com'=>'steamrip',
 	'https://downloadly.ir/'=>'downloadly',
     'https://bitdownload.ir/'=>'bitdownload'
 ];
