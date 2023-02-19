@@ -19,6 +19,7 @@ $reading_links = [
 	'https://twitter.com'=>'twitter',
 	'https://nairaland.com'=>'nairaland',
 	'https://reddit.com/r/blackpeopletwitter'=>'blackpeopletwitter',
+	'https://reddit.com/r/startpages'=>'startpages',
 ];
 
 $work_links = [
@@ -30,14 +31,16 @@ $work_links = [
 	'https://goodday.work'=>'goodday',
 	'https://github.com'=>'github',
     'https://iwebfusion.net/'=>'iwebfusion',
-    'https://storyset.com/'=>'story set',
 	'https://keep.google.com'=>'keep',
+	'https://drive.google.com'=>'drive',
+	'https://untools.co/'=>'untools',
 ];
 
 $media_links = [
 	'https://youtube.com'=>'youtube',
 	'https://tiktok.com'=>'tiktok',
     'https://music.youtube.com'=>'Youtube music',
+	'https://photos.google.com'=>'google photos',
 ];
 
 $games_links = [
@@ -46,6 +49,9 @@ $games_links = [
 	'https://wordfinderx.com'=>'wordfinderx',
 	'https://livescore.com'=>'livescores',
     'https://reddit.com/r/footballhighlights'=>'football highlights',
+	'https://www.arsenal.com'=>'arsenal',
+	'https://gog.com/'=>'gog',
+	'https://premierleague.com'=>'premier league',
 ];
 
 $learning_links = [
@@ -79,6 +85,14 @@ $ai_links = [
 
 ];
 
+$graphics_links = [
+	'https://unsplash.com/'=>'unsplash',
+	'https://www.pexels.com/'=>'pexels',
+    'https://storyset.com/'=>'story set',
+	'https://slidesgo.com/'=>'slides go',
+	'https://slidescarnival.com'=>'slides carnival',
+];
+
 function show_links($links, $title, $newtab=false) {
 	$str_links = '';    
 	$str_target = '';
@@ -88,8 +102,8 @@ function show_links($links, $title, $newtab=false) {
 	natcasesort($links);
 	foreach ($links as $key=>$value) {
 		$str_links .= 
-		'<li class="list-group-item list-group-item-action">
-			<a class="" href="' . $key . '" rel="noopener noreferrer" style="display:block" '.$str_target.'>
+		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
+			<a href="' . $key . '" rel="noopener noreferrer" '.$str_target.' style="display:block">
                 <img src="https://www.google.com/s2/favicons?domain='.$key.'&sz=128" class="icon" />
 				<span>' . strtolower($value). '</span>
 			</a>
@@ -97,10 +111,10 @@ function show_links($links, $title, $newtab=false) {
 	}
 	echo 
 	'<div class="col-md-2 p-1">
-		<div class="card m-1">
-			<div class="card-body p-0">
-				<div class="card-header">'.$title.'</div>
-				<ul class="list-group list-group-flush ">
+		<div class="card m-1 bg-transparent border-0">
+			<div class="card-body p-0 bg-transparent border-0">
+				<div class="card-header bg-transparent">'.$title.'</div>
+				<ul class="list-group list-group-flush border-0">
 				'.$str_links.'
 				</ul>
 			</div>
@@ -127,7 +141,7 @@ function show_links($links, $title, $newtab=false) {
 		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-vapor.min.css" > -->
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
-	<body>
+	<body class="bg-gray">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -142,10 +156,11 @@ function show_links($links, $title, $newtab=false) {
 				show_links($reading_links, 'reading');
 				show_links($learning_links, 'learning');
 				show_links($media_links, 'media'); 
-				show_links($utilities_links, 'utilities', true); 
-				show_links($warez_links, 'warez', true); 
 				show_links($ai_links, 'ai');
 				show_links($games_links, 'games');
+				show_links($graphics_links, 'graphics');
+				show_links($utilities_links, 'utilities', true); 
+				show_links($warez_links, 'warez', true); 
 			?>
 			</div>
 		</div>
