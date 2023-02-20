@@ -34,12 +34,13 @@ $work_links = [
 	'https://keep.google.com'=>'keep',
 	'https://drive.google.com'=>'drive',
 	'https://untools.co/'=>'untools',
+	'https://calendar.google.com/calendar/u/0/r/week'=>'calendar',
 ];
 
 $media_links = [
 	'https://youtube.com'=>'youtube',
 	'https://tiktok.com'=>'tiktok',
-    'https://music.youtube.com'=>'Youtube music',
+    'https://music.youtube.com'=>'youtube music',
 	'https://photos.google.com'=>'google photos',
 ];
 
@@ -91,6 +92,9 @@ $graphics_links = [
     'https://storyset.com/'=>'story set',
 	'https://slidesgo.com/'=>'slides go',
 	'https://slidescarnival.com'=>'slides carnival',
+	'https://wepik.com/'=>'wepik',
+	'https://www.pixiv.net/'=>'pixiv',
+	'https://canva.com'=>'canva',
 ];
 
 function show_links($links, $title, $newtab=false) {
@@ -110,7 +114,7 @@ function show_links($links, $title, $newtab=false) {
 		</li>';
 	}
 	echo 
-	'<div class="col-md-2 p-1">
+	'<div class="col-lg-2 col-md-3 col-sm-4 p-1">
 		<div class="card m-1 bg-transparent border-0">
 			<div class="card-body p-0 bg-transparent border-0">
 				<div class="card-header bg-transparent">'.$title.'</div>
@@ -130,33 +134,20 @@ function show_links($links, $title, $newtab=false) {
 	<head>
 		<title> ~ esquire </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-cyborg.min.css" > -->
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-darkly.min.css" > -->
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-flatly.min.css" > -->
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-lux.min.css" > -->
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-minty.min.css" > -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-superhero.min.css" > -->
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-united.min.css" > -->
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-vapor.min.css" > -->
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="css/style.min.css">
 	</head>
 	<body class="bg-gray">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1> ~ esquire </h1>
-				</div>
-			</div>
 			<div class="row" data-masonry='{"percentPosition": true }'>
 			<?php 
 				show_links($project_links, 'projects');
 				show_links($system_links, 'system');
 				show_links($work_links, 'work'); 
 				show_links($reading_links, 'reading');
+				show_links($ai_links, 'ai');
 				show_links($learning_links, 'learning');
 				show_links($media_links, 'media'); 
-				show_links($ai_links, 'ai');
 				show_links($games_links, 'games');
 				show_links($graphics_links, 'graphics');
 				show_links($utilities_links, 'utilities', true); 
