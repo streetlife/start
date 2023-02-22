@@ -1,4 +1,5 @@
 <?php 
+ini_set('display_errors', 0);
 $dirs = array_filter(glob('../*'), 'is_dir');
 foreach ($dirs as $value) {
 	$value = str_replace('../','',$value);
@@ -27,7 +28,7 @@ $work_links = [
 	'https://mail.google.com'=>'gmail',
 	'https://whogohost.com'=>'whogohost',
 	'https://hostforweb.com'=>'hostforweb',
-	'https://websguy.com/cpanel'=>'websguy',
+	'https://websguy.com:2083'=>'websguy',
 	'https://goodday.work'=>'goodday',
 	'https://github.com'=>'github',
     'https://iwebfusion.net/'=>'iwebfusion',
@@ -57,7 +58,7 @@ $games_links = [
 
 $learning_links = [
 	'https://exercism.org/dashboard'=>'exercism',
-	'https://campus.college.ch'=>'robert kennedy',
+	'https://campus.college.ch'=>'robert_kennedy',
 	'https://coursera.org'=>'coursera',
 	'https://udemy.com'=>'udemy',
 	'https://freecodecamp.org'=>'freecodecamp',
@@ -67,6 +68,7 @@ $utilities_links = [
 	'https://123apps.com/'=>'123apps',
     'https://mymtn.com.ng/dashboard'=>'myMTN',
     'https://canarytokens.org'=>'canary tokens',
+	'https://sejda.com/pdf-editor'=>'sejda-pdf',
 ];
 
 $warez_links = [
@@ -83,6 +85,7 @@ $ai_links = [
     'https://chat.openai.com'=>'chatGPT',
     'https://lexica.art/aperture'=>'lexica',
     'https://labs.openai.com/'=>'dall-e',
+	'https://cpanel.net'=>'cpanel',
 
 ];
 
@@ -93,7 +96,6 @@ $graphics_links = [
 	'https://slidesgo.com/'=>'slides go',
 	'https://slidescarnival.com'=>'slides carnival',
 	'https://wepik.com/'=>'wepik',
-	'https://www.pixiv.net/'=>'pixiv',
 	'https://canva.com'=>'canva',
 ];
 
@@ -105,10 +107,24 @@ function show_links($links, $title, $newtab=false) {
 	}
 	natcasesort($links);
 	foreach ($links as $key=>$value) {
+		$value = str_replace(' ','-',$value);
+		$local_name = 'img/icons/'.$value.'.png';
+		if (!file_exists($local_name)) {
+			if (strpos($key,'test')>0) {
+				$local_name = 'img/icon-local.png';
+			} else {
+				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=128'));
+			}
+		}
+		// $local_name = 'img/icon-'.$value.'.png';
+		// if (!file_exists($local_name)) {
+		// 	file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=128'));
+		// }
+
 		$str_links .= 
 		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
 			<a href="' . $key . '" rel="noopener noreferrer" '.$str_target.' style="display:block">
-                <img src="https://www.google.com/s2/favicons?domain='.$key.'&sz=128" class="icon" />
+			<img src="'.$local_name.'" class="icon" />
 				<span>' . strtolower($value). '</span>
 			</a>
 		</li>';
@@ -126,7 +142,7 @@ function show_links($links, $title, $newtab=false) {
 	</div>';
 
 }
-
+// <img src="https://www.google.com/s2/favicons?domain='.$key.'&sz=128" class="icon" />
 ?>
 
 <!DOCTYPE html>
@@ -137,19 +153,24 @@ function show_links($links, $title, $newtab=false) {
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
 		<link rel="stylesheet" type="text/css" href="css/style.min.css">
 	</head>
-	<body class="bg-gray">
+	<body class="bg-gray" onload=display_ct();>
 		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+				<span id='ct'></span>
+				</div>
+			</div>
 			<div class="row" data-masonry='{"percentPosition": true }'>
 			<?php 
 				show_links($project_links, 'projects');
 				show_links($system_links, 'system');
 				show_links($work_links, 'work'); 
 				show_links($reading_links, 'reading');
+				show_links($graphics_links, 'graphics');
 				show_links($ai_links, 'ai');
 				show_links($learning_links, 'learning');
 				show_links($media_links, 'media'); 
 				show_links($games_links, 'games');
-				show_links($graphics_links, 'graphics');
 				show_links($utilities_links, 'utilities', true); 
 				show_links($warez_links, 'warez', true); 
 			?>
@@ -158,5 +179,19 @@ function show_links($links, $title, $newtab=false) {
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/jquery-3.6.3.min.js"></script>
 		<script src="js/masonry.pkgd.min.js" async></script>
+		<script type="text/javascript"> 
+			function display_c(){
+				var refresh=1000; // Refresh rate in milli seconds
+				mytime=setTimeout('display_ct()',refresh)
+			}
+
+			function display_ct() {
+				var x = new Date();
+				// var x1=x.toUTCString();// changing the display to UTC string
+
+				document.getElementById('ct').innerHTML = x;
+				display_c();
+ 			}
+		</script>
 	</body>
 </html>

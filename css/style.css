@@ -6,11 +6,12 @@ body {
 }
 .icon {
     width: 20px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 a {
     text-decoration: none;
     display: block;
+    font-size: 0.8em;
 }
 a:hover {
     color: yellow;
