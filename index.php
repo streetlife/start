@@ -36,6 +36,7 @@ $work_links = [
 	'https://drive.google.com'=>'drive',
 	'https://untools.co/'=>'untools',
 	'https://calendar.google.com/calendar/u/0/r/week'=>'calendar',
+	'https://ionos.com'=>'ionos',
 ];
 
 $media_links = [
@@ -99,7 +100,7 @@ $graphics_links = [
 	'https://canva.com'=>'canva',
 ];
 
-function show_links($links, $title, $newtab=false) {
+function show_links($links, $title, $newtab=false, $full_height=false) {
 	$str_links = '';    
 	$str_target = '';
 	if ($newtab) {
@@ -129,9 +130,10 @@ function show_links($links, $title, $newtab=false) {
 			</a>
 		</li>';
 	}
+	$height_class = $full_height?' ':'';
 	echo 
-	'<div class="col-lg-2 col-md-3 col-sm-4 p-1">
-		<div class="card m-1 bg-transparent border-0">
+	'<div class="col-lg-2 col-md-3 col-sm-4 p-0 '.$height_class.'">
+		<div class="card m-0 bg-transparent border-0">
 			<div class="card-body p-0 bg-transparent border-0">
 				<div class="card-header bg-transparent">'.$title.'</div>
 				<ul class="list-group list-group-flush border-0">
@@ -162,14 +164,14 @@ function show_links($links, $title, $newtab=false) {
 			</div>
 			<div class="row" data-masonry='{"percentPosition": true }'>
 			<?php 
-				show_links($project_links, 'projects');
+				show_links($project_links, 'projects', false, true);
 				show_links($system_links, 'system');
 				show_links($work_links, 'work'); 
 				show_links($reading_links, 'reading');
 				show_links($graphics_links, 'graphics');
+				show_links($media_links, 'media'); 
 				show_links($ai_links, 'ai');
 				show_links($learning_links, 'learning');
-				show_links($media_links, 'media'); 
 				show_links($games_links, 'games');
 				show_links($utilities_links, 'utilities', true); 
 				show_links($warez_links, 'warez', true); 
