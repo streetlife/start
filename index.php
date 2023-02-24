@@ -26,17 +26,17 @@ $reading_links = [
 $work_links = [
 	'https://smartwork.ng'=>'smartwork',
 	'https://mail.google.com'=>'gmail',
-	'https://whogohost.com'=>'whogohost',
-	'https://hostforweb.com'=>'hostforweb',
-	'https://websguy.com:2083'=>'websguy',
 	'https://goodday.work'=>'goodday',
 	'https://github.com'=>'github',
-    'https://iwebfusion.net/'=>'iwebfusion',
 	'https://keep.google.com'=>'keep',
 	'https://drive.google.com'=>'drive',
 	'https://untools.co/'=>'untools',
 	'https://calendar.google.com/calendar/u/0/r/week'=>'calendar',
-	'https://ionos.com'=>'ionos',
+	'https://projectmanagementdocs.com'=>'project mgt docs',
+	'https://pmi.org'=>'pmi',
+	'https://www.projectmanagement.com/'=>'project mgt',
+	'https://www.stakeholdermap.com/project-templates/project-management-templates.html'=>'project mgt templates',
+
 ];
 
 $media_links = [
@@ -63,6 +63,8 @@ $learning_links = [
 	'https://coursera.org'=>'coursera',
 	'https://udemy.com'=>'udemy',
 	'https://freecodecamp.org'=>'freecodecamp',
+	'https://laracasts.com/'=>'laracasts',
+	'https://phptherightway.com/'=>'phptherightway',
 ];
 
 $utilities_links = [
@@ -79,15 +81,13 @@ $warez_links = [
 	'https://themelock.com'=>'themelock',
     'https://steamrip.com'=>'steamrip',
 	'https://downloadly.ir/'=>'downloadly',
-    'https://bitdownload.ir/'=>'bitdownload'
+    'https://bitdownload.ir/'=>'bitdownload',
 ];
 
 $ai_links = [
     'https://chat.openai.com'=>'chatGPT',
     'https://lexica.art/aperture'=>'lexica',
     'https://labs.openai.com/'=>'dall-e',
-	'https://cpanel.net'=>'cpanel',
-
 ];
 
 $graphics_links = [
@@ -100,12 +100,20 @@ $graphics_links = [
 	'https://canva.com'=>'canva',
 ];
 
-function show_links($links, $title, $newtab=false, $full_height=false) {
+$hosting_links = [
+	'https://whogohost.com'=>'whogohost',
+	'https://hostforweb.com'=>'hostforweb',
+	'https://websguy.com:2083'=>'websguy',
+	'https://ionos.com'=>'ionos',
+    'https://iwebfusion.net/'=>'iwebfusion',
+];
+
+$i = 0;
+function show_links($links, $title, $newtab=false) {
+	global $i;
+	$i++;
 	$str_links = '';    
-	$str_target = '';
-	if ($newtab) {
-		$str_target = ' target="_blank"';
-	}
+	$str_target = $newtab?' target="_blank"':'';
 	natcasesort($links);
 	foreach ($links as $key=>$value) {
 		$value = str_replace(' ','-',$value);
@@ -130,16 +138,13 @@ function show_links($links, $title, $newtab=false, $full_height=false) {
 			</a>
 		</li>';
 	}
-	$height_class = $full_height?' ':'';
 	echo 
-	'<div class="col-lg-2 col-md-3 col-sm-4 p-0 '.$height_class.'">
-		<div class="card m-0 bg-transparent border-0">
-			<div class="card-body p-0 bg-transparent border-0">
-				<div class="card-header bg-transparent">'.$title.'</div>
-				<ul class="list-group list-group-flush border-0">
-				'.$str_links.'
-				</ul>
-			</div>
+	'<div class="card mb-2 bg-transparent border-0">
+		<div class="card-body p-0 bg-transparent border-0">
+			<div class="card-header bg-transparent">'.$i.': '.$title.'</div>
+			<ul class="list-group list-group-flush border-0">
+			'.$str_links.'
+			</ul>
 		</div>
 	</div>';
 
@@ -162,19 +167,46 @@ function show_links($links, $title, $newtab=false, $full_height=false) {
 				<span id='ct'></span>
 				</div>
 			</div>
-			<div class="row" data-masonry='{"percentPosition": true }'>
+			<div class="row">
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($project_links, 'projects'); 
+						show_links($system_links, 'system'); 
+					?>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($work_links, 'work'); 
+						show_links($hosting_links, 'hosting'); 
+					?>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($reading_links, 'reading');
+						show_links($ai_links, 'ai');
+					?>	
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($media_links, 'media'); 
+						show_links($graphics_links, 'graphics');
+					?>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($learning_links, 'learning');
+						show_links($games_links, 'games');
+					?>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($utilities_links, 'utilities', true); 
+						show_links($warez_links, 'warez', true); 
+					?>
+				</div>
 			<?php 
-				show_links($project_links, 'projects', false, true);
-				show_links($system_links, 'system');
-				show_links($work_links, 'work'); 
-				show_links($reading_links, 'reading');
-				show_links($graphics_links, 'graphics');
-				show_links($media_links, 'media'); 
-				show_links($ai_links, 'ai');
-				show_links($learning_links, 'learning');
-				show_links($games_links, 'games');
-				show_links($utilities_links, 'utilities', true); 
-				show_links($warez_links, 'warez', true); 
+				// show_links($project_links, 'projects');
+				
 			?>
 			</div>
 		</div>
