@@ -181,13 +181,13 @@ function show_links($links, $title, $newtab=false) {
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
-						show_links($hosting_links, 'hosting'); 
 						show_links($reading_links, 'reading');
-						show_links($ai_links, 'ai');
+						show_links($hosting_links, 'hosting');
 					?>	
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
-					<?php 
+					<?php  
+						show_links($ai_links, 'ai');
 						show_links($media_links, 'media'); 
 						show_links($graphics_links, 'graphics');
 					?>
@@ -200,8 +200,8 @@ function show_links($links, $title, $newtab=false) {
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
-						show_links($utilities_links, 'utilities', true); 
-						show_links($warez_links, 'warez', true); 
+						show_links($utilities_links, 'utilities'); 
+						show_links($warez_links, 'warez'); 
 					?>
 				</div>
 			<?php 
