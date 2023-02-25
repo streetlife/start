@@ -20,6 +20,7 @@ $reading_links = [
 	'https://twitter.com'=>'twitter',
 	'https://nairaland.com'=>'nairaland',
 	'https://reddit.com/r/blackpeopletwitter'=>'blackpeopletwitter',
+	'https://reddit.com/r/selfhosted'=>'selfhosted',
 	'https://reddit.com/r/startpages'=>'startpages',
 ];
 
@@ -55,11 +56,12 @@ $games_links = [
 	'https://www.arsenal.com'=>'arsenal',
 	'https://gog.com/'=>'gog',
 	'https://premierleague.com'=>'premier league',
+	'https://playclassic.games/'=>'play classic games',
 ];
 
 $learning_links = [
 	'https://exercism.org/dashboard'=>'exercism',
-	'https://campus.college.ch'=>'robert_kennedy',
+	'https://campus.college.ch'=>'robert kennedy',
 	'https://coursera.org'=>'coursera',
 	'https://udemy.com'=>'udemy',
 	'https://freecodecamp.org'=>'freecodecamp',
@@ -108,15 +110,16 @@ $hosting_links = [
     'https://iwebfusion.net/'=>'iwebfusion',
 ];
 
-$i = 0;
-function show_links($links, $title, $newtab=false) {
-	global $i;
-	$i++;
-	$str_links = '';    
-	$str_target = $newtab?' target="_blank"':'';
+$fun_links = [
+	'https://9gag.com/'=>'9gag',
+	'https://boredpanda.com/'=>'boredpanda',
+];
+
+function show_links($links, $title) {
+	$str_links = '';
 	natcasesort($links);
 	foreach ($links as $key=>$value) {
-		$value = str_replace(' ','-',$value);
+		$value = strtolower(str_replace(' ','',$value));
 		$local_name = 'img/icons/'.$value.'.png';
 		if (!file_exists($local_name)) {
 			if (strpos($key,'test')>0) {
@@ -125,31 +128,24 @@ function show_links($links, $title, $newtab=false) {
 				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=128'));
 			}
 		}
-		// $local_name = 'img/icon-'.$value.'.png';
-		// if (!file_exists($local_name)) {
-		// 	file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=128'));
-		// }
-
 		$str_links .= 
 		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
-			<a href="' . $key . '" rel="noopener noreferrer" '.$str_target.' style="display:block">
+			<a href="' . $key . '" rel="noopener noreferrer" style="display:block">
 			<img src="'.$local_name.'" class="icon" />
-				<span>' . strtolower($value). '</span>
+				<span>' . $value. '</span>
 			</a>
 		</li>';
 	}
 	echo 
 	'<div class="card mb-2 bg-transparent border-0">
 		<div class="card-body p-0 bg-transparent border-0">
-			<div class="card-header bg-transparent">'.$i.': '.$title.'</div>
+			<div class="card-header bg-transparent">'.$title.'</div>
 			<ul class="list-group list-group-flush border-0">
 			'.$str_links.'
 			</ul>
 		</div>
 	</div>';
-
 }
-// <img src="https://www.google.com/s2/favicons?domain='.$key.'&sz=128" class="icon" />
 ?>
 
 <!DOCTYPE html>
@@ -158,7 +154,7 @@ function show_links($links, $title, $newtab=false) {
 		<title> ~ esquire </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
-		<link rel="stylesheet" type="text/css" href="css/style.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body class="bg-gray" onload=display_ct();>
 		<div class="container">
@@ -200,6 +196,7 @@ function show_links($links, $title, $newtab=false) {
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
+						show_links($fun_links, 'fun');
 						show_links($utilities_links, 'utilities'); 
 						show_links($warez_links, 'warez'); 
 					?>

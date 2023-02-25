@@ -7,12 +7,25 @@ body {
 .icon {
     width: 16px;
     margin-right: 2px;
+    /* -webkit-filter: grayscale(100%);  */
+    /* filter: grayscale(100%); */
+}
+/* .icon:hover {
+    -webkit-filter: grayscale(0%); 
+    filter: grayscale(0%);
+} */
+.icon_large {
+    width: 32px;
+    clear: both;
 }
 a {
     text-decoration: none;
     display: block;
     font-size: 0.9em;
+    color: #ffffff;
+    opacity: 0.5;
 }
-a:hover {
+a:hover, a:focus {
     color: yellow;
+    opacity: 1;
 }
