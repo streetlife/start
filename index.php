@@ -21,7 +21,6 @@ $reading_links = [
 	'https://nairaland.com'=>'nairaland',
 	'https://reddit.com/r/blackpeopletwitter'=>'blackpeopletwitter',
 	'https://reddit.com/r/selfhosted'=>'selfhosted',
-	'https://reddit.com/r/startpages'=>'startpages',
 ];
 
 $work_links = [
