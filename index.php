@@ -138,7 +138,7 @@ function show_links($links, $title) {
 	echo 
 	'<div class="card mb-2 bg-transparent border-0">
 		<div class="card-body p-0 bg-transparent border-0">
-			<div class="card-header bg-transparent">'.$title.'</div>
+			<div class="card-header bg-transparent"><span class="title">'.$title.'</span></div>
 			<ul class="list-group list-group-flush border-0">
 			'.$str_links.'
 			</ul>

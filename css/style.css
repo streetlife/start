@@ -29,3 +29,7 @@ a:hover, a:focus {
     color: yellow;
     opacity: 1;
 }
+.title {
+    font-size: 0.9em;
+    font-weight: bold;
+}
