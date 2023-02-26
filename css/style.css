@@ -36,3 +36,6 @@ a:hover, a:focus {
     text-transform: uppercase;
     letter-spacing: 0.5em;
 }
+#ct {
+    font-size: 0.7em;
+}

@@ -1,6 +1,8 @@
 <?php 
 ini_set('display_errors', 0);
-$dirs = array_filter(glob('../*'), 'is_dir');
+$projects_folder = 'c:/esquire/projecs/web';
+$projects_folder = '..';
+$dirs = array_filter(glob($projects_folder . '/*'), 'is_dir');
 foreach ($dirs as $value) {
 	$value = str_replace('../','',$value);
 	$project_links['https://'.$value.'.test'] = $value;
@@ -129,7 +131,7 @@ function show_links($links, $title) {
 		}
 		$str_links .= 
 		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
-			<a href="' . $key . '" rel="noopener noreferrer" style="display:block">
+			<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">
 			<img src="'.$local_name.'" class="icon" />
 				<span>' . $value. '</span>
 			</a>
@@ -157,11 +159,6 @@ function show_links($links, $title) {
 	</head>
 	<body class="bg-gray" onload=display_ct();>
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-				<span id='ct'></span>
-				</div>
-			</div>
 			<div class="row">
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
@@ -200,15 +197,14 @@ function show_links($links, $title) {
 						show_links($warez_links, 'warez'); 
 					?>
 				</div>
-			<?php 
-				// show_links($project_links, 'projects');
-				
-			?>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				<span id='ct'></span>
+				</div>
 			</div>
 		</div>
 		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/jquery-3.6.3.min.js"></script>
-		<script src="js/masonry.pkgd.min.js" async></script>
 		<script type="text/javascript"> 
 			function display_c(){
 				var refresh=1000; // Refresh rate in milli seconds
