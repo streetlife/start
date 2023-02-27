@@ -1,7 +1,7 @@
 <?php 
 $link = $_GET['link'];
 
-$log_file = 'hits.log';
+$log_file = 'hits.txt';
 $logs = json_decode(file_get_contents($log_file), true);
 
 $hit_count = $logs[$link];

@@ -46,6 +46,7 @@ $media_links = [
 	'https://tiktok.com'=>'tiktok',
     'https://music.youtube.com'=>'youtube music',
 	'https://photos.google.com'=>'google photos',
+	'https://instagram.com'=>'instagram',
 ];
 
 $games_links = [
@@ -200,7 +201,7 @@ function show_links($links, $title) {
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-				<span id='ct'></span>
+				<span id='ct'></span> - <a href="hits.php" target="_blank" rel="noopener noreferrer">hits</a>
 				</div>
 			</div>
 		</div>
