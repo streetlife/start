@@ -1,5 +1,6 @@
 body {
     padding-top: 50px;
+    color: #fff;
 }
 .icon {
     width: 16px;
@@ -12,7 +13,9 @@ a {
     opacity: 0.5;
 }
 a:hover, a:focus {
+    color: #ffff00;
     opacity: 1;
+    font-weight: bold;
 }
 .title {
     font-family: sans-serif;
