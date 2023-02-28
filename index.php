@@ -11,7 +11,8 @@ foreach ($dirs as $value) {
 $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://localhost:8989'=>'sonarr',
-	'http://localhost:8096'=>'jellyfin',
+	'http://localhost:8097'=>'jellyfin',
+	'http://localhost:8096'=>'emby',
 	'https://web.whatsapp.com'=>'whatsapp',
 	'https://web.telegram.org'=>'telegram',
 ];
@@ -76,6 +77,7 @@ $utilities_links = [
     'https://mymtn.com.ng/dashboard'=>'myMTN',
     'https://canarytokens.org'=>'canary tokens',
 	'https://sejda.com/pdf-editor'=>'sejda-pdf',
+	'https://alternativeto.net'=>'alternativeto',
 ];
 
 $warez_links = [
@@ -102,6 +104,10 @@ $graphics_links = [
 	'https://slidescarnival.com'=>'slides carnival',
 	'https://wepik.com/'=>'wepik',
 	'https://canva.com'=>'canva',
+	'https://html5up.net/'=>'html5up',
+	'https://web3templates.com/'=>'web3templates',
+	'https://htmlrev.com/'=>'htmlrev',
+	'https://onepagelove.com/'=>'onepagelove',
 ];
 
 $hosting_links = [
@@ -127,7 +133,7 @@ function show_links($links, $title) {
 			if (strpos($key,'test')>0) {
 				$local_name = 'img/icon-local.png';
 			} else {
-				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=128'));
+				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=256'));
 			}
 		}
 		$str_links .= 
@@ -170,6 +176,7 @@ function show_links($links, $title) {
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
 						show_links($work_links, 'work'); 
+						show_links($ai_links, 'ai');
 					?>
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
@@ -180,7 +187,6 @@ function show_links($links, $title) {
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php  
-						show_links($ai_links, 'ai');
 						show_links($media_links, 'media'); 
 						show_links($graphics_links, 'graphics');
 					?>
