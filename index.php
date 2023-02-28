@@ -108,6 +108,8 @@ $graphics_links = [
 	'https://web3templates.com/'=>'web3templates',
 	'https://htmlrev.com/'=>'htmlrev',
 	'https://onepagelove.com/'=>'onepagelove',
+	'https://themeforest.net'=>'themeforest',
+	'https://codecanyon.net'=>'codecanyon',
 ];
 
 $hosting_links = [
