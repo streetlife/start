@@ -1,6 +1,5 @@
 <?php 
 ini_set('display_errors', 0);
-$projects_folder = 'c:/esquire/projecs/web';
 $projects_folder = '..';
 $dirs = array_filter(glob($projects_folder . '/*'), 'is_dir');
 foreach ($dirs as $value) {
@@ -109,6 +108,8 @@ $graphics_links = [
 	'https://web3templates.com/'=>'web3templates',
 	'https://htmlrev.com/'=>'htmlrev',
 	'https://onepagelove.com/'=>'one page love',
+	'https://themeforest.net'=>'themeforest',
+	'https://codecanyon.net'=>'codecanyon',
 ];
 
 $hosting_links = [
