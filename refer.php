@@ -12,7 +12,7 @@ if (isset($logs[$link])) {
 
 $logs[$link] = $hit_count + 1;
 
-// arsort($logs);
+arsort($logs);
 
 file_put_contents($log_file, json_encode($logs));
 

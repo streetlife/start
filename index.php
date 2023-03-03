@@ -39,6 +39,7 @@ $work_links = [
 	'https://pmi.org'=>'pmi',
 	'https://www.projectmanagement.com/'=>'project mgt',
 	'https://www.stakeholdermap.com/project-templates/project-management-templates.html'=>'project mgt templates',
+	'https://play.google.com/console'=>'google play console',
 
 ];
 
@@ -82,7 +83,7 @@ $utilities_links = [
 
 $warez_links = [
 	'https://wplocker.com'=>'wplocker',
-	'https://torrentgalaxy.to'=>'torrentgalaxy',
+	'https://torrentgalaxy.to'=>'torrent galaxy',
 	'https://codelist.cc'=>'codelist',
 	'https://themelock.com'=>'themelock',
     'https://steamrip.com'=>'steamrip',
@@ -107,7 +108,7 @@ $graphics_links = [
 	'https://html5up.net/'=>'html5up',
 	'https://web3templates.com/'=>'web3templates',
 	'https://htmlrev.com/'=>'htmlrev',
-	'https://onepagelove.com/'=>'onepagelove',
+	'https://onepagelove.com/'=>'one page love',
 ];
 
 $hosting_links = [
@@ -120,13 +121,14 @@ $hosting_links = [
 
 $fun_links = [
 	'https://9gag.com/'=>'9gag',
-	'https://boredpanda.com/'=>'boredpanda',
+	'https://boredpanda.com/'=>'bored panda',
 ];
 
 function show_links($links, $title) {
 	$str_links = '';
 	natcasesort($links);
 	foreach ($links as $key=>$value) {
+		$name_display = $value;
 		$value = strtolower(str_replace(' ','',$value));
 		$local_name = 'img/icons/'.$value.'.png';
 		if (!file_exists($local_name)) {
@@ -140,7 +142,7 @@ function show_links($links, $title) {
 		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
 			<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">
 			<img src="'.$local_name.'" class="icon" />
-				<span>' . $value. '</span>
+				<span>' . $name_display. '</span>
 			</a>
 		</li>';
 	}
