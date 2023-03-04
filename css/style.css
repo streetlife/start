@@ -9,13 +9,12 @@ body {
 a {
     text-decoration: none;
     display: block;
-    font-size: 0.9em;
+    font-size: 1em;
     opacity: 0.5;
 }
 a:hover, a:focus {
     color: #ffff00;
     opacity: 1;
-    font-weight: bold;
 }
 .title {
     font-family: sans-serif;
