@@ -9,9 +9,9 @@ foreach ($dirs as $value) {
 
 $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
-	'http://localhost:8989'=>'sonarr',
-	'http://localhost:8097'=>'jellyfin',
-	'http://localhost:8096'=>'emby',
+	'http://esquire-xps15:8989'=>'sonarr',
+	'http://esquire-xps15:8097'=>'jellyfin',
+	'http://esquire-xps15:8096'=>'emby',
 	'https://web.whatsapp.com'=>'whatsapp',
 	'https://web.telegram.org'=>'telegram',
 ];
