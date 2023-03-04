@@ -39,7 +39,7 @@ $work_links = [
 	'https://pmi.org'=>'pmi',
 	'https://www.projectmanagement.com/'=>'project mgt',
 	'https://www.stakeholdermap.com/project-templates/project-management-templates.html'=>'project mgt templates',
-
+	'https://stackoverflow.com/'=>'stackoverflow',
 ];
 
 $media_links = [
