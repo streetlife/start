@@ -78,6 +78,7 @@ $utilities_links = [
     'https://canarytokens.org'=>'canary tokens',
 	'https://sejda.com/pdf-editor'=>'sejda-pdf',
 	'https://alternativeto.net'=>'alternativeto',
+	'https://ebulksms.com'=>'ebulksms',
 ];
 
 $warez_links = [
