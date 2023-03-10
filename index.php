@@ -3,7 +3,7 @@ ini_set('display_errors', 0);
 $projects_folder = '..';
 $dirs = array_filter(glob($projects_folder . '/*'), 'is_dir');
 foreach ($dirs as $value) {
-	$value = str_replace('../','',$value);
+	$value = strtolower(str_replace('../','',$value));
 	$project_links['https://'.$value.'.test'] = $value;
 }
 
@@ -21,8 +21,6 @@ $reading_links = [
 	'https://reddit.com'=>'reddit',
 	'https://twitter.com'=>'twitter',
 	'https://nairaland.com'=>'nairaland',
-	'https://reddit.com/r/blackpeopletwitter'=>'blackpeopletwitter',
-	'https://reddit.com/r/selfhosted'=>'selfhosted',
 ];
 
 $work_links = [
@@ -78,6 +76,7 @@ $utilities_links = [
     'https://canarytokens.org'=>'canary tokens',
 	'https://sejda.com/pdf-editor'=>'sejda-pdf',
 	'https://alternativeto.net'=>'alternativeto',
+	'https://convertio.co/'=>'convertio',
 ];
 
 $warez_links = [
