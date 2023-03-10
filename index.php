@@ -77,6 +77,7 @@ $utilities_links = [
 	'https://sejda.com/pdf-editor'=>'sejda-pdf',
 	'https://alternativeto.net'=>'alternativeto',
 	'https://convertio.co/'=>'convertio',
+	'https://ebulksms.com'=>'ebulksms',
 ];
 
 $warez_links = [
