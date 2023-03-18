@@ -30,21 +30,22 @@ $work_links = [
 	'https://github.com'=>'github',
 	'https://keep.google.com'=>'keep',
 	'https://drive.google.com'=>'drive',
-	'https://untools.co/'=>'untools',
-	'https://calendar.google.com/calendar/u/0/r/week'=>'calendar',
+	'https://stackoverflow.com'=>'stackoverflow',
+	'https://play.google.com/console'=>'google play console',
+];
+
+$projectmgt_links = [
 	'https://projectmanagementdocs.com'=>'project mgt docs',
 	'https://pmi.org'=>'pmi',
-	'https://www.projectmanagement.com/'=>'project mgt',
+	'https://www.projectmanagement.com'=>'project mgt',
 	'https://www.stakeholdermap.com/project-templates/project-management-templates.html'=>'project mgt templates',
-	'https://stackoverflow.com/'=>'stackoverflow',
-	'https://play.google.com/console'=>'google play console',
 ];
 
 $media_links = [
 	'https://youtube.com'=>'youtube',
 	'https://tiktok.com'=>'tiktok',
     'https://music.youtube.com'=>'youtube music',
-	'https://photos.google.com'=>'google photos',
+	'https://photos.google.com'=>'photos',
 	'https://instagram.com'=>'instagram',
 ];
 
@@ -53,11 +54,10 @@ $games_links = [
 	'https://epicgames.com'=>'epic games',
 	'https://wordfinderx.com'=>'wordfinderx',
 	'https://livescore.com'=>'livescores',
-    'https://reddit.com/r/footballhighlights'=>'football highlights',
 	'https://www.arsenal.com'=>'arsenal',
-	'https://gog.com/'=>'gog',
+	'https://gog.com'=>'gog',
 	'https://premierleague.com'=>'premier league',
-	'https://playclassic.games/'=>'play classic games',
+	'https://playclassic.games'=>'play classic games',
 ];
 
 $learning_links = [
@@ -66,17 +66,16 @@ $learning_links = [
 	'https://coursera.org'=>'coursera',
 	'https://udemy.com'=>'udemy',
 	'https://freecodecamp.org'=>'freecodecamp',
-	'https://laracasts.com/'=>'laracasts',
-	'https://phptherightway.com/'=>'phptherightway',
+	'https://www.mygreatlearning.com'=>'great learning'
 ];
 
 $utilities_links = [
-	'https://123apps.com/'=>'123apps',
+	'https://123apps.com'=>'123apps',
     'https://mymtn.com.ng/dashboard'=>'myMTN',
     'https://canarytokens.org'=>'canary tokens',
 	'https://sejda.com/pdf-editor'=>'sejda-pdf',
 	'https://alternativeto.net'=>'alternativeto',
-	'https://convertio.co/'=>'convertio',
+	'https://convertio.co'=>'convertio',
 	'https://ebulksms.com'=>'ebulksms',
 ];
 
@@ -86,28 +85,28 @@ $warez_links = [
 	'https://codelist.cc'=>'codelist',
 	'https://themelock.com'=>'themelock',
     'https://steamrip.com'=>'steamrip',
-	'https://downloadly.ir/'=>'downloadly',
-    'https://bitdownload.ir/'=>'bitdownload',
+	'https://downloadly.ir'=>'downloadly',
+    'https://bitdownload.ir'=>'bitdownload',
 ];
 
 $ai_links = [
     'https://chat.openai.com'=>'chatGPT',
     'https://lexica.art/aperture'=>'lexica',
-    'https://labs.openai.com/'=>'dall-e',
+    'https://labs.openai.com'=>'dall-e',
 ];
 
 $graphics_links = [
-	'https://unsplash.com/'=>'unsplash',
-	'https://www.pexels.com/'=>'pexels',
-    'https://storyset.com/'=>'story set',
-	'https://slidesgo.com/'=>'slides go',
+	'https://unsplash.com'=>'unsplash',
+	'https://www.pexels.com'=>'pexels',
+    'https://storyset.com'=>'story set',
+	'https://slidesgo.com'=>'slides go',
 	'https://slidescarnival.com'=>'slides carnival',
-	'https://wepik.com/'=>'wepik',
+	'https://wepik.com'=>'wepik',
 	'https://canva.com'=>'canva',
-	'https://html5up.net/'=>'html5up',
-	'https://web3templates.com/'=>'web3templates',
-	'https://htmlrev.com/'=>'htmlrev',
-	'https://onepagelove.com/'=>'one page love',
+	'https://html5up.net'=>'html5up',
+	'https://web3templates.com'=>'web3templates',
+	'https://htmlrev.com'=>'htmlrev',
+	'https://onepagelove.com'=>'one page love',
 	'https://themeforest.net'=>'themeforest',
 	'https://codecanyon.net'=>'codecanyon',
 ];
@@ -117,15 +116,19 @@ $hosting_links = [
 	'https://hostforweb.com'=>'hostforweb',
 	'https://websguy.com:2083'=>'websguy',
 	'https://ionos.com'=>'ionos',
-    'https://iwebfusion.net/'=>'iwebfusion',
+    'https://iwebfusion.net'=>'iwebfusion',
 ];
 
 $fun_links = [
-	'https://9gag.com/'=>'9gag',
-	'https://boredpanda.com/'=>'bored panda',
+	'https://9gag.com'=>'9gag',
+	'https://boredpanda.com'=>'bored panda',
 ];
+$log_file = 'hits.txt';
+$logs = json_decode(file_get_contents($log_file), true);
 
 function show_links($links, $title) {
+	global $logs;
+
 	$str_links = '';
 	natcasesort($links);
 	foreach ($links as $key=>$value) {
@@ -139,11 +142,13 @@ function show_links($links, $title) {
 				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=256'));
 			}
 		}
+		
+		$link_count = isset($logs[$key])?$logs[$key]:0;
 		$str_links .= 
 		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
 			<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">
 			<img src="'.$local_name.'" class="icon" />
-				<span>' . $name_display. '</span>
+				<span>' . $name_display. ' ['.$link_count.']</span>
 			</a>
 		</li>';
 	}
@@ -179,12 +184,13 @@ function show_links($links, $title) {
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
 						show_links($work_links, 'work'); 
-						show_links($ai_links, 'ai');
+						show_links($projectmgt_links, 'project & products'); 
 					?>
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
 						show_links($reading_links, 'reading');
+						show_links($ai_links, 'ai');
 						show_links($hosting_links, 'hosting');
 					?>	
 				</div>
