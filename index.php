@@ -148,7 +148,7 @@ function show_links($links, $title) {
 		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
 			<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">
 			<img src="'.$local_name.'" class="icon" />
-				<span>' . $name_display. ' ['.$link_count.']</span>
+				<span>' . $name_display. '</span>
 			</a>
 		</li>';
 	}
