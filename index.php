@@ -93,6 +93,7 @@ $ai_links = [
     'https://chat.openai.com'=>'chatGPT',
     'https://lexica.art/aperture'=>'lexica',
     'https://labs.openai.com'=>'dall-e',
+	'https://bing.com/new'=>'bing ai',
 ];
 
 $graphics_links = [
