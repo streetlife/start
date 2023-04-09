@@ -10,7 +10,6 @@ a {
     display: block;
     font-size: 1em;
     opacity: 0.5;
-    font-weight: bold;
 }
 a:hover, a:focus {
     opacity: 1;

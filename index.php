@@ -14,6 +14,8 @@ $system_links = [
 	'http://esquire-xps15:8096'=>'emby',
 	'https://web.whatsapp.com'=>'whatsapp',
 	'https://web.telegram.org'=>'telegram',
+	'http://esquire-xps15:9117'=>'jackett',
+	'http://esquire-xps15:7878'=>'radarr',
 ];
 
 $reading_links = [
@@ -58,6 +60,7 @@ $games_links = [
 	'https://gog.com'=>'gog',
 	'https://premierleague.com'=>'premier league',
 	'https://playclassic.games'=>'play classic games',
+	'https://kikgoal.com'=>'kik goal',
 ];
 
 $learning_links = [
@@ -77,6 +80,7 @@ $utilities_links = [
 	'https://alternativeto.net'=>'alternativeto',
 	'https://convertio.co'=>'convertio',
 	'https://ebulksms.com'=>'ebulksms',
+	'https://packagist.org'=>'packagist',
 ];
 
 $warez_links = [
