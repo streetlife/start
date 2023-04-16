@@ -7,6 +7,7 @@ foreach ($dirs as $value) {
 	$project_links['https://'.$value.'.test'] = $value;
 }
 
+
 $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://esquire-xps15:8989'=>'sonarr',
