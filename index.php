@@ -58,6 +58,7 @@ $games_links = [
 	'https://gog.com'=>'gog',
 	'https://premierleague.com'=>'premier league',
 	'https://playclassic.games'=>'play classic games',
+	'https://kikgoal.com/'=>'kik goal',
 ];
 
 $learning_links = [
