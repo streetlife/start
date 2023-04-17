@@ -7,6 +7,7 @@ foreach ($dirs as $value) {
 	$project_links['https://'.$value.'.test'] = $value;
 }
 
+
 $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://esquire-xps15:8989'=>'sonarr',
@@ -14,6 +15,8 @@ $system_links = [
 	'http://esquire-xps15:8096'=>'emby',
 	'https://web.whatsapp.com'=>'whatsapp',
 	'https://web.telegram.org'=>'telegram',
+	'http://esquire-xps15:9117'=>'jackett',
+	'http://esquire-xps15:7878'=>'radarr',
 ];
 
 $reading_links = [
@@ -47,6 +50,7 @@ $media_links = [
     'https://music.youtube.com'=>'youtube music',
 	'https://photos.google.com'=>'photos',
 	'https://instagram.com'=>'instagram',
+	'https://www.wcofun.com'=>'wcofun',
 ];
 
 $games_links = [
@@ -58,7 +62,7 @@ $games_links = [
 	'https://gog.com'=>'gog',
 	'https://premierleague.com'=>'premier league',
 	'https://playclassic.games'=>'play classic games',
-	'https://kikgoal.com/'=>'kik goal',
+	'https://kikgoal.com'=>'kik goal',
 ];
 
 $learning_links = [
@@ -78,6 +82,7 @@ $utilities_links = [
 	'https://alternativeto.net'=>'alternativeto',
 	'https://convertio.co'=>'convertio',
 	'https://ebulksms.com'=>'ebulksms',
+	'https://packagist.org'=>'packagist',
 ];
 
 $warez_links = [
