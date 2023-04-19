@@ -50,7 +50,7 @@ $media_links = [
     'https://music.youtube.com'=>'youtube music',
 	'https://photos.google.com'=>'photos',
 	'https://instagram.com'=>'instagram',
-	'https://www.wcofun.com'=>'wcofun',
+	'https://www.wcofun.net'=>'wcofun',
 ];
 
 $games_links = [
@@ -100,6 +100,7 @@ $ai_links = [
     'https://lexica.art/aperture'=>'lexica',
     'https://labs.openai.com'=>'dall-e',
 	'https://bing.com/new'=>'bing ai',
+	'https://bard.google.com'=>'bard',
 ];
 
 $graphics_links = [
