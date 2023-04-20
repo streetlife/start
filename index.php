@@ -12,7 +12,6 @@ $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://esquire-xps15:8989'=>'sonarr',
 	'http://esquire-xps15:8097'=>'jellyfin',
-	'http://esquire-xps15:8096'=>'emby',
 	'https://web.whatsapp.com'=>'whatsapp',
 	'https://web.telegram.org'=>'telegram',
 	'http://esquire-xps15:9117'=>'jackett',
@@ -56,7 +55,6 @@ $media_links = [
 $games_links = [
 	'https://crazygames.com'=>'crazy games',
 	'https://epicgames.com'=>'epic games',
-	'https://wordfinderx.com'=>'wordfinderx',
 	'https://livescore.com'=>'livescores',
 	'https://www.arsenal.com'=>'arsenal',
 	'https://gog.com'=>'gog',
@@ -77,12 +75,10 @@ $learning_links = [
 $utilities_links = [
 	'https://123apps.com'=>'123apps',
     'https://mymtn.com.ng/dashboard'=>'myMTN',
-    'https://canarytokens.org'=>'canary tokens',
 	'https://sejda.com/pdf-editor'=>'sejda-pdf',
 	'https://alternativeto.net'=>'alternativeto',
 	'https://convertio.co'=>'convertio',
 	'https://ebulksms.com'=>'ebulksms',
-	'https://packagist.org'=>'packagist',
 ];
 
 $warez_links = [
@@ -216,7 +212,6 @@ function show_links($links, $title) {
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
-						show_links($fun_links, 'fun');
 						show_links($utilities_links, 'utilities'); 
 						show_links($warez_links, 'warez'); 
 					?>
