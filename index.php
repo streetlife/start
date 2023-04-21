@@ -74,11 +74,9 @@ $learning_links = [
 
 $utilities_links = [
 	'https://123apps.com'=>'123apps',
-    'https://mymtn.com.ng/dashboard'=>'myMTN',
 	'https://sejda.com/pdf-editor'=>'sejda-pdf',
 	'https://alternativeto.net'=>'alternativeto',
 	'https://convertio.co'=>'convertio',
-	'https://ebulksms.com'=>'ebulksms',
 ];
 
 $warez_links = [
@@ -100,19 +98,19 @@ $ai_links = [
 ];
 
 $graphics_links = [
+	'https://themeforest.net'=>'themeforest',
+	'https://codecanyon.net'=>'codecanyon',
+	'https://canva.com'=>'canva',
 	'https://unsplash.com'=>'unsplash',
 	'https://www.pexels.com'=>'pexels',
     'https://storyset.com'=>'story set',
 	'https://slidesgo.com'=>'slides go',
 	'https://slidescarnival.com'=>'slides carnival',
 	'https://wepik.com'=>'wepik',
-	'https://canva.com'=>'canva',
 	'https://html5up.net'=>'html5up',
 	'https://web3templates.com'=>'web3templates',
 	'https://htmlrev.com'=>'htmlrev',
 	'https://onepagelove.com'=>'one page love',
-	'https://themeforest.net'=>'themeforest',
-	'https://codecanyon.net'=>'codecanyon',
 ];
 
 $hosting_links = [
@@ -127,14 +125,16 @@ $fun_links = [
 	'https://9gag.com'=>'9gag',
 	'https://boredpanda.com'=>'bored panda',
 ];
-$log_file = 'hits.txt';
-$logs = json_decode(file_get_contents($log_file), true);
+// $log_file = 'hits.txt';
+// $logs = json_decode(file_get_contents($log_file), true);
 
 function show_links($links, $title) {
-	global $logs;
-
-	$str_links = '';
-	natcasesort($links);
+	// natcasesort($links);
+	echo '
+	<div class="card mb-2 bg-transparent border-0">
+		<div class="card-body p-0 bg-transparent border-0">
+			<div class="card-header bg-transparent"><span class="title">'.$title.'</span></div>
+			<ul class="list-group list-group-flush border-0">';
 	foreach ($links as $key=>$value) {
 		$name_display = $value;
 		$value = strtolower(str_replace(' ','',$value));
@@ -147,21 +147,14 @@ function show_links($links, $title) {
 			}
 		}
 		
-		$link_count = isset($logs[$key])?$logs[$key]:0;
-		$str_links .= 
-		'<li class="list-group-item list-group-item-action bg-transparent  border-0">
+		echo '<li class="list-group-item list-group-item-action bg-transparent  border-0">
 			<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">
 			<img src="'.$local_name.'" class="icon" />
 				<span>' . $name_display. '</span>
 			</a>
 		</li>';
 	}
-	echo 
-	'<div class="card mb-2 bg-transparent border-0">
-		<div class="card-body p-0 bg-transparent border-0">
-			<div class="card-header bg-transparent"><span class="title">'.$title.'</span></div>
-			<ul class="list-group list-group-flush border-0">
-			'.$str_links.'
+	echo '
 			</ul>
 		</div>
 	</div>';
