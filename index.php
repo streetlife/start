@@ -16,6 +16,7 @@ $system_links = [
 	'https://web.telegram.org'=>'telegram',
 	'http://esquire-xps15:9117'=>'jackett',
 	'http://esquire-xps15:7878'=>'radarr',
+	'http://esquire-xps:8686/'=>'lidarr',
 ];
 
 $reading_links = [
@@ -32,13 +33,8 @@ $work_links = [
 	'https://github.com'=>'github',
 	'https://keep.google.com'=>'keep',
 	'https://drive.google.com'=>'drive',
-	'https://stackoverflow.com'=>'stackoverflow',
-	'https://play.google.com/console'=>'google play console',
-];
-
-$projectmgt_links = [
-	'https://projectmanagementdocs.com'=>'project mgt docs',
 	'https://pmi.org'=>'pmi',
+	'https://projectmanagementdocs.com'=>'project mgt docs',
 	'https://www.projectmanagement.com'=>'project mgt',
 	'https://www.stakeholdermap.com/project-templates/project-management-templates.html'=>'project mgt templates',
 ];
@@ -50,16 +46,20 @@ $media_links = [
 	'https://photos.google.com'=>'photos',
 	'https://instagram.com'=>'instagram',
 	'https://www.wcofun.net'=>'wcofun',
+	'https://trakt.tv'=>'trakt',
 ];
 
 $games_links = [
 	'https://crazygames.com'=>'crazy games',
 	'https://epicgames.com'=>'epic games',
+	'https://gog.com'=>'gog',
+	'https://playclassic.games'=>'play classic games',
+];
+
+$sports_links = [
 	'https://livescore.com'=>'livescores',
 	'https://www.arsenal.com'=>'arsenal',
-	'https://gog.com'=>'gog',
 	'https://premierleague.com'=>'premier league',
-	'https://playclassic.games'=>'play classic games',
 	'https://kikgoal.com'=>'kik goal',
 ];
 
@@ -95,14 +95,13 @@ $ai_links = [
     'https://labs.openai.com'=>'dall-e',
 	'https://bing.com/new'=>'bing ai',
 	'https://bard.google.com'=>'bard',
+	'https://www.futurepedia.io/'=>'futurepedia',
 ];
 
 $graphics_links = [
 	'https://themeforest.net'=>'themeforest',
 	'https://codecanyon.net'=>'codecanyon',
 	'https://canva.com'=>'canva',
-	'https://unsplash.com'=>'unsplash',
-	'https://www.pexels.com'=>'pexels',
     'https://storyset.com'=>'story set',
 	'https://slidesgo.com'=>'slides go',
 	'https://slidescarnival.com'=>'slides carnival',
@@ -129,7 +128,7 @@ $fun_links = [
 // $logs = json_decode(file_get_contents($log_file), true);
 
 function show_links($links, $title) {
-	// natcasesort($links);
+	natcasesort($links);
 	echo '
 	<div class="card mb-2 bg-transparent border-0">
 		<div class="card-body p-0 bg-transparent border-0">
@@ -181,14 +180,13 @@ function show_links($links, $title) {
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
 						show_links($work_links, 'work'); 
-						show_links($projectmgt_links, 'project & products'); 
+						show_links($hosting_links, 'hosting');
 					?>
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
 						show_links($reading_links, 'reading');
 						show_links($ai_links, 'ai');
-						show_links($hosting_links, 'hosting');
 					?>	
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
@@ -201,6 +199,7 @@ function show_links($links, $title) {
 					<?php 
 						show_links($learning_links, 'learning');
 						show_links($games_links, 'games');
+						show_links($sports_links, 'sports');
 					?>
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
