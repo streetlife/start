@@ -42,7 +42,6 @@ $work_links = [
 $media_links = [
 	'https://youtube.com'=>'youtube',
 	'https://tiktok.com'=>'tiktok',
-    'https://music.youtube.com'=>'youtube music',
 	'https://photos.google.com'=>'photos',
 	'https://instagram.com'=>'instagram',
 	'https://www.wcofun.net'=>'wcofun',
@@ -116,10 +115,6 @@ $hosting_links = [
     'https://iwebfusion.net'=>'iwebfusion',
 ];
 
-$fun_links = [
-	'https://9gag.com'=>'9gag',
-	'https://boredpanda.com'=>'bored panda',
-];
 // $log_file = 'hits.txt';
 // $logs = json_decode(file_get_contents($log_file), true);
 
