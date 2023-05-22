@@ -106,10 +106,6 @@ $graphics_links = [
 	'https://slidesgo.com'=>'slides go',
 	'https://slidescarnival.com'=>'slides carnival',
 	'https://wepik.com'=>'wepik',
-	'https://html5up.net'=>'html5up',
-	'https://web3templates.com'=>'web3templates',
-	'https://htmlrev.com'=>'htmlrev',
-	'https://onepagelove.com'=>'one page love',
 ];
 
 $hosting_links = [
