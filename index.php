@@ -95,6 +95,7 @@ $ai_links = [
 	'https://bing.com/new'=>'bing ai',
 	'https://bard.google.com'=>'bard',
 	'https://www.futurepedia.io/'=>'futurepedia',
+	'https://agentgpt.reworkd.ai/'=>'agent gpt',
 ];
 
 $graphics_links = [
@@ -138,7 +139,8 @@ function show_links($links, $title) {
 		}
 		
 		echo '<li class="list-group-item list-group-item-action bg-transparent  border-0">
-			<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">
+		<!-- <a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block"> -->
+		<a href="' . $key . '" rel="noopener noreferrer" style="display:block">
 			<img src="'.$local_name.'" class="icon" />
 				<span>' . $name_display. '</span>
 			</a>
@@ -201,9 +203,7 @@ function show_links($links, $title) {
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-				<span id='ct'></span> - <a href="hits.php" target="_blank" rel="noopener noreferrer">hits</a>
-				</div>
+				<div class="col-md-12"><span id='ct'></span></div>
 			</div>
 		</div>
 		<script src="js/bootstrap.bundle.min.js"></script>
