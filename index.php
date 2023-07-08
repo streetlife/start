@@ -16,7 +16,6 @@ $system_links = [
 	'https://web.telegram.org'=>'telegram',
 	'http://esquire-xps15:9117'=>'jackett',
 	'http://esquire-xps15:7878'=>'radarr',
-	'http://esquire-xps:8686/'=>'lidarr',
 ];
 
 $reading_links = [
@@ -37,6 +36,7 @@ $work_links = [
 	'https://projectmanagementdocs.com'=>'project mgt docs',
 	'https://www.projectmanagement.com'=>'project mgt',
 	'https://www.stakeholdermap.com/project-templates/project-management-templates.html'=>'project mgt templates',
+	'https://outlook.live.com'=>'outlook',
 ];
 
 $media_links = [
@@ -46,6 +46,7 @@ $media_links = [
 	'https://instagram.com'=>'instagram',
 	'https://www.wcofun.net'=>'wcofun',
 	'https://trakt.tv'=>'trakt',
+	'https://music.youtube.com'=>'youtube music',
 ];
 
 $games_links = [
@@ -106,6 +107,7 @@ $graphics_links = [
 	'https://slidesgo.com'=>'slides go',
 	'https://slidescarnival.com'=>'slides carnival',
 	'https://wepik.com'=>'wepik',
+	'https://www.videvo.net/'=>'videvo',
 ];
 
 $hosting_links = [
@@ -116,13 +118,18 @@ $hosting_links = [
     'https://iwebfusion.net'=>'iwebfusion',
 ];
 
+$clients_links = [
+	'https://portal.inceltourism.com'=>'incel portal',
+	'https://zerostore.com.ng'=>'zero store',
+];
+
 // $log_file = 'hits.txt';
 // $logs = json_decode(file_get_contents($log_file), true);
 
 function show_links($links, $title) {
 	natcasesort($links);
 	echo '
-	<div class="card mb-2 bg-transparent border-0">
+	<div class="card mb-2 bg-transparent border-0 border-left-2">
 		<div class="card-body p-0 bg-transparent border-0">
 			<div class="card-header bg-transparent"><span class="title">'.$title.'</span></div>
 			<ul class="list-group list-group-flush border-0">';
@@ -170,7 +177,7 @@ function show_links($links, $title) {
 						show_links($system_links, 'system'); 
 					?>
 				</div>
-				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0 border-left">
 					<?php 
 						show_links($work_links, 'work'); 
 						show_links($hosting_links, 'hosting');
@@ -178,6 +185,7 @@ function show_links($links, $title) {
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 					<?php 
+						show_links($clients_links, 'clients');
 						show_links($reading_links, 'reading');
 						show_links($ai_links, 'ai');
 					?>	
