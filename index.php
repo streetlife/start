@@ -168,7 +168,7 @@ function show_links($links, $title) {
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
-	<body class="bg-gray" onload=display_ct();>
+	<body class="bg-black" onload=display_ct();>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
