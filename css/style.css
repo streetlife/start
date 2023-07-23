@@ -1,6 +1,13 @@
 body {
     padding-top: 50px;
 }
+.bg-image {
+    background-image: url('/img/image.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom;
+    background-size: cover;
+}
 .icon {
     width: 16px;
     margin-right: 2px;

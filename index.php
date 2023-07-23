@@ -12,10 +12,10 @@ $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://esquire-xps15:8989'=>'sonarr',
 	'http://esquire-xps15:8097'=>'jellyfin',
-	'https://web.whatsapp.com'=>'whatsapp',
-	'https://web.telegram.org'=>'telegram',
-	'http://esquire-xps15:9117'=>'jackett',
-	'http://esquire-xps15:7878'=>'radarr',
+	// 'https://web.whatsapp.com'=>'whatsapp',
+	// 'https://web.telegram.org'=>'telegram',
+	// 'http://esquire-xps15:9117'=>'jackett',
+	// 'http://esquire-xps15:7878'=>'radarr',
 ];
 
 $reading_links = [
@@ -28,10 +28,10 @@ $reading_links = [
 $work_links = [
 	'https://smartwork.ng'=>'smartwork',
 	'https://mail.google.com'=>'gmail',
-	'https://goodday.work'=>'goodday',
-	'https://github.com'=>'github',
-	'https://keep.google.com'=>'keep',
-	'https://drive.google.com'=>'drive',
+	// 'https://goodday.work'=>'goodday',
+	// 'https://github.com'=>'github',
+	// 'https://keep.google.com'=>'keep',
+	// 'https://drive.google.com'=>'drive',
 	'https://pmi.org'=>'pmi',
 	'https://projectmanagementdocs.com'=>'project mgt docs',
 	'https://www.projectmanagement.com'=>'project mgt',
@@ -41,9 +41,9 @@ $work_links = [
 
 $media_links = [
 	'https://youtube.com'=>'youtube',
-	'https://tiktok.com'=>'tiktok',
-	'https://photos.google.com'=>'photos',
-	'https://instagram.com'=>'instagram',
+	// 'https://tiktok.com'=>'tiktok',
+	// 'https://photos.google.com'=>'photos',
+	// 'https://instagram.com'=>'instagram',
 	'https://www.wcofun.net'=>'wcofun',
 	'https://trakt.tv'=>'trakt',
 	'https://music.youtube.com'=>'youtube music',
@@ -121,6 +121,7 @@ $hosting_links = [
 $clients_links = [
 	'https://portal.inceltourism.com'=>'incel portal',
 	'https://zerostore.com.ng'=>'zero store',
+	'https://lagosstate.gov.ng'=>'lagos state',
 ];
 
 // $log_file = 'hits.txt';
@@ -146,8 +147,8 @@ function show_links($links, $title) {
 		}
 		
 		echo '<li class="list-group-item list-group-item-action bg-transparent  border-0">
-		<!-- <a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block"> -->
-		<a href="' . $key . '" rel="noopener noreferrer" style="display:block">
+		<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">
+		<!-- <a href="' . $key . '" rel="noopener noreferrer" style="display:block"> -->
 			<img src="'.$local_name.'" class="icon" />
 				<span>' . $name_display. '</span>
 			</a>
@@ -168,7 +169,7 @@ function show_links($links, $title) {
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
-	<body class="bg-black" onload=display_ct();>
+	<body class="bg-black bg-image" onload=display_ct();>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
