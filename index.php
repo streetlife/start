@@ -24,8 +24,8 @@ $system_links = [
 	'http://localhost/phpmyadmin'=>'phpmyadmin',
 	'http://esquire-xps15:8989'=>'sonarr',
 	'http://esquire-xps15:8097'=>'jellyfin',
-	// 'https://web.whatsapp.com'=>'whatsapp',
-	// 'https://web.telegram.org'=>'telegram',
+	'https://web.whatsapp.com'=>'whatsapp',
+	'https://web.telegram.org'=>'telegram',
 	// 'http://esquire-xps15:9117'=>'jackett',
 	// 'http://esquire-xps15:7878'=>'radarr',
 ];
@@ -231,8 +231,14 @@ function display_random_wallpaper() {
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-4">
+					<div class="card p-0 m-0">
+						<div class="card-body p-0 m-0">
+							<?php echo display_random_wallpaper(); ?>
+						</div>
+					</div>
 					<div class="card">
-						<div class="card-body"><?php echo display_random_wallpaper(); ?>
+						<div class="card-body p-0 m-0">
+							<?php echo display_random_wallpaper(); ?>
 						</div>
 					</div>
 				</div>
