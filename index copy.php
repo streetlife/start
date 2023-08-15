@@ -99,7 +99,6 @@ $warez_links = [
     'https://steamrip.com'=>'steamrip',
 	'https://downloadly.ir'=>'downloadly',
     'https://bitdownload.ir'=>'bitdownload',
-	'https://www.seriezloaded.com.ng/movies/nollywood-movies/'=>'nollywood movies',
 ];
 
 $ai_links = [
@@ -152,8 +151,7 @@ function show_links($links, $title) {
 			<div class="card-header bg-transparent"><span class="title">'.$title.'</span></div>
 			<ul class="list-group list-group-flush border-0">';
 	foreach ($links as $key=>$value) {
-		
-		// $hit_count = intval($logs[$key]);
+		$hit_count = intval($logs[$key]);
 
 		// $name_display = $value;
 		// if ($hit_count > 0) {
@@ -162,7 +160,16 @@ function show_links($links, $title) {
 		
 		$name_display = $value; // . ' - ' . $hit_count;
 		$value = strtolower(str_replace(' ','',$value));
-		$local_name_offline = 'img/icon-local.png';
+		$local_name = 'img/icon-local.png';
+		if (strpos($key,'test')==0) {
+			$local_name = 'img/icons/'.$value.'.png';
+		}
+		if (isset($_GET['refresh_icons'])) {
+			get_site_icon($local_name, $key);
+		}
+		if (!file_exists($local_name)) {
+			get_site_icon($local_name, $key);
+		}
 		
 		echo '<li class="list-group-item list-group-item-action bg-transparent  border-0">';
 		if ($settings['log_clicks']) {
@@ -171,23 +178,10 @@ function show_links($links, $title) {
 			echo '<a href="' . $key . '" rel="noopener noreferrer" style="display:block">';
 		}
 		if ($settings['show_icon']) {
-			$local_name = $local_name_offline;
-			if (strpos($key,'test')==0) {
-				$local_name = 'img/icons/'.$value.'.png';
-				if (filesize($local_name) == 0) {
-					$local_name = $local_name_offline;
-				}	
-			}
-			if (isset($_GET['refresh_icons'])) {
-				get_site_icon($local_name, $key);
-			}
-			if (!file_exists($local_name)) {
-				get_site_icon($local_name, $key);
-			}
-			echo '<img src="'.$local_name.'" class="icon" /> ';
+			echo '<img src="'.$local_name.'" class="icon" /> <span>' . $name_display. '</span></a>';
+		} else {
+			echo '<span>' . $name_display. '</span></a>';
 		}
-
-		echo '<span>' . $name_display. '</span></a>';
 		echo '</li>';
 	}
 	echo '
@@ -200,22 +194,6 @@ function get_site_icon($local_name, $key) {
 	file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=256'));
 
 }
-
-// function to randomly select a picture from a folder
-function display_random_wallpaper() {
-	// Path to the folder containing images
-	$imageFolder = 'img/wallpapers/';
-
-	// Get all image files from the folder
-	$imageFiles = glob($imageFolder . '*.{jpg,jpeg,png}', GLOB_BRACE);
-	// die(print_r($imageFiles));
-
-	// Select a random image from the array
-	$randomImage = $imageFiles[array_rand($imageFiles)];
-
-	// Display the random image on the webpage
-	return '<img src="' . $randomImage . '"  width="100%" class="img">';
-}
 ?>
 
 <!DOCTYPE html>
@@ -227,61 +205,118 @@ function display_random_wallpaper() {
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 	<body class="bg-black bg-image">
-	
-		<div class="container-fluid">
+	<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+		<defs>
+			<linearGradient id="bg">
+				<stop offset="0%" style="stop-color:rgba(130, 158, 249, 0.06)"></stop>
+				<stop offset="50%" style="stop-color:rgba(76, 190, 255, 0.6)"></stop>
+				<stop offset="100%" style="stop-color:rgba(115, 209, 72, 0.2)"></stop>
+			</linearGradient>
+			<path id="wave" fill="url(#bg)" d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
+	s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z" />
+		</defs>
+		<g>
+			<use xlink:href='#wave' opacity=".3">
+				<animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="translate"
+          dur="10s"
+          calcMode="spline"
+          values="270 230; -334 180; 270 230"
+          keyTimes="0; .5; 1"
+          keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+          repeatCount="indefinite" />
+			</use>
+			<use xlink:href='#wave' opacity=".6">
+				<animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="translate"
+          dur="8s"
+          calcMode="spline"
+          values="-270 230;243 220;-270 230"
+          keyTimes="0; .6; 1"
+          keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+          repeatCount="indefinite" />
+			</use>
+			<use xlink:href='#wave' opacty=".9">
+				<animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="translate"
+          dur="6s"
+          calcMode="spline"
+          values="0 230;-140 200;0 230"
+          keyTimes="0; .4; 1"
+          keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+          repeatCount="indefinite" />
+			</use>
+		</g>
+	</svg>
+		<div class="container">
 			<div class="row">
-				<div class="col-lg-4">
-					<div class="card">
-						<div class="card-body"><?php echo display_random_wallpaper(); ?>
-						</div>
-					</div>
+				<div class="col-md-12">
+					<a href="index.php?refresh_icons">refresh icons</a></div>
+			</div>
+			<div class="row">
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($project_links, 'projects local'); 
+						show_links($project1_links, 'projects online'); 
+						show_links($system_links, 'system'); 
+					?>
 				</div>
-				<div class="col-lg-8">
-					
-					<div class="row">
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
-							<?php 
-								show_links($project_links, 'projects local'); 
-								show_links($project1_links, 'projects online'); 
-								show_links($system_links, 'system'); 
-							?>
-						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0 border-left">
-							<?php 
-								show_links($work_links, 'work'); 
-								show_links($hosting_links, 'hosting');
-							?>
-						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
-							<?php 
-								show_links($clients_links, 'clients');
-								show_links($reading_links, 'reading');
-								show_links($ai_links, 'ai');
-							?>	
-						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
-							<?php  
-								show_links($media_links, 'media'); 
-								show_links($graphics_links, 'graphics');
-							?>
-						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
-							<?php 
-								show_links($learning_links, 'learning');
-								show_links($games_links, 'games');
-								show_links($sports_links, 'sports');
-							?>
-						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
-							<?php 
-								show_links($utilities_links, 'utilities'); 
-								show_links($warez_links, 'warez'); 
-							?>
-						</div>
-					</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0 border-left">
+					<?php 
+						show_links($work_links, 'work'); 
+						show_links($hosting_links, 'hosting');
+					?>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($clients_links, 'clients');
+						show_links($reading_links, 'reading');
+						show_links($ai_links, 'ai');
+					?>	
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php  
+						show_links($media_links, 'media'); 
+						show_links($graphics_links, 'graphics');
+					?>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($learning_links, 'learning');
+						show_links($games_links, 'games');
+						show_links($sports_links, 'sports');
+					?>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+					<?php 
+						show_links($utilities_links, 'utilities'); 
+						show_links($warez_links, 'warez'); 
+					?>
 				</div>
 			</div>
 		</div>
 		<script src="js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript"> 
+			function display_c(){
+				var refresh=1000; // Refresh rate in milli seconds
+				mytime=setTimeout('display_ct()',refresh)
+			}
+
+			function display_ct() {
+				var x = new Date();
+				// var x1=x.toUTCString();// changing the display to UTC string
+
+				document.getElementById('ct').innerHTML = x;
+				display_c();
+ 			}
+		</script>
+
 	</body>
 </html>
