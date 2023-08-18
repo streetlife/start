@@ -13,11 +13,7 @@ $logs = json_decode(file_get_contents($log_file), true);
 $settings = [
 	'show_icon'=>true,
 	'log_clicks'=>false,
-];
-
-$project1_links = [
-	'https://webz.com.ng/awd/' => 'awd',
-	'https://webz.com.ng/twaccg/' => 'twaccg',
+	'refresh_rate'=>20,
 ];
 
 $system_links = [
@@ -58,7 +54,8 @@ $media_links = [
 	// 'https://instagram.com'=>'instagram',
 	'https://www.wcofun.net'=>'wcofun',
 	'https://trakt.tv'=>'trakt',
-	'https://music.youtube.com'=>'youtube music',
+	'https://music.youtube.com'=>'music - youtube',
+	'https://spotify.com'=>'spotify',
 ];
 
 $games_links = [
@@ -136,6 +133,8 @@ $clients_links = [
 	'https://portal.inceltourism.com'=>'incel portal',
 	'https://zerostore.com.ng'=>'zero store',
 	'https://lagosstate.gov.ng'=>'lagos state',
+	'https://webz.com.ng/awd/' => 'awd',
+	'https://webz.com.ng/twaccg/' => 'twaccg',
 ];
 
 // $log_file = 'hits.txt';
@@ -174,16 +173,15 @@ function show_links($links, $title) {
 			$local_name = $local_name_offline;
 			if (strpos($key,'test')==0) {
 				$local_name = 'img/icons/'.$value.'.png';
+
+				if ((isset($_GET['refresh_icons'])) || (!file_exists($local_name))) {
+					get_site_icon($local_name, $key);
+				}
+
 				if (filesize($local_name) == 0) {
 					$local_name = $local_name_offline;
-				}	
-			}
-			if (isset($_GET['refresh_icons'])) {
-				get_site_icon($local_name, $key);
-			}
-			if (!file_exists($local_name)) {
-				get_site_icon($local_name, $key);
-			}
+				}
+			}	
 			echo '<img src="'.$local_name.'" class="icon" /> ';
 		}
 
@@ -225,6 +223,7 @@ function display_random_wallpaper() {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<meta http-equiv="refresh" content="<?php echo $settings['refresh_rate']; ?>" />
 	</head>
 	<body class="bg-black bg-image">
 	
@@ -236,19 +235,16 @@ function display_random_wallpaper() {
 							<?php echo display_random_wallpaper(); ?>
 						</div>
 					</div>
-					<div class="card">
-						<div class="card-body p-0 m-0">
-							<?php echo display_random_wallpaper(); ?>
-						</div>
-					</div>
 				</div>
 				<div class="col-lg-8">
+					<div class="row">
+						
+					</div>
 					
 					<div class="row">
 						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 							<?php 
-								show_links($project_links, 'projects local'); 
-								show_links($project1_links, 'projects online'); 
+								show_links($project_links, 'projects'); 
 								show_links($system_links, 'system'); 
 							?>
 						</div>
