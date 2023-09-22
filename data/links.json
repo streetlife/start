@@ -1,0 +1,116 @@
+{
+  "system": {
+    "http://localhost/phpmyadmin": "phpmyadmin",
+    "http://esquire-xps15:8989": "sonarr",
+    "http://esquire-xps15:8097": "jellyfin",
+    "https://web.whatsapp.com": "whatsapp",
+    "https://web.telegram.org": "telegram"
+  },
+  "reading": {
+    "https://feedly.com": "feedly",
+    "https://reddit.com": "reddit",
+    "https://twitter.com": "twitter",
+    "https://nairaland.com": "nairaland"
+  },
+  "work": {
+    "https://smartwork.ng": "smartwork",
+    "https://mail.google.com": "gmail",
+    "https://goodday.work": "goodday",
+    "https://keep.google.com": "keep",
+    "https://drive.google.com": "drive",
+    "https://outlook.live.com": "outlook"
+  },
+  "projectmgt": {
+    "https://pmi.org": "pmi",
+    "https://projectmanagementdocs.com": "pm docs",
+    "https://www.projectmanagement.com": "pm",
+    "https://www.stakeholdermap.com/project-templates/project-management-templates.html": "pm templates"
+  },
+  "media": {
+    "https://youtube.com": "youtube",
+    "https://www.wcofun.net": "wcofun",
+    "https://trakt.tv": "trakt",
+    "https://music.youtube.com": "youtube music",
+    "https://spotify.com": "spotify"
+  },
+  "games": {
+    "https://crazygames.com": "crazy games",
+    "https://epicgames.com": "epic games",
+    "https://gog.com": "gog",
+    "https://playclassic.games": "play classic games",
+    "http://emugames.net": "emu games",
+    "https://gamesnostalgia.com": "games nostalgia"
+  },
+  "sports": {
+    "https://livescore.com": "livescores",
+    "https://www.arsenal.com": "arsenal",
+    "https://premierleague.com": "premier league",
+    "https://www.uefa.com/uefachampionsleague/": "ucl",
+    "https://www.stungoal.top/": "stungoal",
+    "https://valueloaded.com.ng/": "value loaded"
+  },
+  "learning": {
+    "https://exercism.org/dashboard": "exercism",
+    "https://campus.college.ch": "robert kennedy",
+    "https://coursera.org": "coursera",
+    "https://udemy.com": "udemy",
+    "https://freecodecamp.org": "freecodecamp",
+    "https://www.mygreatlearning.com": "great learning"
+  },
+  "utilities": {
+    "https://123apps.com": "123apps",
+    "https://sejda.com/pdf-editor": "sejda-pdf",
+    "https://alternativeto.net": "alternativeto",
+    "https://convertio.co": "convertio",
+    "https://www.convertfiles.ai/": "convert files"
+  },
+  "warez": {
+    "https://wplocker.com": "wplocker",
+    "https://torrentgalaxy.to": "torrent galaxy",
+    "https://codelist.cc": "codelist",
+    "https://themelock.com": "themelock",
+    "https://steamrip.com": "steamrip",
+    "https://downloadly.ir": "downloadly",
+    "https://bitdownload.ir": "bitdownload",
+    "https://www.seriezloaded.com.ng/movies/nollywood-movies/": "nollywood movies"
+  },
+  "ai": {
+    "https://chat.openai.com": "chatGPT",
+    "https://lexica.art/aperture": "lexica",
+    "https://labs.openai.com": "dall-e",
+    "https://bing.com/new": "bing ai",
+    "https://bard.google.com": "bard",
+    "https://www.futurepedia.io/": "futurepedia",
+    "https://agentgpt.reworkd.ai/": "agent gpt"
+  },
+  "graphics": {
+    "https://themeforest.net": "themeforest",
+    "https://codecanyon.net": "codecanyon",
+    "https://canva.com": "canva",
+    "https://storyset.com": "story set",
+    "https://slidesgo.com": "slides go",
+    "https://slidescarnival.com": "slides carnival",
+    "https://wepik.com": "wepik",
+    "https://www.videvo.net/": "videvo",
+    "https://mixkit.co/": "mixkit",
+    "https://www.upscale.media/": "upscale",
+    "https://www.shrink.media/": "shrink media",
+    "https://www.erase.bg/": "erase bg"
+  },
+  "hosting": {
+    "https://whogohost.com": "whogohost",
+    "https://hostforweb.com": "hostforweb",
+    "https://websguy.com:2083": "websguy",
+    "https://ionos.com": "ionos",
+    "https://iwebfusion.net": "iwebfusion",
+    "https://cloudflare.com": "cloudflare"
+  },
+  "clients": {
+    "https://portal.inceltourism.com": "incel portal",
+    "https://zerostore.com.ng": "zero store",
+    "https://lagosstate.gov.ng": "lagos state",
+    "https://webz.com.ng/awd/": "awd",
+    "https://webz.com.ng/twaccg/": "twaccg",
+    "https://ademola.oladipo.com.ng/": "ademola oladipo"
+  }
+}

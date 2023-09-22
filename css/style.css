@@ -1,5 +1,5 @@
 body {
-    padding-top: 50px;
+    padding-top: 20px;
 }
 .bg-image {
     background-image: url('/img/image.png');
@@ -31,14 +31,6 @@ a:hover, a:focus {
 #ct {
     font-size: 0.7em;
 }
-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-width: 100%;
-height: 100%;
-    box-sizing: border-box;
-    display: block;
-    background-color: #002742;
-background-image: linear-gradient(to bottom, rgba(6, 33, 53, 0.86), #011625);
+.icon-name {
+    overflow: hidden;
 }
