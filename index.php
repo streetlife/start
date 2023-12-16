@@ -2,9 +2,7 @@
 ini_set('display_errors', 0);
 $settings = [
 	'show_icon'=>true,
-	'log_clicks'=>false,
 	'refresh_rate'=>600,
-	'show_count'=>false,
 ];
 
 
@@ -15,12 +13,10 @@ foreach ($dirs as $value) {
 	$project_links['https://'.$value.'.test'] = $value;
 }
 
-$log_file = 'data/hits.json';
 $todo_file = 'data/todo.json';
 $links_file = 'data/links.json';
 
 $links = json_decode(file_get_contents($links_file), true);
-$logs = json_decode(file_get_contents($log_file), true);
 $todos = json_decode(file_get_contents($todo_file), true);
 
 // Add a new todo
@@ -77,33 +73,23 @@ function show_links($links, $title) {
 
 	natcasesort($links);
 	echo '
-	<div class="card mb-2 bg-transparent border-top-2" style="border-top-color: '.$border_color.'">
+	<div class="card mb-0 bg-transparent" style="border-top-color: '.$border_color.'">
 		<div class="card-body p-0 bg-transparent border-0">
 			<div class="card-header bg-transparent"><span class="title">'.$title.'</span></div>
-			<ul class="list-group list-group-flush border-0">';
+			<ul class="list-group list-group-flush border-0 p-0">';
 	foreach ($links as $key=>$value) {
+		$name_display = $value; 
 		
-		$hit_count = intval($logs[$key]);
-
-		$name_display = $value; // . ' - ' . $hit_count;
-		if ($settings['show_count']) {
-			$name_display .= ' <span style="color:gray">:'.$hit_count . '</span>';
-		}
 		$value = strtolower(str_replace(' ','',$value));
 		$local_name_offline = 'img/icon-local.png';
 		
-		echo '<li class="list-group-item list-group-item-action bg-transparent  border-0">';
-		if ($settings['log_clicks']) {
-			echo '<a href="refer.php?link=' . $key . '" rel="noopener noreferrer" style="display:block">';
-		} else {
-			echo '<a href="' . $key . '" rel="noopener noreferrer" style="display:block">';
-		}
+		echo '<li class="list-group-item list-group-item-action bg-transparent border-0 P-1">';
+		echo '<a href="' . $key . '" rel="noopener noreferrer" style="display:block">';
 		if ($settings['show_icon']) {
 			$local_name = 'img/icons/'.$value.'.png';
 
 			if (!file_exists($local_name)) {
 				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=256'));
-				// sleep(1);
 			}
 
 			if (filesize($local_name) == 0) {
@@ -142,7 +128,7 @@ function load_todo() {
 	global $todos;
 
 	// Render the list
-	$result = '<ul class="list-group list-group-flush border-0 mb-2 bg-black">';
+	$result = '<ul class="list-group list-group-flush border-0 mb-2">';
 	foreach ($todos as $todo) {
 		if ($todo['done']!=true) {
 			// $result .= '<li class="list-group-item text-white"><a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="text-white">' . $todo['text'] . '</a></li>';
@@ -162,46 +148,38 @@ function load_todo() {
 	<head>
 		<title> ~ esquire </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-slate.min.css" >
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-darkly.min.css" >
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<meta http-equiv="refresh" content="<?php echo $settings['refresh_rate']; ?>" />
 	</head>
-	<body class="bg-black">
+	<body>
 	
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-2">
-					<div class="card p-0 m-0">
-						<div class="card-body p-0 m-0">
-							<?php echo display_random_wallpaper(); ?>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-8">					
+				<div class="col-lg-10 p-1">					
 					<div class="row">
 						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 							<?php 
 								show_links($project_links, 'projects'); 
-								show_links($links['system'], 'system'); 
-								show_links($links['clients'], 'clients');
 							?>
 						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0 border-left">
+						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 							<?php 
+								show_links($links['system'], 'system'); 
 								show_links($links['work'], 'work'); 
-								show_links($links['projectmgt'], 'project mgt');
 								show_links($links['hosting'], 'hosting');
 							?>
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 							<?php 
-								show_links($links['reading'], 'reading');
+								show_links($links['clients'], 'clients');
 								show_links($links['ai'], 'ai');
+								show_links($links['projectmgt'], 'project mgt');
 							?>	
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 							<?php  
-								show_links($links['media'], 'media'); 
+								show_links($links['reading'], 'reading');
 								show_links($links['graphics'], 'graphics');
 							?>
 						</div>
@@ -214,6 +192,7 @@ function load_todo() {
 						</div>
 						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
 							<?php 
+								show_links($links['media'], 'media'); 
 								show_links($links['utilities'], 'utilities'); 
 								show_links($links['warez'], 'warez'); 
 							?>
@@ -221,12 +200,12 @@ function load_todo() {
 					</div>
 				</div>
 				<div class="col-lg-2">
-					<div class="card bg-black">
+					<div class="card">
 						<div class="card-body">
 							<?php echo load_todo(); ?>
 						</div>
 					</div>
-					<div class="card bg-black">
+					<div class="card">
 						<div class="card-body">
 							<form action="index.php" method="post" class="form">
 								<div class="form row align-items-center p-1">

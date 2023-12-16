@@ -2,7 +2,7 @@
   "system": {
     "http://localhost/phpmyadmin": "phpmyadmin",
     "http://esquire-xps15:8989": "sonarr",
-    "http://esquire-xps15:8096": "jellyfin",
+    "http://esquire-xps15:8097": "jellyfin",
     "https://web.whatsapp.com": "whatsapp",
     "https://web.telegram.org": "telegram"
   },
@@ -15,8 +15,10 @@
   "work": {
     "https://app.smartwork.ng/account/dashboard": "smartwork",
     "https://mail.google.com": "gmail",
+    "https://goodday.work": "goodday",
     "https://keep.google.com": "keep",
-    "https://drive.google.com": "drive"
+    "https://drive.google.com": "drive",
+    "https://outlook.live.com": "outlook"
   },
   "projectmgt": {
     "https://pmi.org": "pmi",
@@ -27,6 +29,8 @@
   "media": {
     "https://youtube.com": "youtube",
     "https://www.wcofun.net": "wcofun",
+    "https://trakt.tv": "trakt",
+    "https://music.youtube.com": "youtube music",
     "https://spotify.com": "spotify"
   },
   "games": {
@@ -44,11 +48,11 @@
     "https://www.uefa.com/uefachampionsleague/": "ucl",
     "https://www.stungoal.top/": "stungoal",
     "https://valueloaded.com.ng/": "value loaded",
-    "https://r.soccerstreams100.io/": "soccer streams 100",
-    "https://sportybet.com": "sporty bet"
+    "https://r.soccerstreams100.io/": "soccer streams 100"
   },
   "learning": {
     "https://exercism.org/dashboard": "exercism",
+    "https://campus.college.ch": "robert kennedy",
     "https://coursera.org": "coursera",
     "https://udemy.com": "udemy",
     "https://freecodecamp.org": "freecodecamp",
