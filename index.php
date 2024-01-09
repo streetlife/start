@@ -156,50 +156,50 @@ function load_todo() {
 	
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-10 p-1">					
+				<div class="col-10 p-1">					
 					<div class="row">
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+						<div class="col-2">
 							<?php 
 								show_links($project_links, 'projects'); 
 							?>
 						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+						<div class="col-2">
 							<?php 
 								show_links($links['system'], 'system'); 
 								show_links($links['work'], 'work'); 
 								show_links($links['hosting'], 'hosting');
 							?>
 						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+						<div class="col-2">
 							<?php 
 								show_links($links['clients'], 'clients');
 								show_links($links['ai'], 'ai');
 								show_links($links['projectmgt'], 'project mgt');
 							?>	
 						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+						<div class="col-2">
 							<?php  
 								show_links($links['reading'], 'reading');
-								show_links($links['graphics'], 'graphics');
+								show_links($links['media'], 'media'); 
+								show_links($links['learning'], 'learning');
+								// show_links($links['graphics'], 'graphics');
 							?>
 						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+						<div class="col-2">
 							<?php 
-								show_links($links['learning'], 'learning');
 								show_links($links['games'], 'games');
 								show_links($links['sports'], 'sports');
 							?>
 						</div>
-						<div class="col-lg-2 col-md-3 col-sm-4 p-0">
+						<div class="col-2">
 							<?php 
-								show_links($links['media'], 'media'); 
 								show_links($links['utilities'], 'utilities'); 
 								show_links($links['warez'], 'warez'); 
 							?>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-2">
+				<div class="col-2">
 					<div class="card">
 						<div class="card-body">
 							<?php echo load_todo(); ?>

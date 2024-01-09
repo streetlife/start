@@ -69,17 +69,20 @@
     "https://steamrip.com": "steamrip",
     "https://downloadly.ir": "downloadly",
     "https://bitdownload.ir": "bitdownload",
-    "https://www.seriezloaded.com.ng/movies/nollywood-movies/": "nollywood movies"
+    "https://www.seriezloaded.com.ng/": "seriez loaded",
+    "https://www.limetorrents.to/": "limetorrents",
+    "https://z-lib.io/": "z lib",
+    "https://9jarocks.com": "9jarocks"
   },
   "ai": {
     "https://chat.openai.com": "chatGPT",
     "https://lexica.art/aperture": "lexica",
     "https://labs.openai.com": "dall-e",
-    "https://bing.com/new": "bing ai",
     "https://bard.google.com": "bard",
     "https://www.futurepedia.io/": "futurepedia",
     "https://agentgpt.reworkd.ai/": "agent gpt",
-    "https://play.ht/": "play ht"
+    "https://play.ht/": "play ht",
+    "https://copilot.microsoft.com/": "copilot"
   },
   "graphics": {
     "https://themeforest.net": "themeforest",
