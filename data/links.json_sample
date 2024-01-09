@@ -1,0 +1,71 @@
+{
+  "system": {
+    "http://localhost/": "localhost"
+  },
+  "reading": {
+    "https://feedly.com": "feedly",
+    "https://reddit.com": "reddit",
+    "https://twitter.com": "twitter",
+    "https://nairaland.com": "nairaland"
+  },
+  "work": {
+    "https://mail.google.com": "gmail",
+    "https://keep.google.com": "keep",
+    "https://drive.google.com": "drive"
+  },
+  "projectmgt": {
+    "https://pmi.org": "pmi"
+  },
+  "media": {
+    "https://youtube.com": "youtube",
+    "https://www.wcofun.net": "wcofun",
+    "https://spotify.com": "spotify"
+  },
+  "games": {
+    "https://epicgames.com": "epic games",
+    "https://gog.com": "gog"
+  },
+  "sports": {
+    "https://livescore.com": "livescores",
+    "https://www.arsenal.com": "arsenal",
+    "https://premierleague.com": "premier league",
+    "https://www.uefa.com/uefachampionsleague/": "ucl",
+    "https://www.stungoal.top/": "stungoal",
+    "https://valueloaded.com.ng/": "value loaded",
+    "https://r.soccerstreams100.io/": "soccer streams 100",
+    "https://sportybet.com": "sporty bet"
+  },
+  "learning": {
+    "https://udemy.com": "udemy",
+    "https://freecodecamp.org": "freecodecamp",
+    "https://www.mygreatlearning.com": "great learning"
+  },
+  "utilities": {
+    "https://123apps.com": "123apps",
+    "https://sejda.com/pdf-editor": "sejda-pdf",
+    "https://alternativeto.net": "alternativeto",
+    "https://convertio.co": "convertio",
+    "https://www.convertfiles.ai/": "convert files"
+  },
+  "warez": {
+    "https://z-lib.io/": "z lib",
+    "https://9jarocks.com": "9jarocks"
+  },
+  "ai": {
+    "https://chat.openai.com": "chatGPT",
+    "https://labs.openai.com": "dall-e",
+    "https://bard.google.com": "bard",
+    "https://copilot.microsoft.com/": "copilot"
+  },
+  "graphics": {
+    "https://themeforest.net": "themeforest",
+    "https://codecanyon.net": "codecanyon",
+    "https://canva.com": "canva"
+  },
+  "hosting": {
+    "https://cloudflare.com": "cloudflare"
+  },
+  "clients": {
+    "https://ademola.oladipo.com.ng/": "ademola oladipo"
+  }
+}
