@@ -16,7 +16,8 @@
     "https://app.smartwork.ng/account/dashboard": "smartwork",
     "https://mail.google.com": "gmail",
     "https://keep.google.com": "keep",
-    "https://drive.google.com": "drive"
+    "https://drive.google.com": "drive",
+    "https://www.microsoft365.com/": "microsoft 365"
   },
   "projectmgt": {
     "https://pmi.org": "pmi",
