@@ -120,7 +120,8 @@ function display_random_wallpaper() {
 	$randomImage = $imageFiles[array_rand($imageFiles)];
 
 	// Display the random image on the webpage
-	return '<img src="' . $randomImage . '"  width="100%" class="img">';
+	// return '<img src="' . $randomImage . '"  width="100%" class="img">';
+	return $randomImage;
 }
 
 // function to load a list of todos from a json file
@@ -158,40 +159,45 @@ function load_todo() {
 			<div class="row">
 				<div class="col-10 p-1">					
 					<div class="row">
-						<div class="col-2">
+						<div class="col">
 							<?php 
 								show_links($project_links, 'projects'); 
 							?>
 						</div>
-						<div class="col-2">
+						<div class="col">
 							<?php 
 								show_links($links['system'], 'system'); 
 								show_links($links['work'], 'work'); 
 								show_links($links['hosting'], 'hosting');
 							?>
 						</div>
-						<div class="col-2">
+						<div class="col">
 							<?php 
 								show_links($links['clients'], 'clients');
 								show_links($links['ai'], 'ai');
 								show_links($links['projectmgt'], 'project mgt');
 							?>	
 						</div>
-						<div class="col-2">
+						<div class="col">
 							<?php  
 								show_links($links['reading'], 'reading');
 								show_links($links['media'], 'media'); 
 								show_links($links['learning'], 'learning');
-								// show_links($links['graphics'], 'graphics');
 							?>
 						</div>
-						<div class="col-2">
+						<div class="col">
 							<?php 
 								show_links($links['games'], 'games');
 								show_links($links['sports'], 'sports');
 							?>
 						</div>
-						<div class="col-2">
+						<div class="col">
+							<?php 
+							show_links($links['graphics'], 'graphics');
+							show_links($links['coding'], 'coding');
+							?>
+						</div>
+						<div class="col">
 							<?php 
 								show_links($links['utilities'], 'utilities'); 
 								show_links($links['warez'], 'warez'); 
@@ -215,6 +221,11 @@ function load_todo() {
 								</div>
 															
 							</form>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
+							<img src="<?php echo display_random_wallpaper(); ?>" class="img-fluid" />
 						</div>
 					</div>
 				</div>

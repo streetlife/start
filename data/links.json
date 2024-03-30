@@ -3,8 +3,11 @@
     "http://localhost/phpmyadmin": "phpmyadmin",
     "http://esquire-xps15:8989": "sonarr",
     "http://esquire-xps15:8096": "jellyfin",
+    "http://localhost:8989": "sonarr1",
+    "http://localhost:8096": "jellyfin1",
     "https://web.whatsapp.com": "whatsapp",
-    "https://web.telegram.org": "telegram"
+    "https://web.telegram.org": "telegram",
+    "http://localhost:8384/": "syncthing"
   },
   "reading": {
     "https://feedly.com": "feedly",
@@ -43,8 +46,6 @@
     "https://www.arsenal.com": "arsenal",
     "https://premierleague.com": "premier league",
     "https://www.uefa.com/uefachampionsleague/": "ucl",
-    "https://www.stungoal.top/": "stungoal",
-    "https://valueloaded.com.ng/": "value loaded",
     "https://r.soccerstreams100.io/": "soccer streams 100",
     "https://sportybet.com": "sporty bet"
   },
@@ -83,7 +84,8 @@
     "https://www.futurepedia.io/": "futurepedia",
     "https://agentgpt.reworkd.ai/": "agent gpt",
     "https://play.ht/": "play ht",
-    "https://copilot.microsoft.com/": "copilot"
+    "https://copilot.microsoft.com/": "copilot",
+    "https://useanything.com/": "use anything"
   },
   "graphics": {
     "https://themeforest.net": "themeforest",
@@ -105,7 +107,10 @@
     "https://websguy.com:2083": "websguy",
     "https://ionos.com": "ionos",
     "https://iwebfusion.net": "iwebfusion",
-    "https://cloudflare.com": "cloudflare"
+    "https://cloudflare.com": "cloudflare",
+    "https://websguy.com.ng:8083": "websguy ng",
+    "https://www.hostinger.com": "hostinger",
+    "https://go54.com": "go54"
   },
   "clients": {
     "https://portal.inceltourism.com": "incel portal",
@@ -114,5 +119,13 @@
     "https://webz.com.ng/awd/": "awd",
     "https://webz.com.ng/twaccg/": "twaccg",
     "https://ademola.oladipo.com.ng/": "ademola oladipo"
+  },
+  "coding": {
+    "https://www.modular.com/max/mojo": "mojo",
+    "https://onyxlang.io/": "onyx",
+    "https://baserow.io/": "baserow",
+    "https://pocketbase.io/": "pocketbase",
+    "https://gdevelop.io/": "gdevelop",
+    "https://openblocks.dev/": "open blocks"
   }
 }
