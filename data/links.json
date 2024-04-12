@@ -3,8 +3,6 @@
     "http://localhost/phpmyadmin": "phpmyadmin",
     "http://esquire-xps15:8989": "sonarr",
     "http://esquire-xps15:8096": "jellyfin",
-    "http://localhost:8989": "sonarr1",
-    "http://localhost:8096": "jellyfin1",
     "https://web.whatsapp.com": "whatsapp",
     "https://web.telegram.org": "telegram",
     "http://localhost:8384/": "syncthing"
@@ -13,7 +11,8 @@
     "https://feedly.com": "feedly",
     "https://reddit.com": "reddit",
     "https://twitter.com": "twitter",
-    "https://nairaland.com": "nairaland"
+    "https://nairaland.com": "nairaland",
+    "https://boredpanda.com": "bored panda"
   },
   "work": {
     "https://app.smartwork.ng/account/dashboard": "smartwork",
@@ -39,7 +38,8 @@
     "https://gog.com": "gog",
     "https://playclassic.games": "play classic games",
     "http://emugames.net": "emu games",
-    "https://gamesnostalgia.com": "games nostalgia"
+    "https://gamesnostalgia.com": "games nostalgia",
+    "https://store.steampowered.com/": "steam"
   },
   "sports": {
     "https://livescore.com": "livescores",

@@ -54,7 +54,8 @@ if (isset($_GET['action'])) {
 
 // Generate a random color
 function rand_color() {
-	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+	// return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+	return '#FFFFFF';
 }
 
 /**
