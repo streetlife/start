@@ -74,9 +74,9 @@ function show_links($links, $title) {
 
 	natcasesort($links);
 	echo '
-	<div class="card mb-0 bg-transparent" style="border-top-color: '.$border_color.'">
-		<div class="card-body p-0 bg-transparent border-0">
-			<div class="card-header bg-transparent"><span class="title">'.$title.'</span></div>
+	<div class="card m-0 p-0 bg-transparent" style="border-top-color: '.$border_color.'">
+		<div class="card-body p-0 m-0 bg-transparent border-0">
+			<div class="card-header bg-transparent"><span class="title p-0">'.$title.'</span></div>
 			<ul class="list-group list-group-flush border-0 p-0">';
 	foreach ($links as $key=>$value) {
 		$name_display = $value; 
@@ -84,7 +84,7 @@ function show_links($links, $title) {
 		$value = strtolower(str_replace(' ','',$value));
 		$local_name_offline = 'img/icon-local.png';
 		
-		echo '<li class="list-group-item list-group-item-action bg-transparent border-0 P-1">';
+		echo '<li class="list-group-item list-group-item-action bg-transparent border-0 p-1">';
 		echo '<a href="' . $key . '" rel="noopener noreferrer" style="display:block">';
 		if ($settings['show_icon']) {
 			$local_name = 'img/icons/'.$value.'.png';
@@ -169,20 +169,18 @@ function load_todo() {
 							<?php 
 								show_links($links['system'], 'system'); 
 								show_links($links['work'], 'work'); 
-								show_links($links['hosting'], 'hosting');
 							?>
 						</div>
 						<div class="col">
 							<?php 
-								show_links($links['clients'], 'clients');
-								show_links($links['ai'], 'ai');
-								show_links($links['projectmgt'], 'project mgt');
+								show_links($links['hosting'], 'hosting');
+								show_links($links['utilities'], 'utilities'); 
 							?>	
 						</div>
 						<div class="col">
 							<?php  
+								show_links($links['projectmgt'], 'project mgt');
 								show_links($links['reading'], 'reading');
-								show_links($links['media'], 'media'); 
 								show_links($links['learning'], 'learning');
 							?>
 						</div>
@@ -200,7 +198,7 @@ function load_todo() {
 						</div>
 						<div class="col">
 							<?php 
-								show_links($links['utilities'], 'utilities'); 
+								show_links($links['ai'], 'ai');
 								show_links($links['warez'], 'warez'); 
 							?>
 						</div>
