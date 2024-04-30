@@ -1,5 +1,6 @@
 body {
     padding-top: 20px;
+    background-color: black;
 }
 .bg-image {
     background-repeat: no-repeat;
@@ -10,6 +11,9 @@ body {
 .icon {
     width: 18px;
     margin-right: 0px;
+    margin-left: 0px;
+    display: inline-block;
+    opacity: .6;
 }
 a {
     text-decoration: none;

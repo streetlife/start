@@ -74,10 +74,10 @@ function show_links($links, $title) {
 
 	natcasesort($links);
 	echo '
-	<div class="card m-0 p-0 bg-transparent" style="border-top-color: '.$border_color.'">
+	<div class="card m-0 p-0 bg-transparent border-0">
 		<div class="card-body p-0 m-0 bg-transparent border-0">
-			<div class="card-header bg-transparent"><span class="title p-0">'.$title.'</span></div>
-			<ul class="list-group list-group-flush border-0 p-0">';
+			<div class="card-header bg-transparent p-0"><span class="title">'.$title.'</span></div>
+			<ul class="list-group list-group-flush border-0 pb-1">';
 	foreach ($links as $key=>$value) {
 		$name_display = $value; 
 		
@@ -85,7 +85,7 @@ function show_links($links, $title) {
 		$local_name_offline = 'img/icon-local.png';
 		
 		echo '<li class="list-group-item list-group-item-action bg-transparent border-0 p-1">';
-		echo '<a href="' . $key . '" rel="noopener noreferrer" style="display:block">';
+		echo '<a href="' . $key . '" style="display:block">';
 		if ($settings['show_icon']) {
 			$local_name = 'img/icons/'.$value.'.png';
 
@@ -158,7 +158,7 @@ function load_todo() {
 	
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-10 p-1">					
+				<div class="col-10 p-0">					
 					<div class="row">
 						<div class="col">
 							<?php 
@@ -204,7 +204,7 @@ function load_todo() {
 						</div>
 					</div>
 				</div>
-				<div class="col-2">
+				<div class="col-2 p-0">
 					<div class="card">
 						<div class="card-body">
 							<?php echo load_todo(); ?>
