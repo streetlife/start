@@ -15,13 +15,15 @@ foreach ($dirs as $value) {
 
 $todo_file = 'data/todo.json';
 $links_file = 'data/links.json';
+$log_file = "hits.log";
 
 $links = json_decode(file_get_contents($links_file), true);
 $todos = json_decode(file_get_contents($todo_file), true);
+// $logs = json_decode(file_get_contents($log_file), true);
 
 // Add a new todo
 if (isset($_POST['action']) && $_POST['action'] == 'add_todo') {
-	$todos = json_decode(file_get_contents($todo_file), true);
+	// $todos = json_decode(file_get_contents($todo_file), true);
 	
 	if (empty($todos)) {
 		$todos = array();
@@ -40,7 +42,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'add_todo') {
 // Delete a todo
 if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'delete_todo') {
-		$todos = json_decode(file_get_contents($todo_file), true);
+		// $todos = json_decode(file_get_contents($todo_file), true);
 		foreach ($todos as $key=>$todo) {
 			if ($todo['id']==$_GET['id']) {
 				$todos[$key]['done'] = true;
@@ -54,10 +56,20 @@ if (isset($_GET['action'])) {
 
 // Generate a random color
 function rand_color() {
-	// return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-	return '#FFFFFF';
+	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+	// return '#FFFFFF';
 }
-
+function randomDarkColor() {
+	// Define the maximum brightness for a dark color (adjustable)
+	$maxBrightness = 0;
+	
+	$red = rand(floor($maxBrightness / 2), $maxBrightness);
+    $green = rand(floor($maxBrightness / 2), $maxBrightness);
+    $blue = rand(floor($maxBrightness / 2), $maxBrightness);
+  
+	// Convert values to hex string and return as #rrggbb format
+	return '#' . dechex($red) . dechex($green) . dechex($blue);
+  }
 /**
  * Renders a list of links in a card format.
  *
@@ -67,14 +79,16 @@ function rand_color() {
  * @return void
  */
 function show_links($links, $title) {
-	global $logs;
-	global $settings;
+	// global $logs;
+	// global $settings;
+
+	// die(print_r($logs));
 
 	$border_color = rand_color();
 
 	natcasesort($links);
 	echo '
-	<div class="card m-0 p-0 bg-transparent border-0">
+	<div class="card m-0 p-1 bg-transparent border-1">
 		<div class="card-body p-0 m-0 bg-transparent border-0">
 			<div class="card-header bg-transparent p-0"><span class="title">'.$title.'</span></div>
 			<ul class="list-group list-group-flush border-0 pb-1">';
@@ -86,19 +100,21 @@ function show_links($links, $title) {
 		
 		echo '<li class="list-group-item list-group-item-action bg-transparent border-0 p-1">';
 		echo '<a href="' . $key . '" style="display:block">';
-		if ($settings['show_icon']) {
-			$local_name = 'img/icons/'.$value.'.png';
+		$local_name = 'img/icons/'.$value.'.png';
 
-			if (!file_exists($local_name)) {
-				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=256'));
-			}
-
-			if (filesize($local_name) == 0) {
-				copy($local_name_offline, $local_name);
-			}
-			echo '<img src="'.$local_name.'" class="icon" style="clear:both" /> ';
+		if (!file_exists($local_name)) {
+			file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=256'));
 		}
+
+		if (filesize($local_name) == 0) {
+			copy($local_name_offline, $local_name);
+		}
+		echo '<img src="'.$local_name.'" class="icon" style="clear:both" /> ';
+		
 		echo '<span class="icon-name">' . $name_display. '</span>';
+		/* if (intval($logs[$key])>0) {
+			echo '<span class="link-counter"> // '.$logs[$key].'</span>';
+		} */
 		echo '</a>';
 		echo '</li>';
 	}
@@ -151,52 +167,50 @@ function load_todo() {
 		<title> ~ esquire </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-darkly.min.css" >
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/style.min.css">
 		<meta http-equiv="refresh" content="<?php echo $settings['refresh_rate']; ?>" />
 	</head>
 	<body>
 	
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-10 p-0">					
-					<div class="row">
-						<div class="col">
+				<div class="col-lg-10 col-md-9 col-xs-6 p-0">					
+					<div class="row row-no-gutters">
+						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
 							<?php 
 								show_links($project_links, 'projects'); 
-							?>
-						</div>
-						<div class="col">
-							<?php 
 								show_links($links['system'], 'system'); 
-								show_links($links['work'], 'work'); 
+								show_links($links['softalliance'], 'soft alliance');
 							?>
 						</div>
-						<div class="col">
+						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
 							<?php 
+								show_links($links['work'], 'work'); 
 								show_links($links['hosting'], 'hosting');
 								show_links($links['utilities'], 'utilities'); 
 							?>	
 						</div>
-						<div class="col">
+						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
 							<?php  
-								show_links($links['projectmgt'], 'project mgt');
 								show_links($links['reading'], 'reading');
+								show_links($links['media'], 'media');
 								show_links($links['learning'], 'learning');
 							?>
 						</div>
-						<div class="col">
+						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
 							<?php 
+								show_links($links['projectmgt'], 'project mgt');
 								show_links($links['games'], 'games');
 								show_links($links['sports'], 'sports');
 							?>
 						</div>
-						<div class="col">
+						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
 							<?php 
 							show_links($links['graphics'], 'graphics');
 							show_links($links['coding'], 'coding');
 							?>
 						</div>
-						<div class="col">
+						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
 							<?php 
 								show_links($links['ai'], 'ai');
 								show_links($links['warez'], 'warez'); 
@@ -204,14 +218,10 @@ function load_todo() {
 						</div>
 					</div>
 				</div>
-				<div class="col-2 p-0">
-					<div class="card">
+				<div class="col-lg-2 col-md-3 col-xs-6 p-0 bg-black"> 
+					<div class="card bg-transparent">
 						<div class="card-body">
 							<?php echo load_todo(); ?>
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-body">
 							<form action="index.php" method="post" class="form">
 								<div class="form row align-items-center p-1">
 									<div class="col-8"><input type="text" name="todo" class="form-control form-control-sm m-0"></div>
@@ -220,10 +230,6 @@ function load_todo() {
 								</div>
 															
 							</form>
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-body">
 							<img src="<?php echo display_random_wallpaper(); ?>" class="img-fluid" />
 						</div>
 					</div>

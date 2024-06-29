@@ -1,36 +1,32 @@
 {
-  "system": {
-    "http://localhost/phpmyadmin": "phpmyadmin",
-    "http://esquire-xps15:8989": "sonarr",
-    "http://esquire-xps15:8096": "jellyfin",
-    "https://web.whatsapp.com": "whatsapp",
-    "https://web.telegram.org": "telegram",
-    "http://localhost:8384/": "syncthing"
+  "ai": {
+    "https://chat.openai.com": "chatGPT",
+    "https://lexica.art/aperture": "lexica",
+    "https://labs.openai.com": "dall-e",
+    "https://www.futurepedia.io": "futurepedia",
+    "https://agentgpt.reworkd.ai": "agent gpt",
+    "https://play.ht": "play ht",
+    "https://copilot.microsoft.com": "copilot",
+    "https://useanything.com": "use anything",
+    "https://meta.ai": "meta ai",
+    "https://gemini.google.com/app": "gemini",
+    "https://ollama.com": "ollama",
+    "https://lmstudio.ai": "lm studio",
+    "https://www.phidata.com": "phidata",
+    "https://github.com/weaviate/verba": "verba"
   },
-  "reading": {
-    "https://feedly.com": "feedly",
-    "https://reddit.com": "reddit",
-    "https://twitter.com": "twitter",
-    "https://nairaland.com": "nairaland",
-    "https://boredpanda.com": "bored panda"
+  
+  "clients": {
+    "https://ademola.oladipo.com.ng": "ademola oladipo"
   },
-  "work": {
-    "https://app.smartwork.ng/account/dashboard": "smartwork",
-    "https://mail.google.com": "gmail",
-    "https://keep.google.com": "keep",
-    "https://drive.google.com": "drive",
-    "https://www.microsoft365.com/": "microsoft 365"
-  },
-  "projectmgt": {
-    "https://pmi.org": "pmi",
-    "https://projectmanagementdocs.com": "pm docs",
-    "https://www.projectmanagement.com": "pm",
-    "https://www.stakeholdermap.com/project-templates/project-management-templates.html": "pm templates"
-  },
-  "media": {
-    "https://youtube.com": "youtube",
-    "https://www.wcofun.net": "wcofun",
-    "https://spotify.com": "spotify"
+  "coding": {
+    "https://www.modular.com/max/mojo": "mojo",
+    "https://onyxlang.io": "onyx",
+    "https://baserow.io": "baserow",
+    "https://pocketbase.io": "pocketbase",
+    "https://gdevelop.io": "gdevelop",
+    "https://openblocks.dev": "open blocks",
+    "https://stackoverflow.com": "stackoverflow"
   },
   "games": {
     "https://crazygames.com": "crazy games",
@@ -39,52 +35,7 @@
     "https://playclassic.games": "play classic games",
     "http://emugames.net": "emu games",
     "https://gamesnostalgia.com": "games nostalgia",
-    "https://store.steampowered.com/": "steam"
-  },
-  "sports": {
-    "https://livescore.com": "livescores",
-    "https://www.arsenal.com": "arsenal",
-    "https://premierleague.com": "premier league",
-    "https://www.uefa.com/uefachampionsleague/": "ucl",
-    "https://r.soccerstreams100.io/": "soccer streams 100",
-    "https://sportybet.com": "sporty bet"
-  },
-  "learning": {
-    "https://exercism.org/dashboard": "exercism",
-    "https://coursera.org": "coursera",
-    "https://udemy.com": "udemy",
-    "https://freecodecamp.org": "freecodecamp",
-    "https://www.mygreatlearning.com": "great learning"
-  },
-  "utilities": {
-    "https://123apps.com": "123apps",
-    "https://sejda.com/pdf-editor": "sejda-pdf",
-    "https://alternativeto.net": "alternativeto",
-    "https://convertio.co": "convertio",
-    "https://www.convertfiles.ai/": "convert files"
-  },
-  "warez": {
-    "https://wplocker.com": "wplocker",
-    "https://torrentgalaxy.to": "torrent galaxy",
-    "https://codelist.cc": "codelist",
-    "https://themelock.com": "themelock",
-    "https://steamrip.com": "steamrip",
-    "https://downloadly.ir": "downloadly",
-    "https://bitdownload.ir": "bitdownload",
-    "https://z-lib.io/": "z lib",
-    "https://9jarocks.com": "9jarocks"
-  },
-  "ai": {
-    "https://chat.openai.com": "chatGPT",
-    "https://lexica.art/aperture": "lexica",
-    "https://labs.openai.com": "dall-e",
-    "https://bard.google.com": "bard",
-    "https://www.futurepedia.io/": "futurepedia",
-    "https://agentgpt.reworkd.ai/": "agent gpt",
-    "https://play.ht/": "play ht",
-    "https://copilot.microsoft.com/": "copilot",
-    "https://useanything.com/": "use anything",
-    "https://meta.ai": "meta ai"
+    "https://store.steampowered.com": "steam"
   },
   "graphics": {
     "https://themeforest.net": "themeforest",
@@ -94,14 +45,14 @@
     "https://slidesgo.com": "slides go",
     "https://slidescarnival.com": "slides carnival",
     "https://wepik.com": "wepik",
-    "https://www.videvo.net/": "videvo",
-    "https://mixkit.co/": "mixkit",
-    "https://www.upscale.media/": "upscale",
-    "https://www.shrink.media/": "shrink media",
-    "https://www.erase.bg/": "erase bg"
+    "https://www.videvo.net": "videvo",
+    "https://mixkit.co": "mixkit",
+    "https://www.upscale.media": "upscale",
+    "https://www.shrink.media": "shrink media",
+    "https://www.erase.bg": "erase bg"
   },
   "hosting": {
-    "https://whogohost.com": "whogohost",
+    "https://www.whogohost.com/host/clientarea.php": "whogohost",
     "https://hostforweb.com": "hostforweb",
     "https://websguy.com:2083": "websguy",
     "https://ionos.com": "ionos",
@@ -109,17 +60,82 @@
     "https://cloudflare.com": "cloudflare",
     "https://websguy.com.ng:8083": "websguy ng",
     "https://www.hostinger.com": "hostinger",
-    "https://go54.com": "go54"
+    "https://go54.com": "go54",
+    "https://s2912.fra1.stableserver.net:2083": "stableserver",
+    "https://ovh.com": "ovh"
   },
-  "clients": {
-    "https://ademola.oladipo.com.ng/": "ademola oladipo"
+  "learning": {
+    "https://exercism.org/dashboard": "exercism",
+    "https://coursera.org": "coursera",
+    "https://udemy.com": "udemy",
+    "https://freecodecamp.org": "freecodecamp",
+    "https://www.mygreatlearning.com": "great learning"
   },
-  "coding": {
-    "https://www.modular.com/max/mojo": "mojo",
-    "https://onyxlang.io/": "onyx",
-    "https://baserow.io/": "baserow",
-    "https://pocketbase.io/": "pocketbase",
-    "https://gdevelop.io/": "gdevelop",
-    "https://openblocks.dev/": "open blocks"
+  "media": {
+    "https://youtube.com": "youtube",
+    "https://www.wcofun.net": "wcofun",
+    "https://spotify.com": "spotify",
+    "https://music.youtube.com": "youtube music"
+  },
+  "projectmgt": {
+    "https://pmi.org": "pmi",
+    "https://projectmanagementdocs.com": "pm docs",
+    "https://www.projectmanagement.com": "pm",
+    "https://www.stakeholdermap.com/project-templates/project-management-templates.html": "pm templates"
+  },
+  "reading": {
+    "https://feedly.com": "feedly",
+    "https://reddit.com": "reddit",
+    "https://x.com": "x",
+    "https://nairaland.com": "nairaland",
+    "https://boredpanda.com": "bored panda",
+    "https://discord.com/app": "discord"
+  },
+  "softalliance": {
+    "http://sarl1007lp:4001": "anythingllm",
+    "http://sarl1007lp:4003": "open webui",
+    "https://app.softsuite.com": "softsuite",
+    "https://intranet.softalliance.com": "softalliance intranet"
+    
+  },
+  "sports": {
+    "https://livescore.com": "livescores",
+    "https://www.arsenal.com": "arsenal",
+    "https://premierleague.com": "premier league",
+    "https://www.uefa.com/uefachampionsleague": "ucl",
+    "https://r.soccerstreams100.io": "soccer streams 100",
+    "https://sportybet.com": "sporty bet"
+  },
+  "system": {
+    "http://localhost/phpmyadmin": "phpmyadmin",
+    "http://esquire-xps15:8989": "sonarr",
+    "http://esquire-xps15:8096": "jellyfin",
+    "https://web.whatsapp.com": "whatsapp",
+    "https://web.telegram.org": "telegram",
+    "http://localhost:8384": "syncthing",
+    "http://192.168.0.1": "mtn mifi"
+  },
+  "utilities": {
+    "https://123apps.com": "123apps",
+    "https://sejda.com/pdf-editor": "sejda-pdf",
+    "https://alternativeto.net": "alternativeto",
+    "https://convertio.co": "convertio",
+    "https://www.convertfiles.ai": "convert files"
+  },
+  "warez": {
+    "https://wplocker.com": "wplocker",
+    "https://torrentgalaxy.to": "torrent galaxy",
+    "https://codelist.cc": "codelist",
+    "https://themelock.com": "themelock",
+    "https://steamrip.com": "steamrip",
+    "https://downloadly.ir": "downloadly",
+    "https://z-lib.io": "z lib"
+  },
+  "work": {
+    "https://app.smartwork.ng/account/dashboard": "smartwork",
+    "https://mail.google.com": "gmail",
+    "https://keep.google.com": "keep",
+    "https://drive.google.com": "drive",
+    "https://www.microsoft365.com": "microsoft 365"
   }
 }
