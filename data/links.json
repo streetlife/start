@@ -12,12 +12,12 @@
     "https://gemini.google.com/app": "gemini",
     "https://ollama.com": "ollama",
     "https://lmstudio.ai": "lm studio",
-    "https://www.phidata.com": "phidata",
-    "https://github.com/weaviate/verba": "verba"
+    "https://www.phidata.com": "phidata"
   },
   
   "clients": {
-    "https://ademola.oladipo.com.ng": "ademola oladipo"
+    "https://ademola.oladipo.com.ng": "ademola oladipo",
+    "https://barterfly.ca": "barterfly"
   },
   "coding": {
     "https://www.modular.com/max/mojo": "mojo",
