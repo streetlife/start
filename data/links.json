@@ -89,7 +89,8 @@
     "https://x.com": "x",
     "https://nairaland.com": "nairaland",
     "https://boredpanda.com": "bored panda",
-    "https://discord.com/app": "discord"
+    "https://discord.com/app": "discord",
+    "https://daily.dev": "daily dev"
   },
   "softalliance": {
     "http://sarl1007lp:4001": "anythingllm",
@@ -120,7 +121,8 @@
     "https://sejda.com/pdf-editor": "sejda-pdf",
     "https://alternativeto.net": "alternativeto",
     "https://convertio.co": "convertio",
-    "https://www.convertfiles.ai": "convert files"
+    "https://www.convertfiles.ai": "convert files",
+    "https://www.screenshotmachine.com/": "screenshot machine"
   },
   "warez": {
     "https://wplocker.com": "wplocker",

@@ -11,3 +11,4 @@ $logs[$link] = $hit_count + 1;
 file_put_contents($log_file, json_encode($logs));
 
 header('location:'.$link);
+

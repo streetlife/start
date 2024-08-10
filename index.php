@@ -221,6 +221,14 @@ function load_todo() {
 				<div class="col-lg-2 col-md-3 col-xs-6 p-0 bg-black"> 
 					<div class="card bg-transparent">
 						<div class="card-body">
+						<form id="search-form" method="get" onsubmit="return handleSearch();">
+							<label for="search-box">Search Google or Enter URL:</label>
+							<input type="text" id="search-box" name="q" placeholder="Enter your search query or URL here" class="form-control form-control-sm m-0" required>
+						</form>
+						</div>
+					</div>
+					<div class="card bg-transparent">
+						<div class="card-body">
 							<?php echo load_todo(); ?>
 							<form action="index.php" method="post" class="form">
 								<div class="form row align-items-center p-1">
@@ -237,5 +245,34 @@ function load_todo() {
 			</div>
 		</div>
 		<script src="js/bootstrap.bundle.min.js"></script>
+		<script>
+			window.onload = function() {
+				document.getElementById('search-box').focus();
+			};
+
+			function isValidURL(string) {
+				try {
+					new URL(string);
+					return true;
+				} catch (_) {
+					return false;
+				}
+			}
+
+			function handleSearch() {
+				var query = document.getElementById('search-box').value.trim();
+
+				if (isValidURL(query)) {
+					window.location.href = query.startsWith("http") ? query : "http://" + query;
+				} else {
+					// Perform a Google search
+					var form = document.getElementById('search-form');
+					form.action = "https://www.google.com/search";
+					form.submit();
+				}
+
+				return false; // Prevent default form submission
+			}
+		</script>
 	</body>
 </html>
