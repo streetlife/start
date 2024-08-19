@@ -12,7 +12,8 @@
     "https://gemini.google.com/app": "gemini",
     "https://ollama.com": "ollama",
     "https://lmstudio.ai": "lm studio",
-    "https://www.phidata.com": "phidata"
+    "https://www.phidata.com": "phidata",
+    "https://getimg.ai/text-to-image": "getimg ai"
   },
   
   "clients": {

@@ -221,10 +221,14 @@ function load_todo() {
 				<div class="col-lg-2 col-md-3 col-xs-6 p-0 bg-black"> 
 					<div class="card bg-transparent">
 						<div class="card-body">
-						<form id="search-form" method="get" onsubmit="return handleSearch();">
-							<label for="search-box">Search Google or Enter URL:</label>
-							<input type="text" id="search-box" name="q" placeholder="Enter your search query or URL here" class="form-control form-control-sm m-0" required>
-						</form>
+						<img src="<?php echo display_random_wallpaper(); ?>" class="img-fluid" /></div>
+					</div>
+					<div class="card bg-transparent">
+						<div class="card-body">
+							<form id="search-form" method="get" onsubmit="return handleSearch();">
+								<label for="search-box">Search Google or Enter URL:</label>
+								<input type="text" id="search-box" name="q" placeholder="" class="form-control form-control-sm m-0" required>
+							</form>
 						</div>
 					</div>
 					<div class="card bg-transparent">
@@ -238,7 +242,6 @@ function load_todo() {
 								</div>
 															
 							</form>
-							<img src="<?php echo display_random_wallpaper(); ?>" class="img-fluid" />
 						</div>
 					</div>
 				</div>
