@@ -1,6 +1,5 @@
 body {
     padding: 10px;
-    background-color: black;
 }
 .bg-image {
     background-repeat: no-repeat;
@@ -21,12 +20,6 @@ a {
     text-decoration: none;
     display: block;
     font-size: .9em;
-    color: #cac4c4;
-}
-a:hover {
-    opacity: 1;
-    background-color: #ffffff;
-    color: #000000;
 }
 .title {
     font-family: sans-serif;
@@ -35,10 +28,6 @@ a:hover {
     text-transform: uppercase;
     letter-spacing: 0.7em;
     padding-left: 10px;
-    color: yellow;
-}
-#ct {
-    font-size: 0.7em;
 }
 .icon-name {
     overflow: hidden;
@@ -46,17 +35,4 @@ a:hover {
 
 .full-screen-div {
     height: 100vh;
-}
-
-.link-counter {
-    color: yellow;
-    font-size: 0.5em;
-}
-
-.listColumn {
-    background-color: #000000;
-}
-
-.listColumn:hover {
-    background-color: #0d1c00;
 }

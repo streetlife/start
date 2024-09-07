@@ -5,6 +5,13 @@ $settings = [
 	'refresh_rate'=>600,
 ];
 
+$column_css = 'col-sm-6 col-md-4 col-lg-4 col-xl-2 listColumn';
+
+if (isset($_GET['style'])) {
+    file_put_contents('selected_style.txt', $_GET['style']);
+}
+
+$selected_style = file_get_contents('selected_style.txt');
 
 $projects_folder = '..';
 $dirs = array_filter(glob($projects_folder . '/*'), 'is_dir');
@@ -12,6 +19,15 @@ foreach ($dirs as $value) {
 	$value = strtolower(str_replace('../','',$value));
 	$project_links['https://'.$value.'.test'] = $value;
 }
+
+$css_files = glob('css/bootstrap-*.css');
+// die(print_r($css_files));
+$select_list = '<select name="style" onchange="this.form.submit()">';
+foreach ($css_files as $css_file) {
+    $select_list .= '<option value="' . $css_file . '" ' . ($selected_style == $css_file ? 'selected' : '') . '>' . $css_file . '</option>';
+}
+$select_list .= '</select>';
+$css_form = '<form method="get">' . $select_list . '</form>';
 
 $todo_file = 'data/todo.json';
 $links_file = 'data/links.json';
@@ -166,7 +182,7 @@ function load_todo() {
 	<head>
 		<title> ~ esquire </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-darkly.min.css" >
+		<link rel="stylesheet" type="text/css" href="<?php echo $selected_style; ?>" >
 		<link rel="stylesheet" type="text/css" href="css/style.min.css">
 		<meta http-equiv="refresh" content="<?php echo $settings['refresh_rate']; ?>" />
 	</head>
@@ -174,43 +190,43 @@ function load_todo() {
 	
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-10 col-md-9 col-xs-6 p-0">					
+				<div class="col-lg-10 col-md-9 col-sm-6 p-0">					
 					<div class="row row-no-gutters">
-						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
+						<div class="<?php echo $column_css; ?>">
 							<?php 
 								show_links($project_links, 'projects'); 
 								show_links($links['system'], 'system'); 
 								show_links($links['softalliance'], 'soft alliance');
 							?>
 						</div>
-						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
+						<div class="<?php echo $column_css; ?>">
 							<?php 
 								show_links($links['work'], 'work'); 
 								show_links($links['hosting'], 'hosting');
 								show_links($links['utilities'], 'utilities'); 
 							?>	
 						</div>
-						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
+						<div class="<?php echo $column_css; ?>">
 							<?php  
 								show_links($links['reading'], 'reading');
 								show_links($links['media'], 'media');
 								show_links($links['learning'], 'learning');
 							?>
 						</div>
-						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
+						<div class="<?php echo $column_css; ?>">
 							<?php 
 								show_links($links['projectmgt'], 'project mgt');
 								show_links($links['games'], 'games');
 								show_links($links['sports'], 'sports');
 							?>
 						</div>
-						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
+						<div class="<?php echo $column_css; ?>">
 							<?php 
 							show_links($links['graphics'], 'graphics');
 							show_links($links['coding'], 'coding');
 							?>
 						</div>
-						<div class="col-xs-6 col-md-2 col-lg-2 listColumn">
+						<div class="<?php echo $column_css; ?>">
 							<?php 
 								show_links($links['ai'], 'ai');
 								show_links($links['warez'], 'warez'); 
@@ -218,7 +234,10 @@ function load_todo() {
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-2 col-md-3 col-xs-6 p-0 bg-black"> 
+				<div class="col-lg-2 col-md-3 col-sm-6 p-0"> 
+					<div class="card bg-transparent">
+						<?php echo $css_form; ?>
+					</div>
 					<div class="card bg-transparent">
 						<div class="card-body">
 						<img src="<?php echo display_random_wallpaper(); ?>" class="img-fluid" /></div>

@@ -135,7 +135,7 @@
     "https://z-lib.io": "z lib"
   },
   "work": {
-    "https://app.smartwork.ng/account/dashboard": "smartwork",
+    "https://app.smartwork.ng/public/account/dashboard": "smartwork",
     "https://mail.google.com": "gmail",
     "https://keep.google.com": "keep",
     "https://drive.google.com": "drive",
