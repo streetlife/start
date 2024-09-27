@@ -8,7 +8,7 @@ body {
     background-size: cover;
 }
 .icon {
-    width: 18px;
+    width: 16px;
     margin-right: 0px;
     margin-left: 0px;
     display: inline-block;
@@ -35,4 +35,63 @@ a {
 
 .full-screen-div {
     height: 100vh;
+}
+.listColumn {
+    border: none;
+}
+
+.card {
+    border: 0;
+}
+
+.list-card {
+    margin: 0 0 20px 0;
+    border: 1px solid;
+    padding: 5px;
+}
+.list-card:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.list-card a, .list-card .title {
+    color: #ffffff;
+}
+
+.list-card:hover a, .list-card:hover .title {
+    color: #000000;
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .links_list {
+        columns: 3;
+        -webkit-columns: 3;
+        -moz-columns: 3;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .links_list {
+        columns: 4;
+        -webkit-columns: 4;
+        -moz-columns: 4;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .links_list {
+        columns: 6;
+        -webkit-columns: 6;
+        -moz-columns: 6;
+    }
+}
+
+#currentTime, #currentTime2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
 }

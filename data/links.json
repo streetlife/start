@@ -1,144 +1,160 @@
 {
-  "ai": {
-    "https://chat.openai.com": "chatGPT",
-    "https://lexica.art/aperture": "lexica",
-    "https://labs.openai.com": "dall-e",
-    "https://www.futurepedia.io": "futurepedia",
-    "https://agentgpt.reworkd.ai": "agent gpt",
-    "https://play.ht": "play ht",
-    "https://copilot.microsoft.com": "copilot",
-    "https://useanything.com": "use anything",
-    "https://meta.ai": "meta ai",
-    "https://gemini.google.com/app": "gemini",
-    "https://ollama.com": "ollama",
-    "https://lmstudio.ai": "lm studio",
-    "https://www.phidata.com": "phidata",
-    "https://getimg.ai/text-to-image": "getimg ai"
-  },
-  
-  "clients": {
-    "https://ademola.oladipo.com.ng": "ademola oladipo",
-    "https://barterfly.ca": "barterfly"
-  },
-  "coding": {
-    "https://www.modular.com/max/mojo": "mojo",
-    "https://onyxlang.io": "onyx",
-    "https://baserow.io": "baserow",
-    "https://pocketbase.io": "pocketbase",
-    "https://gdevelop.io": "gdevelop",
-    "https://openblocks.dev": "open blocks",
-    "https://stackoverflow.com": "stackoverflow"
-  },
-  "games": {
-    "https://crazygames.com": "crazy games",
-    "https://epicgames.com": "epic games",
-    "https://gog.com": "gog",
-    "https://playclassic.games": "play classic games",
-    "http://emugames.net": "emu games",
-    "https://gamesnostalgia.com": "games nostalgia",
-    "https://store.steampowered.com": "steam"
-  },
-  "graphics": {
-    "https://themeforest.net": "themeforest",
-    "https://codecanyon.net": "codecanyon",
-    "https://canva.com": "canva",
-    "https://storyset.com": "story set",
-    "https://slidesgo.com": "slides go",
-    "https://slidescarnival.com": "slides carnival",
-    "https://wepik.com": "wepik",
-    "https://www.videvo.net": "videvo",
-    "https://mixkit.co": "mixkit",
-    "https://www.upscale.media": "upscale",
-    "https://www.shrink.media": "shrink media",
-    "https://www.erase.bg": "erase bg"
-  },
-  "hosting": {
-    "https://www.whogohost.com/host/clientarea.php": "whogohost",
-    "https://hostforweb.com": "hostforweb",
-    "https://websguy.com:2083": "websguy",
-    "https://ionos.com": "ionos",
-    "https://iwebfusion.net": "iwebfusion",
-    "https://cloudflare.com": "cloudflare",
-    "https://websguy.com.ng:8083": "websguy ng",
-    "https://www.hostinger.com": "hostinger",
-    "https://go54.com": "go54",
-    "https://s2912.fra1.stableserver.net:2083": "stableserver",
-    "https://ovh.com": "ovh"
-  },
-  "learning": {
-    "https://exercism.org/dashboard": "exercism",
-    "https://coursera.org": "coursera",
-    "https://udemy.com": "udemy",
-    "https://freecodecamp.org": "freecodecamp",
-    "https://www.mygreatlearning.com": "great learning"
-  },
-  "media": {
-    "https://youtube.com": "youtube",
-    "https://www.wcofun.net": "wcofun",
-    "https://spotify.com": "spotify",
-    "https://music.youtube.com": "youtube music"
-  },
-  "projectmgt": {
-    "https://pmi.org": "pmi",
-    "https://projectmanagementdocs.com": "pm docs",
-    "https://www.projectmanagement.com": "pm",
-    "https://www.stakeholdermap.com/project-templates/project-management-templates.html": "pm templates"
-  },
-  "reading": {
-    "https://feedly.com": "feedly",
-    "https://reddit.com": "reddit",
-    "https://x.com": "x",
-    "https://nairaland.com": "nairaland",
-    "https://boredpanda.com": "bored panda",
-    "https://discord.com/app": "discord",
-    "https://daily.dev": "daily dev"
-  },
-  "softalliance": {
-    "http://sarl1007lp:4001": "anythingllm",
-    "http://sarl1007lp:4003": "open webui",
-    "https://app.softsuite.com": "softsuite",
-    "https://intranet.softalliance.com": "softalliance intranet"
-    
-  },
-  "sports": {
-    "https://livescore.com": "livescores",
-    "https://www.arsenal.com": "arsenal",
-    "https://premierleague.com": "premier league",
-    "https://www.uefa.com/uefachampionsleague": "ucl",
-    "https://r.soccerstreams100.io": "soccer streams 100",
-    "https://sportybet.com": "sporty bet"
-  },
   "system": {
-    "http://localhost/phpmyadmin": "phpmyadmin",
-    "http://esquire-xps15:8989": "sonarr",
-    "http://esquire-xps15:8096": "jellyfin",
-    "https://web.whatsapp.com": "whatsapp",
-    "https://web.telegram.org": "telegram",
-    "http://localhost:8384": "syncthing",
-    "http://192.168.0.1": "mtn mifi"
-  },
-  "utilities": {
-    "https://123apps.com": "123apps",
-    "https://sejda.com/pdf-editor": "sejda-pdf",
-    "https://alternativeto.net": "alternativeto",
-    "https://convertio.co": "convertio",
-    "https://www.convertfiles.ai": "convert files",
-    "https://www.screenshotmachine.com/": "screenshot machine"
-  },
-  "warez": {
-    "https://wplocker.com": "wplocker",
-    "https://torrentgalaxy.to": "torrent galaxy",
-    "https://codelist.cc": "codelist",
-    "https://themelock.com": "themelock",
-    "https://steamrip.com": "steamrip",
-    "https://downloadly.ir": "downloadly",
-    "https://z-lib.io": "z lib"
+    "phpmyadmin": "http://localhost/phpmyadmin",
+    "sonarr": "http://esquire-xps15:8989",
+    "jellyfin": "http://esquire-xps15:8096",
+    "whatsapp": "https://web.whatsapp.com",
+    "telegram": "https://web.telegram.org",
+    "syncthing": "http://localhost:8384",
+    "mtn mifi": "http://192.168.0.1"
   },
   "work": {
-    "https://app.smartwork.ng/public/account/dashboard": "smartwork",
-    "https://mail.google.com": "gmail",
-    "https://keep.google.com": "keep",
-    "https://drive.google.com": "drive",
-    "https://www.microsoft365.com": "microsoft 365"
+    "smartwork": "https://app.smartwork.ng/public/account/dashboard",
+    "gmail": "https://mail.google.com",
+    "keep": "https://keep.google.com",
+    "drive": "https://drive.google.com",
+    "microsoft 365": "https://www.microsoft365.com"
+  },
+  "projects": {
+    "ademola oladipo": "https://oladipo.com.ng",
+    "barterfly": "https://barterfly.ca",
+    "incel portal": "https://portal.inceltourism.com/",
+    "incel portal test": "https://portaltest.incelgroup.com/",
+    "digiticket tester": "https://app.digiticket.ng/tester.php",
+    "madina wears": "https://madinawears.com.ng",
+    "workspace": "https://workspace.com.ng",
+    "digiticket log": "https://app.digiticket.ng/log_viewer.php?key=dU1VyIYuYSzjh7auuZfg9TaikWeVqLEh"
+  },
+  "hosting": {
+    "whogohost": "https://www.whogohost.com/host/clientarea.php",
+    "hostforweb": "https://hostforweb.com",
+    "websguy": "https://websguy.com:2083",
+    "ionos": "https://ionos.com",
+    "iwebfusion": "https://iwebfusion.net",
+    "cloudflare": "https://cloudflare.com",
+    "websguy ng": "https://websguy.com.ng:8083",
+    "hostinger": "https://www.hostinger.com",
+    "go54": "https://go54.com",
+    "stableserver": "https://s2912.fra1.stableserver.net:2083",
+    "ovh": "https://ovh.com",
+    "lagos whmcs": "https://lagosstate.gov.ng:2087/",
+    "lagos cpanel": "https://lagosstate.gov.ng:2083/",
+    "name cheap": "https://namecheap.com"
+  },
+  "ai": {
+    "chatGPT": "https://chat.openai.com",
+    "lexica": "https://lexica.art/aperture",
+    "dall-e": "https://labs.openai.com",
+    "futurepedia": "https://www.futurepedia.io",
+    "agent gpt": "https://agentgpt.reworkd.ai",
+    "play ht": "https://play.ht",
+    "copilot": "https://copilot.microsoft.com",
+    "use anything": "https://useanything.com",
+    "meta ai": "https://meta.ai",
+    "gemini": "https://gemini.google.com/app",
+    "ollama": "https://ollama.com",
+    "phidata": "https://www.phidata.com",
+    "getimg ai": "https://getimg.ai/text-to-image"
+  },
+  "reading": {
+    "feedly": "https://feedly.com",
+    "reddit": "https://reddit.com",
+    "x": "https://x.com",
+    "nairaland": "https://nairaland.com",
+    "bored panda": "https://boredpanda.com",
+    "discord": "https://discord.com/app",
+    "daily dev": "https://daily.dev"
+  },
+  "links": {
+    "anythingllm": "http://sarl1007lp:4001",
+    "open webui": "http://sarl1007lp:4003",
+    "softsuite": "https://app.softsuite.com",
+    "soft intranet": "https://intranet.softalliance.com",
+    "lagos state web": "https://lagosstate.gov.ng/smartlaga9m1n"
+  },
+  "learning": {
+    "exercism": "https://exercism.org/dashboard",
+    "coursera": "https://coursera.org",
+    "udemy": "https://udemy.com",
+    "freecodecamp": "https://freecodecamp.org",
+    "great learning": "https://www.mygreatlearning.com"
+  },
+  "media": {
+    "youtube": "https://youtube.com",
+    "wcofun": "https://www.wcofun.net",
+    "spotify": "https://spotify.com",
+    "youtube music": "https://music.youtube.com",
+    "tiktok": "https://tiktok.com"
+  },
+  "coding": {
+    "mojo": "https://www.modular.com/max/mojo",
+    "onyx": "https://onyxlang.io",
+    "baserow": "https://baserow.io",
+    "pocketbase": "https://pocketbase.io",
+    "gdevelop": "https://gdevelop.io",
+    "open blocks": "https://openblocks.dev",
+    "stackoverflow": "https://stackoverflow.com"
+  },
+  "games": {
+    "crazy games": "https://crazygames.com",
+    "epic games": "https://epicgames.com",
+    "gog": "https://gog.com",
+    "play classic games": "https://playclassic.games",
+    "emu games": "http://emugames.net",
+    "games nostalgia": "https://gamesnostalgia.com",
+    "steam": "https://store.steampowered.com",
+    "wordle": "https://wordle.nyc"
+  },
+  "templates": {
+    "themeforest": "https://themeforest.net",
+    "codecanyon": "https://codecanyon.net",
+    "slides go": "https://slidesgo.com",
+    "story set": "https://storyset.com",
+    "wepik": "https://wepik.com",
+    "videvo": "https://www.videvo.net",
+    "mixkit": "https://mixkit.co",
+    "slides carnival": "https://slidescarnival.com"
+
+  },
+  "graphics": {
+    "canva": "https://canva.com",
+    "upscale": "https://www.upscale.media",
+    "shrink media": "https://www.shrink.media",
+    "erase bg": "https://www.erase.bg",
+    "eyecannndy": "https://eyecannndy.com"
+  },
+  "projectmgt": {
+    "pmi": "https://pmi.org",
+    "pm docs": "https://projectmanagementdocs.com",
+    "pm": "https://www.projectmanagement.com",
+    "pm templates": "https://www.stakeholdermap.com/project-templates/project-management-templates.html",
+    "pmi africa": "https://pmiafricaconference.com"
+  },
+  "sports": {
+    "livescores": "https://livescore.com",
+    "arsenal": "https://www.arsenal.com",
+    "premier league": "https://premierleague.com",
+    "ucl": "https://www.uefa.com/uefachampionsleague",
+    "soccer streams 100": "https://r.soccerstreams100.io",
+    "sporty bet": "https://sportybet.com"
+  },
+  "utilities": {
+    "123apps": "https://123apps.com",
+    "sejda-pdf": "https://sejda.com/pdf-editor",
+    "alternativeto": "https://alternativeto.net",
+    "convertio": "https://convertio.co",
+    "convert files": "https://www.convertfiles.ai",
+    "screenshot machine": "https://www.screenshotmachine.com",
+    "playphrase": "https://playphrase.me"
+  },
+  "warez": {
+    "wplocker": "https://wplocker.com",
+    "torrent galaxy": "https://torrentgalaxy.to",
+    "codelist": "https://codelist.cc",
+    "themelock": "https://themelock.com",
+    "steamrip": "https://steamrip.com",
+    "downloadly": "https://downloadly.ir",
+    "z lib": "https://z-lib.io",
+    "audio bb": "https://AudioBB.net"
   }
 }

@@ -1,272 +1,121 @@
-<?php 
+<?php
 ini_set('display_errors', 0);
-$settings = [
-	'show_icon'=>true,
-	'refresh_rate'=>600,
-];
+define('SHOW_ICON', true);
+define('REFRESH_RATE', 600);
+define('TODO_FILE', 'data/todo.json');
+define('LINKS_FILE', 'data/links.json');
 
-$column_css = 'col-sm-6 col-md-4 col-lg-4 col-xl-2 listColumn';
+$column_css = 'col-sm-6 col-md-4 col-lg-4 col-xl-2 listColumn border-0';
 
-if (isset($_GET['style'])) {
-    file_put_contents('selected_style.txt', $_GET['style']);
-}
+include('functions.php');
 
-$selected_style = file_get_contents('selected_style.txt');
+$todos = json_decode(file_get_contents(TODO_FILE), true);
+$menuData = json_decode(file_get_contents(LINKS_FILE), true);
 
 $projects_folder = '..';
 $dirs = array_filter(glob($projects_folder . '/*'), 'is_dir');
 foreach ($dirs as $value) {
 	$value = strtolower(str_replace('../','',$value));
-	$project_links['https://'.$value.'.test'] = $value;
+	// $project_links['https://'.$value.'.test'] = $value;
+	$project_links[$value] = 'https://'.$value.'.test';
 }
 
-$css_files = glob('css/bootstrap-*.css');
-// die(print_r($css_files));
-$select_list = '<select name="style" onchange="this.form.submit()">';
-foreach ($css_files as $css_file) {
-    $select_list .= '<option value="' . $css_file . '" ' . ($selected_style == $css_file ? 'selected' : '') . '>' . $css_file . '</option>';
-}
-$select_list .= '</select>';
-$css_form = '<form method="get">' . $select_list . '</form>';
+$menuData['dev projects'] = $project_links;
+$menuData = array_merge(array('dev projects' => $menuData['dev projects']), array_diff_key($menuData, array('dev projects' => $menuData['dev projects'])));
 
-$todo_file = 'data/todo.json';
-$links_file = 'data/links.json';
-$log_file = "hits.log";
+$css_form = load_css_files();
+$selected_style = get_selected_style();
 
-$links = json_decode(file_get_contents($links_file), true);
-$todos = json_decode(file_get_contents($todo_file), true);
-// $logs = json_decode(file_get_contents($log_file), true);
-
-// Add a new todo
-if (isset($_POST['action']) && $_POST['action'] == 'add_todo') {
-	// $todos = json_decode(file_get_contents($todo_file), true);
-	
-	if (empty($todos)) {
-		$todos = array();
-	}
-	$last_todo = end($todos);
-	$todo['id'] = $last_todo['id'] + 1;
-	$todo['text'] = $_POST['todo'];
-	$todo['done'] = false;
-
-	$todos[] = $todo;
-	// array_push($todos, $_POST['todo']);
-	file_put_contents($todo_file, json_encode($todos, true));
-	header('Location: index.php');
-}
-
-// Delete a todo
-if (isset($_GET['action'])) {
-	if ($_GET['action'] == 'delete_todo') {
-		// $todos = json_decode(file_get_contents($todo_file), true);
-		foreach ($todos as $key=>$todo) {
-			if ($todo['id']==$_GET['id']) {
-				$todos[$key]['done'] = true;
-			}
-		}
-		file_put_contents($todo_file, json_encode($todos, true));
-		header('Location: index.php');
-	}
-}
-
-
-// Generate a random color
-function rand_color() {
-	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-	// return '#FFFFFF';
-}
-function randomDarkColor() {
-	// Define the maximum brightness for a dark color (adjustable)
-	$maxBrightness = 0;
-	
-	$red = rand(floor($maxBrightness / 2), $maxBrightness);
-    $green = rand(floor($maxBrightness / 2), $maxBrightness);
-    $blue = rand(floor($maxBrightness / 2), $maxBrightness);
-  
-	// Convert values to hex string and return as #rrggbb format
-	return '#' . dechex($red) . dechex($green) . dechex($blue);
-  }
-/**
- * Renders a list of links in a card format.
- *
- * @param array $links An array of links to be displayed.
- * @param string $title The title of the card.
- * @throws None
- * @return void
- */
-function show_links($links, $title) {
-	// global $logs;
-	// global $settings;
-
-	// die(print_r($logs));
-
-	$border_color = rand_color();
-
-	natcasesort($links);
-	echo '
-	<div class="card m-0 p-1 bg-transparent border-1">
-		<div class="card-body p-0 m-0 bg-transparent border-0">
-			<div class="card-header bg-transparent p-0"><span class="title">'.$title.'</span></div>
-			<ul class="list-group list-group-flush border-0 pb-1">';
-	foreach ($links as $key=>$value) {
-		$name_display = $value; 
-		
-		$value = strtolower(str_replace(' ','',$value));
-		$local_name_offline = 'img/icon-local.png';
-		
-		echo '<li class="list-group-item list-group-item-action bg-transparent border-0 p-1">';
-		echo '<a href="' . $key . '" style="display:block">';
-		$local_name = 'img/icons/'.$value.'.png';
-
-		if (!file_exists($local_name)) {
-			file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$key.'&sz=256'));
-		}
-
-		if (filesize($local_name) == 0) {
-			copy($local_name_offline, $local_name);
-		}
-		echo '<img src="'.$local_name.'" class="icon" style="clear:both" /> ';
-		
-		echo '<span class="icon-name">' . $name_display. '</span>';
-		/* if (intval($logs[$key])>0) {
-			echo '<span class="link-counter"> // '.$logs[$key].'</span>';
-		} */
-		echo '</a>';
-		echo '</li>';
-	}
-	echo '
-			</ul>
-		</div>
-	</div>';
-}
-
-
-// function to randomly select a picture from a folder
-function display_random_wallpaper() {
-	// Path to the folder containing images
-	$imageFolder = 'img/wallpapers/';
-
-	// Get all image files from the folder
-	$imageFiles = glob($imageFolder . '*.{jpg,jpeg,png}', GLOB_BRACE);
-
-	// Select a random image from the array
-	$randomImage = $imageFiles[array_rand($imageFiles)];
-
-	// Display the random image on the webpage
-	// return '<img src="' . $randomImage . '"  width="100%" class="img">';
-	return $randomImage;
-}
-
-// function to load a list of todos from a json file
-function load_todo() {
-	global $todos;
-
-	// Render the list
-	$result = '<ul class="list-group list-group-flush border-0 mb-2">';
-	foreach ($todos as $todo) {
-		if ($todo['done']!=true) {
-			// $result .= '<li class="list-group-item text-white"><a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="text-white">' . $todo['text'] . '</a></li>';
-
-			$result .= '<a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="list-group-item list-group-item-action bg-transparent">' . $todo['text'] . '</a>';
-		}
-	}
-	$result .= '</ul>';
-	return $result;
-}
-
+check_new_todo($todos);
+check_delete_todo($todos);
 
 ?>
-
 <!DOCTYPE html>
-<html>
-	<head>
+<html lang="en">
+<head>
 		<title> ~ esquire </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="<?php echo $selected_style; ?>" >
 		<link rel="stylesheet" type="text/css" href="css/style.min.css">
-		<meta http-equiv="refresh" content="<?php echo $settings['refresh_rate']; ?>" />
-	</head>
-	<body>
-	
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-10 col-md-9 col-sm-6 p-0">					
-					<div class="row row-no-gutters">
-						<div class="<?php echo $column_css; ?>">
-							<?php 
-								show_links($project_links, 'projects'); 
-								show_links($links['system'], 'system'); 
-								show_links($links['softalliance'], 'soft alliance');
-							?>
-						</div>
-						<div class="<?php echo $column_css; ?>">
-							<?php 
-								show_links($links['work'], 'work'); 
-								show_links($links['hosting'], 'hosting');
-								show_links($links['utilities'], 'utilities'); 
-							?>	
-						</div>
-						<div class="<?php echo $column_css; ?>">
-							<?php  
-								show_links($links['reading'], 'reading');
-								show_links($links['media'], 'media');
-								show_links($links['learning'], 'learning');
-							?>
-						</div>
-						<div class="<?php echo $column_css; ?>">
-							<?php 
-								show_links($links['projectmgt'], 'project mgt');
-								show_links($links['games'], 'games');
-								show_links($links['sports'], 'sports');
-							?>
-						</div>
-						<div class="<?php echo $column_css; ?>">
-							<?php 
-							show_links($links['graphics'], 'graphics');
-							show_links($links['coding'], 'coding');
-							?>
-						</div>
-						<div class="<?php echo $column_css; ?>">
-							<?php 
-								show_links($links['ai'], 'ai');
-								show_links($links['warez'], 'warez'); 
-							?>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-3 col-sm-6 p-0"> 
-					<div class="card bg-transparent">
-						<?php echo $css_form; ?>
-					</div>
-					<div class="card bg-transparent">
-						<div class="card-body">
-						<img src="<?php echo display_random_wallpaper(); ?>" class="img-fluid" /></div>
-					</div>
-					<div class="card bg-transparent">
-						<div class="card-body">
-							<form id="search-form" method="get" onsubmit="return handleSearch();">
-								<label for="search-box">Search Google or Enter URL:</label>
-								<input type="text" id="search-box" name="q" placeholder="" class="form-control form-control-sm m-0" required>
-							</form>
-						</div>
-					</div>
-					<div class="card bg-transparent">
-						<div class="card-body">
-							<?php echo load_todo(); ?>
-							<form action="index.php" method="post" class="form">
-								<div class="form row align-items-center p-1">
-									<div class="col-8"><input type="text" name="todo" class="form-control form-control-sm m-0"></div>
-									<div class="col-2"><button type="submit" value="Add" class="btn btn-primary m-0">Add</button></div>
-									<input type="hidden" name="action" value="add_todo">
-								</div>
-															
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="js/bootstrap.bundle.min.js"></script>
+		<meta http-equiv="refresh" content="<?php echo REFRESH_RATE; ?>" />
+    <style>
+        /* Basic styling for the menu */
+        li {
+            list-style-type: none;
+        }
+        .hidden {
+            display: none;
+        }
+        #search {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+        .link {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
+                        <input type="text" id="search-box" name="q" placeholder="Filter menu items or Search Google or Enter URL" class="form-control form-control-sm m-0" required>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <nav class="nav" id="navMenu">
+                        <?php createMenu($menuData); ?>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card">
+                <div class="card-body">
+                    <?php echo $css_form; ?>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-header"><h6>Nigeria</h6></div>
+                    <div id="currentTime"><?php echo date('H:i:s A'); ?></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-header"><h6>Canada</h6></div>
+                    <div id="currentTime2"><?php echo date('H:i:s A'); ?></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <?php echo load_todo(); ?>
+                    <form action="index.php" method="post" class="form">
+                        <div class="form p-1">
+                        <input type="text" name="todo" class="form-control form-control-sm m-0">
+                            <input type="hidden" name="action" value="add_todo">
+                        </div>
+                                                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="js/bootstrap.bundle.min.js"></script>
 		<script>
 			window.onload = function() {
 				document.getElementById('search-box').focus();
@@ -295,6 +144,47 @@ function load_todo() {
 
 				return false; // Prevent default form submission
 			}
-		</script>
-	</body>
+			function updateTime() {
+            // Specify the timezone you want to display
+            var timezone = 'Africa/Lagos'; // Change to your desired timezone
+
+            // Get the current time in the specified timezone
+            var options = { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            var currentTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
+
+            // Update the HTML element
+            document.getElementById("currentTime").innerHTML = currentTime;
+
+			var timezone = 'America/Thule';
+
+			// Get the current time in the specified timezone
+			var options = { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+			var currentTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
+
+			// Update the HTML element
+			document.getElementById("currentTime2").innerHTML = currentTime;
+
+        }
+
+        // Update the time every second
+        setInterval(updateTime, 1000);
+
+        // Function to search through the menu
+        document.getElementById("search-box").addEventListener("input", function() {
+            var filter = this.value.toLowerCase();
+            var listItems = document.querySelectorAll("#navMenu li");
+
+            listItems.forEach(function(item) {
+                // Check if the item contains the search term
+                var text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = "";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
 </html>
