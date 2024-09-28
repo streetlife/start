@@ -9,7 +9,7 @@
     "mtn mifi": "http://192.168.0.1"
   },
   "work": {
-    "smartwork": "https://app.smartwork.ng/public/account/dashboard",
+    "smartwork": "https://smartwork.ng",
     "gmail": "https://mail.google.com",
     "keep": "https://keep.google.com",
     "drive": "https://drive.google.com",
@@ -56,35 +56,31 @@
     "phidata": "https://www.phidata.com",
     "getimg ai": "https://getimg.ai/text-to-image"
   },
-  "reading": {
+  "read & learn": {
     "feedly": "https://feedly.com",
     "reddit": "https://reddit.com",
     "x": "https://x.com",
     "nairaland": "https://nairaland.com",
     "bored panda": "https://boredpanda.com",
     "discord": "https://discord.com/app",
-    "daily dev": "https://daily.dev"
-  },
-  "links": {
-    "anythingllm": "http://sarl1007lp:4001",
-    "open webui": "http://sarl1007lp:4003",
-    "softsuite": "https://app.softsuite.com",
-    "soft intranet": "https://intranet.softalliance.com",
-    "lagos state web": "https://lagosstate.gov.ng/smartlaga9m1n"
-  },
-  "learning": {
+    "daily dev": "https://daily.dev",
     "exercism": "https://exercism.org/dashboard",
     "coursera": "https://coursera.org",
     "udemy": "https://udemy.com",
     "freecodecamp": "https://freecodecamp.org",
     "great learning": "https://www.mygreatlearning.com"
   },
-  "media": {
+  "media & links": {
     "youtube": "https://youtube.com",
     "wcofun": "https://www.wcofun.net",
     "spotify": "https://spotify.com",
     "youtube music": "https://music.youtube.com",
-    "tiktok": "https://tiktok.com"
+    "tiktok": "https://tiktok.com",
+    "anythingllm": "http://sarl1007lp:4001",
+    "open webui": "http://sarl1007lp:4003",
+    "softsuite": "https://app.softsuite.com",
+    "soft intranet": "https://intranet.softalliance.com",
+    "lagos state web": "https://lagosstate.gov.ng/smartlaga9m1n"
   },
   "coding": {
     "mojo": "https://www.modular.com/max/mojo",
@@ -95,7 +91,36 @@
     "open blocks": "https://openblocks.dev",
     "stackoverflow": "https://stackoverflow.com"
   },
-  "games": {
+  "grahics & templates": {
+    "themeforest": "https://themeforest.net",
+    "codecanyon": "https://codecanyon.net",
+    "slides go": "https://slidesgo.com",
+    "story set": "https://storyset.com",
+    "wepik": "https://wepik.com",
+    "videvo": "https://www.videvo.net",
+    "mixkit": "https://mixkit.co",
+    "slides carnival": "https://slidescarnival.com",
+    "canva": "https://canva.com",
+    "upscale": "https://www.upscale.media",
+    "shrink media": "https://www.shrink.media",
+    "erase bg": "https://www.erase.bg",
+    "eyecannndy": "https://eyecannndy.com"
+
+  },
+  "projectmgt & productmgt": {
+    "pmi": "https://pmi.org",
+    "pm docs": "https://projectmanagementdocs.com",
+    "pm": "https://www.projectmanagement.com",
+    "pm templates": "https://www.stakeholdermap.com/project-templates/project-management-templates.html",
+    "pmi africa": "https://pmiafricaconference.com"
+  },
+  "games & sports": {
+    "livescores": "https://livescore.com",
+    "arsenal": "https://www.arsenal.com",
+    "premier league": "https://premierleague.com",
+    "ucl": "https://www.uefa.com/uefachampionsleague",
+    "soccer streams 100": "https://r.soccerstreams100.io",
+    "sporty bet": "https://sportybet.com",
     "crazy games": "https://crazygames.com",
     "epic games": "https://epicgames.com",
     "gog": "https://gog.com",
@@ -104,39 +129,6 @@
     "games nostalgia": "https://gamesnostalgia.com",
     "steam": "https://store.steampowered.com",
     "wordle": "https://wordle.nyc"
-  },
-  "templates": {
-    "themeforest": "https://themeforest.net",
-    "codecanyon": "https://codecanyon.net",
-    "slides go": "https://slidesgo.com",
-    "story set": "https://storyset.com",
-    "wepik": "https://wepik.com",
-    "videvo": "https://www.videvo.net",
-    "mixkit": "https://mixkit.co",
-    "slides carnival": "https://slidescarnival.com"
-
-  },
-  "graphics": {
-    "canva": "https://canva.com",
-    "upscale": "https://www.upscale.media",
-    "shrink media": "https://www.shrink.media",
-    "erase bg": "https://www.erase.bg",
-    "eyecannndy": "https://eyecannndy.com"
-  },
-  "projectmgt": {
-    "pmi": "https://pmi.org",
-    "pm docs": "https://projectmanagementdocs.com",
-    "pm": "https://www.projectmanagement.com",
-    "pm templates": "https://www.stakeholdermap.com/project-templates/project-management-templates.html",
-    "pmi africa": "https://pmiafricaconference.com"
-  },
-  "sports": {
-    "livescores": "https://livescore.com",
-    "arsenal": "https://www.arsenal.com",
-    "premier league": "https://premierleague.com",
-    "ucl": "https://www.uefa.com/uefachampionsleague",
-    "soccer streams 100": "https://r.soccerstreams100.io",
-    "sporty bet": "https://sportybet.com"
   },
   "utilities": {
     "123apps": "https://123apps.com",

@@ -104,7 +104,7 @@ function createMenu($menu, $subFolder = false) {
         echo '<li class="link">';
         if (is_array($linkOrSubmenu)) {
             // If it's an array, create a sub-menu
-            echo '<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">' . $label . '</a>'; // Label for the sub-menu
+            echo '<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">' . $label . '</a>'; // Label for the sub-menu
             ksort($linkOrSubmenu);
             createMenu($linkOrSubmenu, true); // Recursively create sub-menu
         } else {
