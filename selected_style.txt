@@ -1,1 +1,1 @@
-css/bootstrap-darkly.min.css
+css/bootstrap-slate.min.css

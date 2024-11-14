@@ -58,57 +58,57 @@ check_delete_todo($todos);
         }
     </style>
 </head>
-<body>
+<body class="p-0" style="background-image: url('<?php echo display_random_wallpaper(); ?>'); background-size: cover;">
 
-<div class="container-fluid">
+<div class="container-fluid p-3" >
     <div class="row">
-        <div class="col-10">
-            <div class="card">
+        <div class="col-2">
+            <div class="card m-2">
                 <div class="card-body">
                     <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
                         <input type="text" id="search-box" name="q" placeholder="Filter menu items or Search Google or Enter URL" class="form-control form-control-sm m-0" required>
                     </form>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <nav class="nav" id="navMenu">
-                        <?php createMenu($menuData); ?>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="card">
+            <div class="card m-2">
                 <div class="card-body">
                     <?php echo $css_form; ?>
                 </div>
             </div>
             
-            <div class="card">
+            <div class="card m-2">
                 <div class="card-body">
                     <div class="card-header"><h6>Nigeria</h6></div>
                     <div id="currentTime"><?php echo date('H:i:s A'); ?></div>
                 </div>
             </div>
             
-            <div class="card">
+            <div class="card m-2">
                 <div class="card-body">
                     <div class="card-header"><h6>Canada</h6></div>
                     <div id="currentTime2"><?php echo date('H:i:s A'); ?></div>
                 </div>
             </div>
             
-            <div class="card">
+            <div class="card m-2">
                 <div class="card-body">
                     <?php echo load_todo(); ?>
                     <form action="index.php" method="post" class="form">
                         <div class="form p-1">
                         <input type="text" name="todo" class="form-control form-control-sm m-0">
                             <input type="hidden" name="action" value="add_todo">
-                        </div>
-                                                    
+                        </div>           
                     </form>
+                    <?php // echo load_todo(true); ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card m-2">
+                <div class="card-body p-1">
+                    <nav class="nav" id="navMenu">
+                        <?php createMenu($menuData); ?>
+                    </nav>
                 </div>
             </div>
         </div>

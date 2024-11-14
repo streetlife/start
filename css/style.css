@@ -90,8 +90,8 @@ a {
 }
 
 #currentTime, #currentTime2 {
-    font-size: 32px;
+    font-size: 26px;
     font-weight: bold;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
 }

@@ -13,7 +13,13 @@
     "gmail": "https://mail.google.com",
     "keep": "https://keep.google.com",
     "drive": "https://drive.google.com",
-    "microsoft 365": "https://www.microsoft365.com"
+    "microsoft 365": "https://www.microsoft365.com",
+    "client sites": "https://clients.ibsnigeria.com/wp-admin",
+    "slides": "https://slides.google.com",
+    "docs": "https://docs.google.com",
+    "upwork": "https://www.upwork.com",
+    "freelancer": "https://www.freelancer.com",
+    "fiverr": "https://www.fiverr.com"
   },
   "projects": {
     "ademola oladipo": "https://oladipo.com.ng",
@@ -32,14 +38,15 @@
     "ionos": "https://ionos.com",
     "iwebfusion": "https://iwebfusion.net",
     "cloudflare": "https://cloudflare.com",
-    "websguy ng": "https://websguy.com.ng:8083",
+    "hestia - websguy ng": "https://websguy.com.ng:8083",
     "hostinger": "https://www.hostinger.com",
     "go54": "https://go54.com",
-    "stableserver": "https://s2912.fra1.stableserver.net:2083",
     "ovh": "https://ovh.com",
-    "lagos whmcs": "https://lagosstate.gov.ng:2087/",
-    "lagos cpanel": "https://lagosstate.gov.ng:2083/",
-    "name cheap": "https://namecheap.com"
+    "lagos whmcs": "https://lagosstate.gov.ng:2087",
+    "lagos cpanel": "https://lagosstate.gov.ng:2083",
+    "name cheap": "https://namecheap.com",
+    "hestia - lagos": "https://145.223.74.59:8083",
+    "hestia - starlinkglobal": "https://191.101.232.210:8083"
   },
   "ai": {
     "chatGPT": "https://chat.openai.com",
@@ -54,7 +61,8 @@
     "gemini": "https://gemini.google.com/app",
     "ollama": "https://ollama.com",
     "phidata": "https://www.phidata.com",
-    "getimg ai": "https://getimg.ai/text-to-image"
+    "getimg ai": "https://getimg.ai/text-to-image",
+    "heygen": "https://app.heygen.com/projects"
   },
   "read & learn": {
     "feedly": "https://feedly.com",
@@ -70,7 +78,7 @@
     "freecodecamp": "https://freecodecamp.org",
     "great learning": "https://www.mygreatlearning.com"
   },
-  "media & links": {
+  "media": {
     "youtube": "https://youtube.com",
     "wcofun": "https://www.wcofun.net",
     "spotify": "https://spotify.com",
@@ -91,7 +99,7 @@
     "open blocks": "https://openblocks.dev",
     "stackoverflow": "https://stackoverflow.com"
   },
-  "grahics & templates": {
+  "grahics": {
     "themeforest": "https://themeforest.net",
     "codecanyon": "https://codecanyon.net",
     "slides go": "https://slidesgo.com",
@@ -107,14 +115,14 @@
     "eyecannndy": "https://eyecannndy.com"
 
   },
-  "projectmgt & productmgt": {
+  "pm": {
     "pmi": "https://pmi.org",
     "pm docs": "https://projectmanagementdocs.com",
     "pm": "https://www.projectmanagement.com",
     "pm templates": "https://www.stakeholdermap.com/project-templates/project-management-templates.html",
     "pmi africa": "https://pmiafricaconference.com"
   },
-  "games & sports": {
+  "games": {
     "livescores": "https://livescore.com",
     "arsenal": "https://www.arsenal.com",
     "premier league": "https://premierleague.com",

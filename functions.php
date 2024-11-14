@@ -76,13 +76,13 @@ function display_random_wallpaper() {
 }
 
 // function to load a list of todos from a json file
-function load_todo() {
+function load_todo($completed_flag = false) {
 	global $todos;
 
 	// Render the list
 	$result = '<ul class="list-group list-group-flush border-0 mb-2">';
 	foreach ($todos as $todo) {
-		if ($todo['done']!=true) {
+		if ($todo['done']==$completed_flag) {
 			// $result .= '<li class="list-group-item text-white"><a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="text-white">' . $todo['text'] . '</a></li>';
 
 			$result .= '<a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="list-group-item list-group-item-action" onclick="return confirm(\'Are you sure you want to delete - ' . $todo['text'] . '?\')">' . $todo['text'] . '</a>';
@@ -97,14 +97,14 @@ function createMenu($menu, $subFolder = false) {
 	$local_name_offline = 'img/icon-local.png';
 
     if ($subFolder) {
-        echo '<ul class="sub-menu">';
+        echo '<ul class="sub-menu p-1 m-1 border border-primary border-left">';
     }
     // echo '<ul>';
     foreach ($menu as $label => $linkOrSubmenu) {
         echo '<li class="link">';
         if (is_array($linkOrSubmenu)) {
             // If it's an array, create a sub-menu
-            echo '<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">' . $label . '</a>'; // Label for the sub-menu
+            echo '<a class="nav-link p-1" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">' . $label . '</a>'; // Label for the sub-menu
             ksort($linkOrSubmenu);
             createMenu($linkOrSubmenu, true); // Recursively create sub-menu
         } else {
