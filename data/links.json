@@ -1,12 +1,16 @@
 {
   "system": {
     "phpmyadmin": "http://localhost/phpmyadmin",
-    "sonarr": "http://esquire-xps15:8989",
-    "jellyfin": "http://esquire-xps15:8096",
+    "sonarr - xps15": "http://esquire-xps15:8989",
+    "sonarr - local": "http://127.0.0.1:8989",
+    "jellyfin - xps15": "http://esquire-xps15:8096",
+    "jellyfin - local": "http://127.0.0.1:8096",
     "whatsapp": "https://web.whatsapp.com",
     "telegram": "https://web.telegram.org",
     "syncthing": "http://localhost:8384",
-    "mtn mifi": "http://192.168.0.1"
+    "mtn mifi": "http://192.168.0.1",
+    "n8n": "http://localhost:5678",
+    "adminer": "https://start.test/adminneo-5.1.1.php"
   },
   "work": {
     "smartwork": "https://smartwork.ng",
@@ -15,56 +19,21 @@
     "drive": "https://drive.google.com",
     "microsoft 365": "https://www.microsoft365.com",
     "client sites": "https://clients.ibsnigeria.com/wp-admin",
-    "slides": "https://slides.google.com",
-    "docs": "https://docs.google.com",
     "upwork": "https://www.upwork.com",
     "freelancer": "https://www.freelancer.com",
     "fiverr": "https://www.fiverr.com"
   },
-  "projects": {
-    "ademola oladipo": "https://oladipo.com.ng",
+  "links": {
+    "oladipo": "https://oladipo.com.ng",
     "barterfly": "https://barterfly.ca",
-    "incel portal": "https://portal.inceltourism.com/",
-    "incel portal test": "https://portaltest.incelgroup.com/",
-    "digiticket tester": "https://app.digiticket.ng/tester.php",
-    "madina wears": "https://madinawears.com.ng",
+    "madina": "https://madinawears.com.ng",
     "workspace": "https://workspace.com.ng",
-    "digiticket log": "https://app.digiticket.ng/log_viewer.php?key=dU1VyIYuYSzjh7auuZfg9TaikWeVqLEh"
+    "wcofun": "https://www.wcofun.net",
+    "softsuite": "https://app.softsuite.com",
+    "soft intranet": "https://intranet.softalliance.com",
+    "bbc sound effects": "https://sound-effects.bbcrewind.co.uk"
   },
-  "hosting": {
-    "whogohost": "https://www.whogohost.com/host/clientarea.php",
-    "hostforweb": "https://hostforweb.com",
-    "websguy": "https://websguy.com:2083",
-    "ionos": "https://ionos.com",
-    "iwebfusion": "https://iwebfusion.net",
-    "cloudflare": "https://cloudflare.com",
-    "hestia - websguy ng": "https://websguy.com.ng:8083",
-    "hostinger": "https://www.hostinger.com",
-    "go54": "https://go54.com",
-    "ovh": "https://ovh.com",
-    "lagos whmcs": "https://lagosstate.gov.ng:2087",
-    "lagos cpanel": "https://lagosstate.gov.ng:2083",
-    "name cheap": "https://namecheap.com",
-    "hestia - lagos": "https://145.223.74.59:8083",
-    "hestia - starlinkglobal": "https://191.101.232.210:8083"
-  },
-  "ai": {
-    "chatGPT": "https://chat.openai.com",
-    "lexica": "https://lexica.art/aperture",
-    "dall-e": "https://labs.openai.com",
-    "futurepedia": "https://www.futurepedia.io",
-    "agent gpt": "https://agentgpt.reworkd.ai",
-    "play ht": "https://play.ht",
-    "copilot": "https://copilot.microsoft.com",
-    "use anything": "https://useanything.com",
-    "meta ai": "https://meta.ai",
-    "gemini": "https://gemini.google.com/app",
-    "ollama": "https://ollama.com",
-    "phidata": "https://www.phidata.com",
-    "getimg ai": "https://getimg.ai/text-to-image",
-    "heygen": "https://app.heygen.com/projects"
-  },
-  "read & learn": {
+  "read/learn/watch": {
     "feedly": "https://feedly.com",
     "reddit": "https://reddit.com",
     "x": "https://x.com",
@@ -72,48 +41,54 @@
     "bored panda": "https://boredpanda.com",
     "discord": "https://discord.com/app",
     "daily dev": "https://daily.dev",
-    "exercism": "https://exercism.org/dashboard",
     "coursera": "https://coursera.org",
     "udemy": "https://udemy.com",
     "freecodecamp": "https://freecodecamp.org",
-    "great learning": "https://www.mygreatlearning.com"
+    "great learning": "https://www.mygreatlearning.com",
+    "youtube": "https://youtube.com"
   },
-  "media": {
-    "youtube": "https://youtube.com",
-    "wcofun": "https://www.wcofun.net",
-    "spotify": "https://spotify.com",
-    "youtube music": "https://music.youtube.com",
-    "tiktok": "https://tiktok.com",
-    "anythingllm": "http://sarl1007lp:4001",
-    "open webui": "http://sarl1007lp:4003",
-    "softsuite": "https://app.softsuite.com",
-    "soft intranet": "https://intranet.softalliance.com",
-    "lagos state web": "https://lagosstate.gov.ng/smartlaga9m1n"
+  "hosting": {
+    "hcp websguy": "https://websguy.com.ng:8083",
+    "hcp lagos": "https://145.223.74.59:8083",
+    "hcp starlink": "https://191.101.232.210:8083"
+  },
+  "ai": {
+    "chatGPT": "https://chat.openai.com",
+    "ollama": "https://ollama.com",
+    "lexica": "https://lexica.art/aperture",
+    "dall-e": "https://labs.openai.com",
+    "copilot": "https://copilot.microsoft.com",
+    "use anything": "https://useanything.com",
+    "meta ai": "https://meta.ai",
+    "google lab": "https://labs.google",
+    "heygen": "https://app.heygen.com/projects",
+    "midjourney": "https://midjourney.com"
+  },
+  "ai2": {
+    "phidata": "https://www.phidata.com",
+    "getimg ai": "https://getimg.ai/text-to-image",
+    "stable diffusion": "https://stability.ai",
+    "replit": "https://replit.com",
+    "edenx": "https://www.edenx.ai/home",
+    "chatbase": "https://www.chatbase.co",
+    "artlist": "https://artlist.io/",
+    "futurepedia": "https://www.futurepedia.io",
+    "agent gpt": "https://agentgpt.reworkd.ai",
+    "play ht": "https://play.ht"
+  },
+  "ai3": {
+    "chatbase": "https://www.chatbase.co",
+    "wotnot": "https://wotnot.io",
+    "botpress": "https://botpress.com",
+    "voiceflow": "https://www.voiceflow.com",
+    "vapi": "https://vapi.ai"
   },
   "coding": {
     "mojo": "https://www.modular.com/max/mojo",
     "onyx": "https://onyxlang.io",
     "baserow": "https://baserow.io",
     "pocketbase": "https://pocketbase.io",
-    "gdevelop": "https://gdevelop.io",
-    "open blocks": "https://openblocks.dev",
-    "stackoverflow": "https://stackoverflow.com"
-  },
-  "grahics": {
-    "themeforest": "https://themeforest.net",
-    "codecanyon": "https://codecanyon.net",
-    "slides go": "https://slidesgo.com",
-    "story set": "https://storyset.com",
-    "wepik": "https://wepik.com",
-    "videvo": "https://www.videvo.net",
-    "mixkit": "https://mixkit.co",
-    "slides carnival": "https://slidescarnival.com",
-    "canva": "https://canva.com",
-    "upscale": "https://www.upscale.media",
-    "shrink media": "https://www.shrink.media",
-    "erase bg": "https://www.erase.bg",
-    "eyecannndy": "https://eyecannndy.com"
-
+    "gdevelop": "https://gdevelop.io"
   },
   "pm": {
     "pmi": "https://pmi.org",
@@ -122,21 +97,31 @@
     "pm templates": "https://www.stakeholdermap.com/project-templates/project-management-templates.html",
     "pmi africa": "https://pmiafricaconference.com"
   },
-  "games": {
+  "play": {
     "livescores": "https://livescore.com",
     "arsenal": "https://www.arsenal.com",
     "premier league": "https://premierleague.com",
-    "ucl": "https://www.uefa.com/uefachampionsleague",
-    "soccer streams 100": "https://r.soccerstreams100.io",
     "sporty bet": "https://sportybet.com",
     "crazy games": "https://crazygames.com",
     "epic games": "https://epicgames.com",
     "gog": "https://gog.com",
     "play classic games": "https://playclassic.games",
-    "emu games": "http://emugames.net",
-    "games nostalgia": "https://gamesnostalgia.com",
     "steam": "https://store.steampowered.com",
-    "wordle": "https://wordle.nyc"
+    "sofa score": "https://www.sofascore.com"
+  },
+  "grahics": {
+    "themeforest": "https://themeforest.net",
+    "codecanyon": "https://codecanyon.net",
+    "slides go": "https://slidesgo.com",
+    "story set": "https://storyset.com",
+    "videvo": "https://www.videvo.net",
+    "mixkit": "https://mixkit.co",
+    "slides carnival": "https://slidescarnival.com",
+    "upscale": "https://www.upscale.media",
+    "shrink media": "https://www.shrink.media",
+    "excalidraw": "https://excalidraw.com",
+    "htmlrev": "https://htmlrev.com"
+
   },
   "utilities": {
     "123apps": "https://123apps.com",
@@ -145,16 +130,21 @@
     "convertio": "https://convertio.co",
     "convert files": "https://www.convertfiles.ai",
     "screenshot machine": "https://www.screenshotmachine.com",
-    "playphrase": "https://playphrase.me"
+    "playphrase": "https://playphrase.me",
+    "tinywow": "https://tinywow.com",
+    "10015": "https://10015.io"
   },
   "warez": {
     "wplocker": "https://wplocker.com",
-    "torrent galaxy": "https://torrentgalaxy.to",
+    "torrent galaxy": "https://torrentgalaxy.hair",
     "codelist": "https://codelist.cc",
     "themelock": "https://themelock.com",
     "steamrip": "https://steamrip.com",
     "downloadly": "https://downloadly.ir",
-    "z lib": "https://z-lib.io",
-    "audio bb": "https://AudioBB.net"
+    "audio bb": "https://AudioBB.net",
+    "champagne piracy": "https://champagne.pages.dev",
+    "ext": "https://ext.to",
+    "yts": "https://yts.mx",
+    "streamed": "https://streamed.pk"
   }
 }

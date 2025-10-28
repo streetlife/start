@@ -20,8 +20,8 @@ foreach ($dirs as $value) {
 	$project_links[$value] = 'https://'.$value.'.test';
 }
 
-$menuData['dev projects'] = $project_links;
-$menuData = array_merge(array('dev projects' => $menuData['dev projects']), array_diff_key($menuData, array('dev projects' => $menuData['dev projects'])));
+$menuData_projects['dev projects'] = $project_links;
+// $menuData = array_merge(array('dev projects' => $menuData['dev projects']), array_diff_key($menuData, array('dev projects' => $menuData['dev projects'])));
 
 $css_form = load_css_files();
 $selected_style = get_selected_style();
@@ -58,56 +58,65 @@ check_delete_todo($todos);
         }
     </style>
 </head>
-<body class="p-0" style="background-image: url('<?php echo display_random_wallpaper(); ?>'); background-size: cover;">
+<body class="p-0">
 
-<div class="container-fluid p-3" >
-    <div class="row">
-        <div class="col-2">
-            <div class="card m-2">
-                <div class="card-body">
-                    <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
-                        <input type="text" id="search-box" name="q" placeholder="Filter menu items or Search Google or Enter URL" class="form-control form-control-sm m-0" required>
-                    </form>
+<div class="container-fluid p-1" >
+    <div class="row g-0 p-0">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 p-0">
+            <div class="row g-0 p-0">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 p-0">
+                    <div class="card bg-transparent m-0">
+                        <div class="card-body">
+                            <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
+                                <input type="text" id="search-box" name="q" placeholder="Filter menu items or Search Google or Enter URL" class="form-control form-control-sm m-0" required>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <?php echo $css_form; ?>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-header"><h6>Nigeria</h6></div>
+                            <div id="currentTime"><?php echo date('H:i:s A'); ?></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-header"><h6>Canada</h6></div>
+                            <div id="currentTime2"><?php echo date('H:i:s A'); ?></div>
+                        </div>
+                        <div class="card-body">
+                            <?php echo load_todo(); ?>
+                            <form action="index.php" method="post" class="form">
+                                <div class="form p-1">
+                                <input type="text" name="todo" class="form-control form-control-sm m-0">
+                                    <input type="hidden" name="action" value="add_todo">
+                                </div>           
+                            </form>
+                            <?php // echo load_todo(true); ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card m-2">
-                <div class="card-body">
-                    <?php echo $css_form; ?>
-                </div>
-            </div>
-            
-            <div class="card m-2">
-                <div class="card-body">
-                    <div class="card-header"><h6>Nigeria</h6></div>
-                    <div id="currentTime"><?php echo date('H:i:s A'); ?></div>
-                </div>
-            </div>
-            
-            <div class="card m-2">
-                <div class="card-body">
-                    <div class="card-header"><h6>Canada</h6></div>
-                    <div id="currentTime2"><?php echo date('H:i:s A'); ?></div>
-                </div>
-            </div>
-            
-            <div class="card m-2">
-                <div class="card-body">
-                    <?php echo load_todo(); ?>
-                    <form action="index.php" method="post" class="form">
-                        <div class="form p-1">
-                        <input type="text" name="todo" class="form-control form-control-sm m-0">
-                            <input type="hidden" name="action" value="add_todo">
-                        </div>           
-                    </form>
-                    <?php // echo load_todo(true); ?>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 p-0">
+                    <div class="card bg-transparent m-0">
+                        <div class="card-body p-1">
+                            <nav class="nav">
+                                <?php createMenu($menuData_projects, false, false); ?>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="card bg-transparent m-0">
+                        <div class="card-body p-1">
+                            <?php 
+                            echo 'Display speed test here';
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-10">
-            <div class="card m-2">
+        <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6 p-0">
+            <div class="card bg-transparent m-0">
                 <div class="card-body p-1">
-                    <nav class="nav" id="navMenu">
-                        <?php createMenu($menuData); ?>
+                    <nav class="nav">
+                        <?php createMenu($menuData, false, true); ?>
                     </nav>
                 </div>
             </div>
@@ -172,7 +181,7 @@ check_delete_todo($todos);
         // Function to search through the menu
         document.getElementById("search-box").addEventListener("input", function() {
             var filter = this.value.toLowerCase();
-            var listItems = document.querySelectorAll("#navMenu li");
+            var listItems = document.querySelectorAll(".nav li");
 
             listItems.forEach(function(item) {
                 // Check if the item contains the search term

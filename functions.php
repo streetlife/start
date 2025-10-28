@@ -93,36 +93,48 @@ function load_todo($completed_flag = false) {
 }
 
 // Function to create the menu from a multi-level array
-function createMenu($menu, $subFolder = false) {
+function createMenu($menu, $subFolder = false, $showIcon = false) {
 	$local_name_offline = 'img/icon-local.png';
 
     if ($subFolder) {
-        echo '<ul class="sub-menu p-1 m-1 border border-primary border-left">';
+        echo '<ul class="sub-menu p-1 m-1">';
     }
     // echo '<ul>';
+    $i = 1;
     foreach ($menu as $label => $linkOrSubmenu) {
         echo '<li class="link">';
         if (is_array($linkOrSubmenu)) {
             // If it's an array, create a sub-menu
-            echo '<a class="nav-link p-1" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">' . $label . '</a>'; // Label for the sub-menu
+            echo '<a class="nav-title p-0 m-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">' . $label . '</a>'; // Label for the sub-menu
             ksort($linkOrSubmenu);
-            createMenu($linkOrSubmenu, true); // Recursively create sub-menu
+            createMenu($linkOrSubmenu, true, $showIcon); // Recursively create sub-menu
         } else {
-            
-			$local_name = 'img/icons/'.$label.'.png';
-			if (!file_exists($local_name)) {
-				file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$linkOrSubmenu.'&sz=256'));
-			}
+            echo '<a href="' . $linkOrSubmenu . '" class="nav-link p-0 m-0">';
+            if ($showIcon) {
+                // $parsed_url = parse_url($linkOrSubmenu);
+                // $label = $parsed_url['host'];
+                $local_name = 'img/icons/'.$label.'.png';
+                if (!file_exists($local_name)) {
+                    file_put_contents($local_name, file_get_contents('https://www.google.com/s2/favicons?domain='.$linkOrSubmenu.'&sz=256'));
+                }
 
-			if (filesize($local_name) == 0) {
-				copy($local_name_offline, $local_name);
-			}
-            // If it's a link, create an anchor tag
-            echo '<a href="' . $linkOrSubmenu . '">
-				<img src="'.$local_name.'" class="icon" style="clear:both" /> '
-                . $label . '</a>';
+                if (filesize($local_name) == 0) {
+                    copy($local_name_offline, $local_name);
+                }
+
+                echo '<img src="'.$local_name.'" class="icon" style="clear:both" /> ';
+            }
+            
+            $label = str_replace('_','.',$label);
+            // $label = str_replace(' ', '.', $label);
+            $label = str_replace('www.', '', $label);
+            $label = strtolower($label);
+            // display $i with a leading zero to 2 characters
+            echo str_pad($i, 2, '0', STR_PAD_LEFT) . '. ';
+            echo $label . '</a>';
         }
         echo '</li>';
+        $i++;
     }
     if ($subFolder) {
         echo '</ul>';
