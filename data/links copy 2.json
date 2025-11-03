@@ -31,6 +31,7 @@
     "barterfly": "https://barterfly.ca",
     "madina": "https://madinawears.com.ng",
     "workspace": "https://workspace.com.ng",
+    "wcofun": "https://www.wcofun.net",
     "softsuite": "https://app.softsuite.com",
     "soft intranet": "https://intranet.softalliance.com",
     "bbc sound effects": "https://sound-effects.bbcrewind.co.uk"
@@ -47,8 +48,7 @@
     "udemy": "https://udemy.com",
     "freecodecamp": "https://freecodecamp.org",
     "great learning": "https://www.mygreatlearning.com",
-    "youtube": "https://youtube.com",
-    "wcofun": "https://www.wcofun.net"
+    "youtube": "https://youtube.com"
   },
   "ai": {
     "chatGPT": "https://chat.openai.com",
@@ -60,8 +60,26 @@
     "meta ai": "https://meta.ai",
     "google lab": "https://labs.google",
     "heygen": "https://app.heygen.com/projects",
-    "midjourney": "https://midjourney.com",
-    "google ai": "https://aistudio.google.com/"
+    "midjourney": "https://midjourney.com"
+  },
+  "ai2": {
+    "phidata": "https://www.phidata.com",
+    "getimg ai": "https://getimg.ai/text-to-image",
+    "stable diffusion": "https://stability.ai",
+    "replit": "https://replit.com",
+    "edenx": "https://www.edenx.ai/home",
+    "chatbase": "https://www.chatbase.co",
+    "artlist": "https://artlist.io/",
+    "futurepedia": "https://www.futurepedia.io",
+    "agent gpt": "https://agentgpt.reworkd.ai",
+    "play ht": "https://play.ht"
+  },
+  "ai3": {
+    "chatbase": "https://www.chatbase.co",
+    "wotnot": "https://wotnot.io",
+    "botpress": "https://botpress.com",
+    "voiceflow": "https://www.voiceflow.com",
+    "vapi": "https://vapi.ai"
   },
   "coding": {
     "mojo": "https://www.modular.com/max/mojo",
