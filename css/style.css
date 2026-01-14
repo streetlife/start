@@ -99,9 +99,7 @@ a:hover {
     text-align: center;
     margin-top: 5px;
 }
-.nav-title {
-    font-size: .8em;
-}
-.nav-link {
-    font-size: .85em;
+.menu-stack {
+    border-left: 0px solid #ffffff;
+    padding: 5px;
 }

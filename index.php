@@ -1,199 +1,251 @@
 <?php
-ini_set('display_errors', 0);
+/**
+ * index.php - Updated to support Folder IDs and Sort Index
+ */
+
+function get_selected_style() {
+    if (isset($_GET['style'])) {
+        file_put_contents('selected_style.txt', $_GET['style']);
+    }
+    return file_exists('selected_style.txt') ? file_get_contents('selected_style.txt') : 'css/bootstrap-default.css';
+}
+
+function load_css_files() {
+    $css_files = glob('css/bootstrap-*.css');
+    $select_list = '<select name="style" onchange="this.form.submit()" class="form-control form-control-sm">';
+    foreach ($css_files as $css_file) {
+        $css_file_name = str_replace(['css/bootstrap-', '.min.css', '.css'], '', $css_file);
+        $selected_style = get_selected_style();
+        $strSelectedTheme = ($selected_style == $css_file) ? strtoupper($css_file_name) : 'Change theme to ' . strtoupper($css_file_name);
+        $select_list .= '<option value="' . $css_file . '" ' . ($selected_style == $css_file ? 'selected' : '') . '>'. $strSelectedTheme  . '</option>';
+    }
+    $select_list .= '</select>';
+    return '<form method="get" class="form">' . $select_list . '</form>';
+}
+
+function load_todo($completed_flag = false) {
+    global $todos;
+    if (empty($todos)) return '';
+    $result = '<ul class="list-group list-group-flush border-0 mb-2">';
+    foreach ($todos as $todo) {
+        if ($todo['done'] == $completed_flag) {
+            $result .= '<a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="list-group-item list-group-item-action" onclick="return confirm(\'Are you sure you want to delete - ' . addslashes($todo['text']) . '?\')">' . htmlspecialchars($todo['text']) . '</a>';
+        }
+    }
+    $result .= '</ul>';
+    return $result;
+}
+
+/**
+ * Updated createMenu to handle the new relational JSON structure
+ */
+function createMenu($folders, $allLinks, $showIcon = false) {
+    $local_name_offline = 'img/icon-local.png';
+
+    foreach ($folders as $folder) {
+        // Filter links belonging to this folder
+        $folderLinks = array_filter($allLinks, function($l) use ($folder) {
+            return $l['folder_id'] === $folder['id'];
+        });
+
+        if (empty($folderLinks)) continue;
+
+        echo '<li class="link">';
+        echo '<a class="nav-title p-0 m-0" href="#">' . htmlspecialchars($folder['name']) . '</a>';
+        
+        echo '<div class="card m-1"><div class="card-body p-1">';
+        echo '<ul class="sub-menu p-1 m-1">';
+        
+        // Sort links alphabetically within the folder
+        usort($folderLinks, fn($a, $b) => strnatcasecmp($a['label'], $b['label']));
+
+        foreach ($folderLinks as $link) {
+            echo '<li class="link">';
+            echo '<a href="' . htmlspecialchars($link['url']) . '" class="nav-link p-0 m-0">';
+            
+            if ($showIcon) {
+                $safeLabel = preg_replace('/[^a-z0-9]/i', '_', $link['label']);
+                $local_name = 'img/icons/' . $safeLabel . '.png';
+                
+                if (!file_exists($local_name) && strpos($link['url'], ".test") === false) {
+                    $iconData = @file_get_contents('https://www.google.com/s2/favicons?domain=' . parse_url($link['url'], PHP_URL_HOST) . '&sz=64');
+                    if ($iconData) file_put_contents($local_name, $iconData);
+                }
+
+                if (!file_exists($local_name) || filesize($local_name) == 0) {
+                    @copy($local_name_offline, $local_name);
+                }
+                echo '<img src="' . $local_name . '" class="icon" style="clear:both" /> ';
+            }
+
+            $displayLabel = strtolower(str_replace(['www.', '_'], ['', '.'], $link['label']));
+            echo htmlspecialchars($displayLabel) . '</a></li>';
+        }
+        echo '</ul></div></div></li>';
+    }
+}
+
+function check_new_todo(&$todos) {
+    if (isset($_POST['action']) && $_POST['action'] == 'add_todo' && !empty($_POST['todo'])) {
+        $id = empty($todos) ? 1 : max(array_column($todos, 'id')) + 1;
+        $todos[] = ['id' => $id, 'text' => $_POST['todo'], 'done' => false];
+        file_put_contents(TODO_FILE, json_encode($todos));
+        header('Location: index.php'); exit;
+    }
+}
+
+function check_delete_todo(&$todos) {
+    if (isset($_GET['action']) && $_GET['action'] == 'delete_todo') {
+        foreach ($todos as &$todo) {
+            if ($todo['id'] == $_GET['id']) $todo['done'] = true;
+        }
+        file_put_contents(TODO_FILE, json_encode($todos));
+        header('Location: index.php'); exit;
+    }
+}
+
+ini_set('display_errors', 1);
 define('SHOW_ICON', true);
 define('REFRESH_RATE', 600);
 define('TODO_FILE', 'data/todo.json');
-define('LINKS_FILE', 'data/links.json');
+define('LINKS_FILE', 'data/links_v2.json');
 
-$column_css = 'col-sm-6 col-md-4 col-lg-4 col-xl-2 listColumn border-0';
+// Load Data
+$todos = json_decode(@file_get_contents(TODO_FILE), true) ?: [];
+$rawMenu = json_decode(@file_get_contents(LINKS_FILE), true) ?: ['folders' => [], 'links' => []];
 
-include('functions.php');
-
-$todos = json_decode(file_get_contents(TODO_FILE), true);
-$menuData = json_decode(file_get_contents(LINKS_FILE), true);
-
-$projects_folder = '..';
-$dirs = array_filter(glob($projects_folder . '/*'), 'is_dir');
-foreach ($dirs as $value) {
-	$value = strtolower(str_replace('../','',$value));
-	// $project_links['https://'.$value.'.test'] = $value;
-	$project_links[$value] = 'https://'.$value.'.test';
+// Prepare Projects (Auto-discovery stays as a dynamic "Folder")
+$project_links = [];
+foreach (array_filter(glob('../' . '*'), 'is_dir') as $dir) {
+    $val = strtolower(basename($dir));
+    $project_links[] = ['id' => 'p_'.$val, 'label' => $val, 'url' => "https://$val.test", 'folder_id' => 'dev_root'];
 }
-
-$menuData_projects['dev projects'] = $project_links;
-// $menuData = array_merge(array('dev projects' => $menuData['dev projects']), array_diff_key($menuData, array('dev projects' => $menuData['dev projects'])));
+$project_folder = [['id' => 'dev_root', 'name' => 'dev projects', 'sort' => -1]];
 
 $css_form = load_css_files();
 $selected_style = get_selected_style();
 
 check_new_todo($todos);
 check_delete_todo($todos);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-		<title> ~ esquire </title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $selected_style; ?>" >
-		<link rel="stylesheet" type="text/css" href="css/style.min.css">
-		<meta http-equiv="refresh" content="<?php echo REFRESH_RATE; ?>" />
+    <title> ~ esquire </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $selected_style; ?>" >
+    <link rel="stylesheet" type="text/css" href="css/style.min.css">
+    <meta http-equiv="refresh" content="<?php echo REFRESH_RATE; ?>" />
     <style>
-        /* Basic styling for the menu */
-        li {
-            list-style-type: none;
-        }
-        .hidden {
-            display: none;
-        }
-        #search {
-            margin-bottom: 20px;
-            padding: 10px;
-            width: 300px;
-            font-size: 16px;
-        }
-        .link {
-            padding: 0;
-            margin: 0;
-        }
+        li { list-style-type: none; }
+        .hidden { display: none; }
+        #search { margin-bottom: 20px; padding: 10px; width: 300px; font-size: 16px; }
+        .link { padding: 0; margin: 0; }
     </style>
 </head>
 <body class="p-0">
 
-<div class="container-fluid p-1" >
-    <div class="row g-0 p-0">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 p-0">
-            <div class="row g-0 p-0">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 p-0">
-                    <div class="card bg-transparent m-0">
-                        <div class="card-body">
-                            <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
-                                <input type="text" id="search-box" name="q" placeholder="Filter menu items or Search Google or Enter URL" class="form-control form-control-sm m-0" required>
-                            </form>
-                        </div>
-                        <div class="card-body">
-                            <?php echo $css_form; ?>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-header"><h6>Nigeria</h6></div>
-                            <div id="currentTime"><?php echo date('H:i:s A'); ?></div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-header"><h6>Canada</h6></div>
-                            <div id="currentTime2"><?php echo date('H:i:s A'); ?></div>
-                        </div>
-                        <div class="card-body">
-                            <?php echo load_todo(); ?>
-                            <form action="index.php" method="post" class="form">
-                                <div class="form p-1">
-                                <input type="text" name="todo" class="form-control form-control-sm m-0">
-                                    <input type="hidden" name="action" value="add_todo">
-                                </div>           
-                            </form>
-                            <?php // echo load_todo(true); ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 p-0">
-                    <div class="card bg-transparent m-0">
+<div class="container-fluid p-1">
+    <div class="row g-0 p-0 ">
+        <div class="col-lg-10 col-md-10 col-sm-6 col-xs-6 p-0">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="card bg-transparent m-2">
                         <div class="card-body p-1">
                             <nav class="nav">
-                                <?php createMenu($menuData_projects, false, false); ?>
+                                <?php createMenu($project_folder, $project_links, true); ?>
                             </nav>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-10">
                     <div class="card bg-transparent m-0">
                         <div class="card-body p-1">
-                            <?php 
-                            echo 'Display speed test here';
-                            ?>
+                            <nav class="nav">
+                                <?php createMenu($rawMenu['folders'], $rawMenu['links'], true); ?>
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6 p-0">
+        
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 p-0">
             <div class="card bg-transparent m-0">
-                <div class="card-body p-1">
-                    <nav class="nav">
-                        <?php createMenu($menuData, false, true); ?>
-                    </nav>
+                <div class="card-body">
+                    <a href="manage.php" class="btn btn-sm btn-outline-secondary w-100">Manage Links</a>
+                </div>
+                <div class="card-body">
+                    <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
+                        <input type="text" id="search-box" name="q" placeholder="Filter or Search..." class="form-control form-control-sm m-0" required>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <?php echo $css_form; ?>
+                </div>
+                <div class="card-body border-top">
+                    <div class="card-header border-0 bg-transparent p-0"><h6>Nigeria</h6></div>
+                    <div id="currentTime" class="fw-bold">--:--:--</div>
+                </div>
+                <div class="card-body border-top">
+                    <div class="card-header border-0 bg-transparent p-0"><h6>Canada</h6></div>
+                    <div id="currentTime2" class="fw-bold">--:--:--</div>
+                </div>
+                <div class="card-body border-top">
+                    <?php echo load_todo(); ?>
+                    <form action="index.php" method="post" class="form">
+                        <div class="form p-1">
+                            <input type="text" name="todo" class="form-control form-control-sm m-0" placeholder="+ add task">
+                            <input type="hidden" name="action" value="add_todo">
+                        </div>           
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    
+</div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-		<script>
-			window.onload = function() {
-				document.getElementById('search-box').focus();
-			};
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+    window.onload = function() { document.getElementById('search-box').focus(); };
 
-			function isValidURL(string) {
-				try {
-					new URL(string);
-					return true;
-				} catch (_) {
-					return false;
-				}
-			}
+    function isValidURL(string) {
+        try { new URL(string.startsWith("http") ? string : "http://" + string); return string.includes('.'); } 
+        catch (_) { return false; }
+    }
 
-			function handleSearch() {
-				var query = document.getElementById('search-box').value.trim();
-
-				if (isValidURL(query)) {
-					window.location.href = query.startsWith("http") ? query : "http://" + query;
-				} else {
-					// Perform a Google search
-					var form = document.getElementById('search-form');
-					form.action = "https://www.google.com/search";
-					form.submit();
-				}
-
-				return false; // Prevent default form submission
-			}
-			function updateTime() {
-            // Specify the timezone you want to display
-            var timezone = 'Africa/Lagos'; // Change to your desired timezone
-
-            // Get the current time in the specified timezone
-            var options = { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            var currentTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
-
-            // Update the HTML element
-            document.getElementById("currentTime").innerHTML = currentTime;
-
-			var timezone = 'America/Thule';
-
-			// Get the current time in the specified timezone
-			var options = { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-			var currentTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
-
-			// Update the HTML element
-			document.getElementById("currentTime2").innerHTML = currentTime;
-
+    function handleSearch() {
+        var query = document.getElementById('search-box').value.trim();
+        if (isValidURL(query)) {
+            window.location.href = query.startsWith("http") ? query : "http://" + query;
+        } else {
+            window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
         }
+        return false;
+    }
 
-        // Update the time every second
-        setInterval(updateTime, 1000);
-
-        // Function to search through the menu
-        document.getElementById("search-box").addEventListener("input", function() {
-            var filter = this.value.toLowerCase();
-            var listItems = document.querySelectorAll(".nav li");
-
-            listItems.forEach(function(item) {
-                // Check if the item contains the search term
-                var text = item.textContent.toLowerCase();
-                if (text.includes(filter)) {
-                    item.style.display = "";
-                } else {
-                    item.style.display = "none";
-                }
-            });
+    function updateClocks() {
+        const locales = [
+            { id: 'currentTime', zone: 'Africa/Lagos' },
+            { id: 'currentTime2', zone: 'America/Toronto' }
+        ];
+        locales.forEach(loc => {
+            const timeStr = new Intl.DateTimeFormat('en-US', {
+                timeZone: loc.zone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+            }).format(new Date());
+            const el = document.getElementById(loc.id);
+            if(el) el.textContent = timeStr;
         });
-    </script>
+    }
+    setInterval(updateClocks, 1000);
+    updateClocks();
 
+    document.getElementById("search-box").addEventListener("input", function() {
+        const filter = this.value.toLowerCase();
+        document.querySelectorAll(".nav li.link").forEach(item => {
+            item.style.display = item.textContent.toLowerCase().includes(filter) ? "" : "none";
+        });
+    });
+</script>
 </body>
 </html>
