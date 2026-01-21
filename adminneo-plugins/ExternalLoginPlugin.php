@@ -9,6 +9,8 @@ namespace AdminNeo;
  * the `servers` configuration option to be set together with the database username and password. If only one server is
  * configured, the user will be automatically logged in.
  *
+ * Last changed in release: v5.2.0
+ * 
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Peter Knut
@@ -19,13 +21,13 @@ namespace AdminNeo;
 class ExternalLoginPlugin extends Plugin
 {
 	/** @var bool */
-	private $authenticated;
+	protected $authenticated;
 
 	/** @var bool */
-	private $hasServers = false;
+	protected $hasServers = false;
 
 	/** @var bool */
-	private $autologin = false;
+	protected $autologin = false;
 
 	/**
 	 * @param bool $authenticated Whether the user is authenticated by the external service.
@@ -37,7 +39,7 @@ class ExternalLoginPlugin extends Plugin
 
 	public function init()
 	{
-		$servers = $this->config->getServerPairs(get_drivers());
+		$servers = $this->config->getServerPairs(Drivers::getList());
 
 		$this->hasServers = count($servers) > 0;
 		$this->autologin = count($servers) == 1;

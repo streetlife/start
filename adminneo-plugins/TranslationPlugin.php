@@ -19,6 +19,8 @@ namespace AdminNeo;
  * );
  * </pre>
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -30,10 +32,10 @@ namespace AdminNeo;
 class TranslationPlugin extends Plugin
 {
 	/** @var string */
-	private $table;
+	protected $table;
 
 	/** @var int */
-	private $maxLength;
+	protected $maxLength;
 
 	/** @var ?string */
 	private $language = null;
@@ -74,7 +76,7 @@ class TranslationPlugin extends Plugin
 	private function translate($text)
 	{
 		if ($this->language === null) {
-			$this->language = get_lang();
+			$this->language = $this->locale->getLanguage();
 		}
 
 		if ($text == "") {
@@ -89,8 +91,7 @@ class TranslationPlugin extends Plugin
 		}
 
 		if (!array_key_exists($text, $this->translations)) {
-			$connection = connection();
-			$connection->query(
+			Connection::get()->query(
 				"INSERT INTO " . idf_escape($this->table) . " (language, text)
 				VALUES (" . q($this->language) . ", " . $this->sanitizeText($text) . ")"
 			);

@@ -20,6 +20,8 @@ namespace AdminNeo;
  *
  * The minimum required PHP version is 5.5.
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -31,20 +33,20 @@ namespace AdminNeo;
 class TableLoginPlugin extends Plugin
 {
 	/** @var string */
-	private $database;
+	protected $database;
 
 	/** @var string */
-	private $table;
+	protected $table;
 
 	/** @var string[] */
-	private $credentials;
+	protected $credentials;
 
 	/**
 	 * @param string $database Database name.
 	 * @param string $table Table name.
 	 * @param string[] $credentials Database credentials in form [user, password].
 	 */
-	function __construct($database, $table = "users", array $credentials = ["", ""])
+	public function __construct($database, $table = "users", array $credentials = ["", ""])
 	{
 		$this->database = $database;
 		$this->table = $table;
@@ -59,16 +61,16 @@ class TableLoginPlugin extends Plugin
 	public function authenticate($username, $password)
 	{
 		if (DRIVER == "sqlite") {
-			connection()->select_db($this->database);
+			Connection::get()->selectDatabase($this->database);
 			$dbPrefix = "";
 		} else {
 			$dbPrefix = idf_escape($this->database) . ".";
 		}
 
-		$hash = connection()->result(
+		$hash = Connection::get()->getValue(
 			"SELECT password FROM $dbPrefix" . idf_escape($this->table) . " WHERE username = " . q($username)
 		);
 
-		return $hash && function_exists("password_verify") && password_verify($password, $hash);
+		return $hash && password_verify($password, $hash);
 	}
 }

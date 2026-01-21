@@ -8,6 +8,8 @@ use Exception;
  * Replaces fields ending with "_path" by `<input type="file">` in edit form and displays links to the uploaded files in
  * table select.
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -19,13 +21,13 @@ use Exception;
 class FileUploadPlugin extends Plugin
 {
 	/** @var string */
-	private $uploadPath;
+	protected $uploadPath;
 
 	/** @var string */
-	private $linkPath;
+	protected $linkPath;
 
 	/** @var string */
-	private $extensions;
+	protected $extensions;
 
 	/**
 	 * @param string $uploadPath Path to a writable directory where uploading data will be stored.
@@ -78,7 +80,7 @@ class FileUploadPlugin extends Plugin
 
 		// Create a directory for the current table.
 		$targetDir = $this->uploadPath . "/" . $this->encodeFs($dbName) . "/" . $this->encodeFs($tableName);
-		if (!file_exists($targetDir) && !mkdir($targetDir, 0777, true)) {
+		if (!is_dir($targetDir) && !@mkdir($targetDir, 0777, true)) {
 			return false;
 		}
 

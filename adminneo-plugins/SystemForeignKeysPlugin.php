@@ -5,6 +5,8 @@ namespace AdminNeo;
 /**
  * Links tables by foreign keys in system 'information_schema' and 'mysql' databases.
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/

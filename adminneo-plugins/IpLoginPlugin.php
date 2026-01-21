@@ -8,6 +8,8 @@ namespace AdminNeo;
  * If the remote address is a proxy server, it is possible to set additional restriction to the next client in the line
  * (the last IP address found in X-Forwarded-For HTTP header).
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -18,14 +20,14 @@ namespace AdminNeo;
  */
 class IpLoginPlugin extends Plugin
 {
-	private $ips;
-	private $forwardedFor;
+	protected $ips;
+	protected $forwardedFor;
 
 	/**
 	 * @param array $ips Allowed IP address prefixes.
 	 * @param array $forwardedFor Allowed X-Forwarded-For prefixes, empty array means no restriction.
 	 */
-	function __construct(array $ips, array $forwardedFor = [])
+	public function __construct(array $ips, array $forwardedFor = [])
 	{
 		$this->ips = $ips;
 		$this->forwardedFor = $forwardedFor;

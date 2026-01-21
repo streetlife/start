@@ -5,6 +5,8 @@ namespace AdminNeo;
 /**
  * Logs all queries to SQL file.
  *
+ * Last changed in release: v5.2.0
+ * 
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -15,7 +17,8 @@ namespace AdminNeo;
  */
 class SqlLogPlugin extends Plugin
 {
-	private $filename;
+	/** @var ?string */
+	protected $filename;
 
 	/**
 	 * @param ?string $filename If not set, logs will be written to "$database-log.sql" file.
@@ -44,6 +47,11 @@ class SqlLogPlugin extends Plugin
 		if ($this->filename == "") {
 			$dbName = $this->admin->getDatabase();
 			$this->filename = $dbName . ($dbName ? "-" : "") . "log.sql";
+		}
+
+		$folder = dirname($this->filename);
+		if (!is_dir($folder)) {
+			@mkdir($folder, 0777, true);
 		}
 
 		$fp = fopen($this->filename, "a");

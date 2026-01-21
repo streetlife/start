@@ -5,6 +5,8 @@ namespace AdminNeo;
 /**
  * Adds option to export table data to XML format in structure <database name=""><table name=""><column name="">.
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -57,11 +59,9 @@ class XmlDumpPlugin extends Plugin
 			});
 		}
 
-		$connection = connection();
-
-		$result = $connection->query($query, 1);
+		$result = Connection::get()->query($query, 1);
 		if ($result) {
-			while ($row = $result->fetch_assoc()) {
+			while ($row = $result->fetchAssoc()) {
 				echo "\t<table name='" . h($table) . "'>\n";
 				foreach ($row as $key => $val) {
 					echo "\t\t<column name='" . h($key) . "'" . (isset($val) ? "" : " null='null'") . ">" . h($val) . "</column>\n";

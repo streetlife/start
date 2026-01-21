@@ -6,6 +6,8 @@ namespace AdminNeo;
  * Allows using AdminNeo or EditorNeo inside a frame by modifying `X-Frame-Options` and `Content-Security-Policy`
  * HTTP headers.
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Peter Knut
@@ -16,7 +18,7 @@ namespace AdminNeo;
 class FrameSupportPlugin extends Plugin
 {
 	/** @var string[] */
-	private $frameAncestors;
+	protected $frameAncestors;
 
 	/**
 	 * List of ancestors can contain sources that are allowed to embed AdminNeo as defined in

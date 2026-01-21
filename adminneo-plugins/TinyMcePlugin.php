@@ -5,6 +5,8 @@ namespace AdminNeo;
 /**
  * Use TinyMCE 7 editor for all edit fields containing "_html" in their name.
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.tiny.cloud/docs/tinymce/latest/php-projects/
  * @link https://www.tiny.cloud/docs/tinymce/latest/basic-setup/
  * @link https://www.tiny.cloud/get-tiny/language-packages/
@@ -20,10 +22,10 @@ namespace AdminNeo;
 class TinyMcePlugin extends Plugin
 {
 	/** @var string */
-	private $path;
+	protected $path;
 
 	/** @var string */
-	private $licenseKey;
+	protected $licenseKey;
 
 	public function __construct($path = "tinymce/tinymce.min.js", $licenseKey = "gpl")
 	{
@@ -33,10 +35,10 @@ class TinyMcePlugin extends Plugin
 
 	public function printToHead()
 	{
-		$lang = get_lang();
-		$lang = ($lang == "zh" ? "zh-CN" : ($lang == "zh-tw" ? "zh-TW" : $lang));
-		if (!file_exists(dirname($this->path) . "/langs/$lang.js")) {
-			$lang = "en";
+		$language = $this->locale->getLanguage();
+		$language = ($language == "zh" ? "zh-CN" : ($language == "zh-tw" ? "zh-TW" : $language));
+		if (!file_exists(dirname($this->path) . "/langs/$language.js")) {
+			$language = "en";
 		}
 
 		echo script_src($this->path);
@@ -49,7 +51,7 @@ class TinyMcePlugin extends Plugin
 				width: 800,
 				height: 600,
 				entity_encoding: 'raw',
-				language: '<?= $lang; ?>',
+				language: '<?= $language; ?>',
 				plugins: 'image link',
 				toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | link image'
 			});

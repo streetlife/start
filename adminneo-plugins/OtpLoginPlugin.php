@@ -7,6 +7,8 @@ namespace AdminNeo;
  *
  * The implementation uses standard SHA1 algorithm, 30s time interval and 6-digits code.
  *
+ * Last changed in release: v5.2.0
+ *
  * @link https://www.adminneo.org/plugins/otp-login
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -18,7 +20,7 @@ namespace AdminNeo;
 class OtpLoginPlugin extends Plugin
 {
 	/** @var string */
-	private $secret;
+	protected $secret;
 
 	/**
 	 * @param string $secret Decoded secret, e.g. base64_decode("ENCODED_SECRET").
