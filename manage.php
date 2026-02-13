@@ -1,7 +1,28 @@
 <?php
-/**
- * manage.php - Relational Link Management
- */
+function ensure_folder_colors(&$data) {
+    $updated = false;
+    
+    foreach ($data['folders'] as &$folder) {
+        // Check if color is missing, empty, or default white
+        if (!isset($folder['color']) || empty($folder['color']) || $folder['color'] === '#ffffff') {
+            
+            // Generate a random dark color
+            $red = rand(20, 100);
+            $green = rand(20, 100);
+            $blue = rand(20, 100);
+            $folder['color'] = sprintf('#%02x%02x%02x', $red, $green, $blue);
+            
+            $updated = true;
+        }
+    }
+
+    // Only write to disk if we actually changed something to save I/O
+    if ($updated) {
+        if (!is_dir('data')) mkdir('data', 0777, true);
+        file_put_contents(LINKS_FILE, json_encode($data, JSON_PRETTY_PRINT));
+    }
+}
+
 function fetch_favicon($label, $url) {
     $iconDir = 'img/icons/';
     if (!is_dir($iconDir)) mkdir($iconDir, 0777, true);
@@ -33,6 +54,7 @@ $data = json_decode(@file_get_contents(DATA_FILE), true) ?: [
     'links' => []
 ];
 
+
 function save($data) {
     usort($data['folders'], fn($a, $b) => $a['sort'] <=> $b['sort']);
     if (!is_dir('data')) mkdir('data', 0777, true);
@@ -44,15 +66,28 @@ $action = $_REQUEST['action'] ?? '';
 
 if ($action === 'upsert_folder') {
     $id = $_POST['id'] ?: uniqid('f');
+    $color = $_POST['color'] ?: '#050000';
+    $icon = $_POST['icon'] ?: 'mdi:folder'; // Default icon if empty
+    
     $found = false;
     foreach ($data['folders'] as &$f) {
         if ($f['id'] === $id) {
             $f['name'] = $_POST['name'];
             $f['sort'] = (int)$_POST['sort'];
+            $f['color'] = $color;
+            $f['icon'] = $icon; // Save icon
             $found = true;
         }
     }
-    if (!$found) $data['folders'][] = ['id' => $id, 'name' => $_POST['name'], 'sort' => (int)$_POST['sort']];
+    if (!$found) {
+        $data['folders'][] = [
+            'id' => $id, 
+            'name' => $_POST['name'], 
+            'sort' => (int)$_POST['sort'], 
+            'color' => $color,
+            'icon' => $icon // Save icon for new folder
+        ];
+    }
     save($data);
     header('Location: manage.php'); exit;
 }
@@ -69,6 +104,7 @@ if ($action === 'upsert_link') {
     $id = $_POST['link_id'] ?: uniqid('l');
     $label = $_POST['label'];
     $url = $_POST['url'];
+    $hidden = $_POST['hidden'] ?? false;
     
     // Trigger favicon fetch
     fetch_favicon($label, $url);
@@ -78,7 +114,8 @@ if ($action === 'upsert_link') {
         'label' => $_POST['label'], 
         'url' => $_POST['url'], 
         'folder_id' => $_POST['folder_id'] ?: 'root',
-        'target' => $_POST['target'] ?? '_self' // Capture the target
+        'target' => $_POST['target'] ?? '_self', // Capture the target
+        'hidden' => $hidden ? true : false // Capture the hidden status
     ];
     // $id = $_POST['link_id'] ?: uniqid('l');
     // $newLink = ['id' => $id, 'label' => $_POST['label'], 'url' => $_POST['url'], 'folder_id' => $_POST['folder_id'] ?: 'root'];
@@ -124,128 +161,154 @@ if ($action === 'refresh_icons') {
             background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23aaa' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") no-repeat 15px center;
         }
         @media (max-width: 992px) { .sidebar { width: 100%; height: auto; position: relative; } .main-content { margin-left: 0; } }
+        .icon-preview { font-size: 1.2rem; vertical-align: middle; margin-right: 5px; }
     </style>
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"> <h6 class="fw-bold mb-3">Manage Folders</h6>
 
-    <aside class="sidebar">
-        <h4 class="fw-bold mb-1">Navigation Admin</h4>
-        <p class="text-muted small mb-4">Manage folders & links</p>
+                <div class="card mb-4 bg-light border-0">
+                    <div class="card-body p-3">
+                        <label class="small fw-bold mb-2 d-block">Folder Editor</label>
+                        <form action="manage.php" method="post" class="mb-3">
+                            <input type="hidden" name="action" value="upsert_folder">
+                            <input type="hidden" name="id" id="f_id">
+                            
+                            <div class="mb-2">
+                                <input type="text" name="name" id="f_name" class="form-control form-control-sm mb-2" placeholder="Folder Name" required>
+                                <div class="input-group input-group-sm mb-2">
+                                    <span class="input-group-text"><iconify-icon icon="mdi:emoticon-outline"></iconify-icon></span>
+                                    <input type="text" name="icon" id="f_icon" class="form-control" placeholder="mdi:home">
+                                    
+                                    <input type="number" name="sort" id="f_sort" class="form-control" style="max-width:60px" placeholder="Idx">
+                                    <input type="color" name="color" id="f_color" class="form-control form-control-color" style="max-width:45px" title="Folder Color">
+                                </div>
+                                <button class="btn btn-dark btn-sm w-100" type="submit">Save Folder</button>
+                            </div>
+                        </form>
 
-        <div class="card mb-4 bg-light border-0">
-            <div class="card-body p-3">
-                <label class="small fw-bold mb-2 d-block">Folder Editor</label>
-                <form action="manage.php" method="post" class="mb-3">
-                    <input type="hidden" name="action" value="upsert_folder">
-                    <input type="hidden" name="id" id="f_id">
-                    <div class="input-group input-group-sm mb-2">
-                        <input type="text" name="name" id="f_name" class="form-control" placeholder="Name" required>
-                        <input type="number" name="sort" id="f_sort" class="form-control" style="max-width:60px" placeholder="Index">
-                        <button class="btn btn-dark" type="submit">Save</button>
+                        <div class="small overflow-auto">
+                            <?php foreach ($data['folders'] as $f): ?>
+                            <div class="d-flex justify-content-between border-bottom py-2 align-items-center">
+                                <span>
+                                    <iconify-icon icon="<?= $f['icon'] ?? 'mdi:folder' ?>" class="icon-preview" style="color: <?= $f['color'] ?? '#000' ?>"></iconify-icon>
+                                    <strong><?= htmlspecialchars($f['name']) ?> </strong> 
+                                </span>
+                                <span><?= htmlspecialchars($f['sort']) ?></span>
+                                <a href="javascript:void(0)" onclick="editFolder('<?= $f['id'] ?>', '<?= addslashes($f['name']) ?>', <?= $f['sort'] ?>, '<?= $f['color'] ?? '#0f0202' ?>', '<?= $f['icon'] ?? 'mdi:folder' ?>')" class="text-primary text-decoration-none">Edit</a>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <form action="manage.php" method="post" id="link-form">
+                    <h6 class="fw-bold mb-3" id="l_title">Add New Link</h6>
+                    <input type="hidden" name="action" value="upsert_link">
+                    <input type="hidden" name="link_id" id="l_id">
+                    
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Link Label</label>
+                        <input type="text" name="label" id="l_label" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">URL</label>
+                        <input type="text" name="url" id="l_url" class="form-control" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Assign to Folder</label>
+                        <select name="folder_id" id="l_folder" class="form-select">
+                            <?php foreach ($data['folders'] as $f): ?>
+                            <option value="<?= $f['id'] ?>"><?= htmlspecialchars($f['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="target" id="l_target" value="_blank" <?php if (isset($l['target']) && $l['target'] === '_blank') echo 'checked'; ?>>
+                        <label class="form-check-label small fw-bold" for="l_target">Open in new tab</label>
+                    </div>
+                    <div class="mb-3 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="hidden" id="l_hidden" value="true" <?php if (isset($l['hidden']) && $l['hidden'] === true) echo 'checked'; ?>>
+                        <label class="form-check-label small fw-bold" for="l_hidden">Hide from menu</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">Save Link</button>
+                    <button type="button" class="btn btn-link btn-sm w-100 mt-2 text-muted" onclick="location.reload()">Reset Form</button>
                 </form>
-                <div style="max-height: 150px; overflow-y: auto;" class="small">
-                    <?php foreach ($data['folders'] as $f): ?>
-                    <div class="d-flex justify-content-between border-bottom py-1">
-                        <span><span class="text-muted"><?= $f['sort'] ?>.</span> <?= htmlspecialchars($f['name']) ?></span>
-                        <a href="javascript:void(0)" onclick="editFolder('<?= $f['id'] ?>', '<?= addslashes($f['name']) ?>', <?= $f['sort'] ?>)" class="text-primary text-decoration-none">Edit</a>
+
+                <div class="mt-5 pt-4 border-top">
+                    <a href="index.php" class="btn btn-outline-dark w-100">← Back to Dashboard</a>
+                </div>
+
+                <div class="mt-3">
+                    <a href="manage.php?action=refresh_icons" class="btn btn-sm btn-outline-info w-100" onclick="return confirm('This may take a moment. Proceed?')">
+                        🔄 Refresh All Favicons
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="fw-bold mb-3" id="l_title">Link Inventor</h6>
+                    <div style="width: 350px;">
+                        <input type="text" id="search-admin" class="form-control border-0 shadow-sm" placeholder="Filter by name, URL or folder...">
                     </div>
+                </div>
+
+                <div class="mb-4 d-flex gap-2 flex-wrap">
+                    <button class="btn btn-sm btn-dark rounded-pill px-3" onclick="filterFolder('all')">All Folders</button>
+                    <?php foreach ($data['folders'] as $f): ?>
+                        <button class="btn btn-sm btn-white border rounded-pill px-3 bg-white" onclick="filterFolder('<?= $f['id'] ?>')">
+                            <?= htmlspecialchars($f['name']) ?>
+                        </button>
                     <?php endforeach; ?>
+                </div>
+
+                <div class="card shadow-sm border-0">
+                    <table class="table table-hover mb-0" id="linksTable">
+                        <thead class="table-light">
+                            <tr class="small text-uppercase text-muted">
+                                <th onclick="sortTable(0)" style="cursor:pointer">Folder ↕</th>
+                                <th onclick="sortTable(1)" style="cursor:pointer">Label ↕</th>
+                                <th>URL</th>
+                                <th>Hidden</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="link-table-body">
+                            <?php 
+                            foreach ($data['links'] as $l): 
+                                $fName = "Unknown";
+                                foreach($data['folders'] as $f) { if($f['id'] === $l['folder_id']) $fName = $f['name']; }
+                            ?>
+                            <tr class="align-middle link-row" data-folder-id="<?= $l['folder_id'] ?>">
+                                <td><span class="folder-badge"><?= htmlspecialchars($fName) ?></span></td>
+                                <td class="fw-bold"><?= htmlspecialchars($l['label']) ?></td>
+                                <td class="text-muted small"><code><?= htmlspecialchars($l['url']) ?></code></td>
+                                <td>
+                                    <?php if (isset($l['hidden']) && $l['hidden']): ?>
+                                        <span class="text-danger">Yes</span>
+                                    <?php else: ?>
+                                        <span class="text-success">No</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="text-end">
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-secondary" onclick="editLink('<?= $l['id'] ?>', '<?= addslashes($l['label']) ?>', '<?= addslashes($l['url']) ?>', '<?= $l['folder_id'] ?>', '<?=  $l['target'] ?>', <?= isset($l['hidden'])?$l['hidden']:'0' ?>)">Edit</button>
+                                        <a href="manage.php?action=delete_link&id=<?= $l['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete?')">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
 
-        <hr>
-
-        <form action="manage.php" method="post" id="link-form">
-            <h6 class="fw-bold mb-3" id="l_title">Add New Link</h6>
-            <input type="hidden" name="action" value="upsert_link">
-            <input type="hidden" name="link_id" id="l_id">
-            
-            <div class="mb-3">
-                <label class="form-label small fw-bold">Link Label</label>
-                <input type="text" name="label" id="l_label" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label small fw-bold">URL</label>
-                <input type="text" name="url" id="l_url" class="form-control" required>
-            </div>
-            <div class="mb-4">
-                <label class="form-label small fw-bold">Assign to Folder</label>
-                <select name="folder_id" id="l_folder" class="form-select">
-                    <?php foreach ($data['folders'] as $f): ?>
-                    <option value="<?= $f['id'] ?>"><?= htmlspecialchars($f['name']) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="mb-3 form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="target" id="l_target" value="_blank">
-                <label class="form-check-label small fw-bold" for="l_target">Open in new tab</label>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 fw-bold">Save Link</button>
-            <button type="button" class="btn btn-link btn-sm w-100 mt-2 text-muted" onclick="location.reload()">Reset Form</button>
-        </form>
-
-        <div class="mt-5 pt-4 border-top">
-            <a href="index.php" class="btn btn-outline-dark w-100">← Back to Dashboard</a>
-        </div>
-
-        <div class="mt-3">
-            <a href="manage.php?action=refresh_icons" class="btn btn-sm btn-outline-info w-100" onclick="return confirm('This may take a moment. Proceed?')">
-                🔄 Refresh All Favicons
-            </a>
-        </div>
-    </aside>
-
-    <main class="main-content">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">Link Inventory</h2>
-            <div style="width: 350px;">
-                <input type="text" id="search-admin" class="form-control border-0 shadow-sm" placeholder="Filter by name, URL or folder...">
-            </div>
-        </div>
-
-        <div class="mb-4 d-flex gap-2 flex-wrap">
-            <button class="btn btn-sm btn-dark rounded-pill px-3" onclick="filterFolder('all')">All Folders</button>
-            <?php foreach ($data['folders'] as $f): ?>
-                <button class="btn btn-sm btn-white border rounded-pill px-3 bg-white" onclick="filterFolder('<?= $f['id'] ?>')">
-                    <?= htmlspecialchars($f['name']) ?>
-                </button>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="card shadow-sm border-0">
-            <table class="table table-hover mb-0" id="linksTable">
-                <thead class="table-light">
-                    <tr class="small text-uppercase text-muted">
-                        <th onclick="sortTable(0)" style="cursor:pointer">Folder ↕</th>
-                        <th onclick="sortTable(1)" style="cursor:pointer">Label ↕</th>
-                        <th>URL</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="link-table-body">
-                    <?php 
-                    foreach ($data['links'] as $l): 
-                        $fName = "Unknown";
-                        foreach($data['folders'] as $f) { if($f['id'] === $l['folder_id']) $fName = $f['name']; }
-                    ?>
-                    <tr class="align-middle link-row" data-folder-id="<?= $l['folder_id'] ?>">
-                        <td><span class="folder-badge"><?= htmlspecialchars($fName) ?></span></td>
-                        <td class="fw-bold"><?= htmlspecialchars($l['label']) ?></td>
-                        <td class="text-muted small"><code><?= htmlspecialchars($l['url']) ?></code></td>
-                        <td class="text-end">
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-secondary" onclick="editLink('<?= $l['id'] ?>', '<?= addslashes($l['label']) ?>', '<?= addslashes($l['url']) ?>', '<?= $l['folder_id'] ?>', '<?=  $l['target'] ?>')">Edit</button>
-                                <a href="manage.php?action=delete_link&id=<?= $l['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete?')">Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </main>
 
     <script>
         // RESTORED SEARCH LOGIC
@@ -265,20 +328,23 @@ if ($action === 'refresh_icons') {
         }
 
         // Form Helpers
-        function editFolder(id, name, sort) {
+        function editFolder(id, name, sort, color, icon) {
             document.getElementById('f_id').value = id;
             document.getElementById('f_name').value = name;
             document.getElementById('f_sort').value = sort;
+            document.getElementById('f_color').value = color || '#000000';
+            document.getElementById('f_icon').value = icon || 'mdi:folder';
             document.getElementById('f_name').focus();
         }
 
-        function editLink(id, label, url, folderId, target) {
+        function editLink(id, label, url, folderId, target, hidden) {
             document.getElementById('l_title').innerText = "Update Link";
             document.getElementById('l_id').value = id;
             document.getElementById('l_label').value = label;
             document.getElementById('l_url').value = url;
             document.getElementById('l_folder').value = folderId;
             document.getElementById('l_target').checked = (target === '_blank');
+            document.getElementById('l_hidden').checked = (hidden === 1);
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 

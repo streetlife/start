@@ -2,6 +2,27 @@
 /**
  * index.php - Updated to support Folder IDs and Sort Index
  */
+function track_search($query) {
+    if (empty($query) || strlen($query) < 2) return;
+    $history_file = 'data/search_history.json';
+    $history = json_decode(@file_get_contents($history_file), true) ?: [];
+    
+    // Clean and check if it already exists
+    $query = strtolower(trim($query));
+    if (!in_array($query, $history)) {
+        array_unshift($history, $query); // Add to beginning
+        $history = array_slice($history, 0, 20); // Keep last 20 searches
+        file_put_contents($history_file, json_encode($history));
+    }
+}
+
+// Load history for the datalist
+$search_history = json_decode(@file_get_contents('data/search_history.json'), true) ?: [];
+
+// Process tracking if search is submitted
+if (isset($_GET['q'])) {
+    track_search($_GET['q']);
+}
 
 function get_selected_style() {
     if (isset($_GET['style'])) {
@@ -124,64 +145,72 @@ function randomLightColor() {
 	return '#' . dechex($red) . dechex($green) . dechex($blue);
 
 }
-/**
- * Updated createMenu to handle the new relational JSON structure
- */
-function createMenu($folders, $allLinks, $showIcon = true, $multiColumn = false) {
+
+function createMenu($folders, $allLinks, $showIcon = false, $multiColumn = false) {
+    $output = '';
     $local_name_offline = 'img/icon-local.png';
+    $multiColumnClass = $multiColumn ? 'multi-column-list' : '';
 
-    $label_number = 1;
-
-    $multiColumnClass = '';
-    if ($multiColumn) {
-        $multiColumnClass = 'multi-column-list';
-    }
-
-    $lastkey = array_key_last($folders);
-
-    echo '<ul class="'.$multiColumnClass.'" style="width:100%">';
-    foreach ($folders as $folder_key=>$folder) {
-        // Filter links belonging to this folder
+    $output .= '<ul class="'.$multiColumnClass.' p-0 m-0" style="width:100%">';
+    foreach ($folders as $folder) {
+        // 1. Filter links belonging to this folder
         $folderLinks = array_filter($allLinks, function($l) use ($folder) {
             return $l['folder_id'] === $folder['id'];
         });
 
+        // 2. NEW: Remove links explicitly marked as 'hidden' in JSON
+        $folderLinks = array_filter($folderLinks, function($l) {
+            return !(isset($l['hidden']) && $l['hidden'] === true);
+        });
+
+        // If no visible links exist, skip the folder entirely
         if (empty($folderLinks)) continue;
 
-        echo '<div class="folder-links">';
-        echo '<li class="title" style="display:block">' . $folder['name'].'<li>';
+        if (isset($folder['color']) && !empty($folder['color'])) {
+            $bgColor = $folder['color'];
+        } else {
+            $bgColor = '#000000';
+        }
 
-        // Sort links alphabetically within the folder
+        // Add a class 'folder-container' to make JS targeting easier
+        $output .= '
+        <li class="link folder-container bg-transparent">
+            <div class="card m-0 bg-transparent border-0">
+                <div class="card-body p-0 pb-3">
+                    <div class="card-header bg-transparent p-2 folder-header">
+                        <h6 class="m-0 fw-bold text-uppercase">
+                        <iconify-icon icon="' . (isset($folder['icon']) ? $folder['icon'] : 'mdi:home') . '"></iconify-icon>
+                        ' . $folder['name'] . '</h6>
+                    </div>
+                    <ul class="sub-menu p-1 px-3 m-0">';
+        
         usort($folderLinks, fn($a, $b) => strnatcasecmp($a['label'], $b['label']));
 
         foreach ($folderLinks as $link) {
-            $target = isset($link['target']) ? $link['target'] : '_self';
-            echo '<li class="link">';
-            echo '<a href="' . htmlspecialchars($link['url']) . '" target="' . $target . '" class="nav-link p-0 m-0">';
+            $target = '_self';
+            // Added data-url attribute here
+            $output .= '<li class="link" style="" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">
+                <a href="' . htmlspecialchars($link['url']) . '" target="' . $target . '" class="nav-link p-0 m-0">';
             
             if ($showIcon) {
                 $safeLabel = preg_replace('/[^a-z0-9]/i', '_', $link['label']);
                 $local_name = 'img/icons/' . $safeLabel . '.png';
-                
-                if (!file_exists($local_name) && strpos($link['url'], ".test") === false) {
-                    $iconData = @file_get_contents('https://www.google.com/s2/favicons?domain=' . parse_url($link['url'], PHP_URL_HOST) . '&sz=64');
-                    if ($iconData) file_put_contents($local_name, $iconData);
-                }
-
                 if (!file_exists($local_name) || filesize($local_name) == 0) {
                     @copy($local_name_offline, $local_name);
                 }
-                echo '<img src="' . $local_name . '" class="icon" style="clear:both" /> ';
+                $output .= '<img src="' . $local_name . '" class="icon" style="clear:both" /> ';
             }
 
-            $displayLabel = strtolower(str_replace(['www.', '_'], ['', '.'], $link['label']));
-            echo htmlspecialchars($displayLabel) . '</a></li>';
+            $displayLabel = strtolower(str_replace(['www.', '_',' '], ['', '.', '.'], $link['label']));
+            $output .= htmlspecialchars($displayLabel) . '</a></li>';
         }
-        // echo '</ul></div></div></li>';
-        if ($folder_key !== $lastkey)  echo '<li class="link">--------<li>';
-        echo '</div>';
+        $output .= '</ul>
+                </div>
+            </div>
+        </li>';
     }
-    echo '</ul>';
+    $output .= '</ul>';
+    return $output;
 }
 
 function check_new_todo(&$todos) {
@@ -194,13 +223,6 @@ function check_new_todo(&$todos) {
 }
 
 function check_delete_todo(&$todos) {
-    // if (isset($_GET['action']) && $_GET['action'] == 'delete_todo') {
-    //     foreach ($todos as &$todo) {
-    //         if ($todo['id'] == $_GET['id']) $todo['done'] = true;
-    //     }
-    //     file_put_contents(TODO_FILE, json_encode($todos));
-    //     header('Location: index.php'); exit;
-    // }
     // Move Todo Action
     if (isset($_GET['action']) && $_GET['action'] == 'move_todo') {
         foreach ($todos as &$todo) {
@@ -229,10 +251,18 @@ $rawMenu = json_decode(@file_get_contents(LINKS_FILE), true) ?: ['folders' => []
 $project_links = [];
 foreach (array_filter(glob('../' . '*'), 'is_dir') as $dir) {
     $val = strtolower(basename($dir));
+    if ($val === 'start') continue;
     $project_links[] = ['id' => 'p_'.$val, 'label' => $val, 'url' => "https://$val.test", 'folder_id' => 'dev_root'];
 }
 $project_folder = [['id' => 'dev_root', 'name' => 'dev projects', 'sort' => -1]];
 
+// Merge project links into main links
+$rawMenu['links'] = array_merge($project_links, $rawMenu['links']);
+$rawMenu['folders'] = array_merge($project_folder, $rawMenu['folders']);
+
+
+// print_r($rawMenu);
+// die();
 $css_form = load_css_files();
 $selected_style = get_selected_style();
 
@@ -253,30 +283,34 @@ check_delete_todo($todos);
         #search { margin-bottom: 20px; padding: 10px; width: 300px; font-size: 16px; }
         .link { padding: 0; margin: 0; }
     </style>
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
 </head>
 <body class="p-0">
 
-<div class="container-fluid p-2">
-    <div class="row g-0 p-0">
-        <div class="col-md-1">
-            <div class="card bg-transparent m-0">
-                <div class="card-body p-0">
-                    <nav class="nav">
-                        <?php createMenu($project_folder, $project_links, true, false); ?>
-                    </nav>
+<div class="container-fluid">
+    <div class="row g-0">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-body p-2">
+                    <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
+                        <input type="text" id="search-box" name="q" 
+                            placeholder="Filter or Search..." 
+                            class="form-control form-control-sm m-0" 
+                            list="search-history-list" 
+                            autocomplete="off" 
+                            required>
+                        <datalist id="search-history-list">
+                            <?php foreach ($search_history as $item): ?>
+                                <option value="<?php echo htmlspecialchars($item); ?>">
+                            <?php endforeach; ?>
+                        </datalist>
+                    </form>
                 </div>
             </div>
-        </div>
-        <div class="col-md-9">
-            <div class="card-body">
-                <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
-                    <input type="text" id="search-box" name="q" placeholder="Filter or Search..." class="form-control form-control-sm m-0" required>
-                </form>
-            </div>
             <div class="card bg-transparent m-0">
-                <div class="card-body p-1">
+                <div class="card-body">
                     <nav class="nav">
-                        <?php createMenu($rawMenu['folders'], $rawMenu['links'], true, true); ?>
+                        <?php echo createMenu($rawMenu['folders'], $rawMenu['links'], true, true); ?>
                     </nav>
                 </div>
             </div>
@@ -331,8 +365,54 @@ check_delete_todo($todos);
         catch (_) { return false; }
     }
 
+    document.getElementById("search-box").addEventListener("input", function() {
+        const filter = this.value.toLowerCase();
+        const navUl = document.querySelector(".nav > ul");
+        const allLinks = document.querySelectorAll(".sub-menu li.link");
+        
+        // Toggle multi-column layout
+        if (filter.length > 0) {
+            if(navUl) navUl.classList.remove("multi-column-list");
+        } else {
+            if(navUl) navUl.classList.add("multi-column-list");
+        }
+
+        allLinks.forEach(item => {
+            const labelText = item.textContent.toLowerCase();
+            const urlText = item.getAttribute("data-url"); // Get the hidden URL data
+            
+            // Search matches if filter is in label OR in URL
+            const isMatch = labelText.includes(filter) || urlText.includes(filter);
+            item.style.display = isMatch ? "" : "none";
+        });
+        
+        // Update Folder Visibility
+        document.querySelectorAll(".nav .folder-container").forEach(folder => {
+            const hasVisibleChild = folder.querySelector("li.link:not([style*='display: none'])");
+            folder.style.display = (hasVisibleChild || filter === "") ? "" : "none";
+        });
+    });
+
     function handleSearch() {
-        var query = document.getElementById('search-box').value.trim();
+        const query = document.getElementById('search-box').value.trim();
+        if (!query) return false;
+
+        // Track the search via background ping before navigating
+        fetch('index.php?q=' + encodeURIComponent(query));
+
+        const visibleLinks = document.querySelectorAll(".nav li.link:not([style*='display: none']) a");
+
+        // Launch if exactly one link is visible
+        if (visibleLinks.length === 1 && query !== "") {
+            const link = visibleLinks[0];
+            if (link.target === "_blank") {
+                window.open(link.href, '_blank');
+            } else {
+                window.location.href = link.href;
+            }
+            return false;
+        }
+
         if (isValidURL(query)) {
             window.location.href = query.startsWith("http") ? query : "http://" + query;
         } else {

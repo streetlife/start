@@ -1,6 +1,9 @@
 body {
     padding: 30px;
 }
+.nav {
+    padding: 0;
+}
 .bg-image {
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -23,8 +26,8 @@ a {
 }
 a:hover {
     opacity: 1;
-    background-color: #000000;
-    color: #ffffff;
+    /* background-color: #000000;
+    color: #ffffff; */
 }
 .title {
     font-family: sans-serif;
@@ -140,12 +143,12 @@ a:hover {
 }
 .multi-column-list {
   /* Standard property */
-  columns: 6;
+  columns: 7;
   /* Vendor prefixes for broader browser support */
-  -webkit-columns: 6;
-  -moz-columns: 6;
+  -webkit-columns: 7;
+  -moz-columns: 7;
   /* Optional: Add a gap between columns */
-  column-gap: 20px;
+  column-gap: 0px;
 }
 /* Ensure the column allows the dropdown to overflow the container */
 .kanban-wrapper {
@@ -174,4 +177,18 @@ a:hover {
 
 .folder-links {
     clear: both;
+}
+
+.nav > ul {
+    transition: all 0.2s ease;
+}
+
+/* Ensure folders/cards hide completely when no results match */
+.card[style*="display: none"] {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.folder-header {
+    border-bottom-width: 50%;
+    border-bottom: #FFF 0px solid;
 }

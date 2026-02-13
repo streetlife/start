@@ -3,127 +3,179 @@
         {
             "id": "f1",
             "name": "system",
-            "sort": 10
-        },
-        {
-            "id": "f2",
-            "name": "media",
-            "sort": 20
+            "sort": 10,
+            "color": "#1e2415",
+            "icon": "mdi:desktop-classic"
         },
         {
             "id": "f3",
             "name": "work",
-            "sort": 30
+            "sort": 30,
+            "color": "#2b282a"
         },
         {
             "id": "69679060f2f74",
             "name": "hosting",
-            "sort": 35
+            "sort": 35,
+            "color": "#001a33",
+            "icon": "lets-icons:server"
         },
         {
             "id": "f5",
             "name": "projects",
-            "sort": 37
+            "sort": 37,
+            "color": "#1c2400",
+            "icon": "iconoir:laptop-dev-mode"
         },
         {
             "id": "f4",
             "name": "soft alliance",
-            "sort": 40
+            "sort": 40,
+            "color": "#1b1c26",
+            "icon": "hugeicons:new-office"
         },
         {
             "id": "69678e30457c9",
             "name": "freelance",
-            "sort": 45
+            "sort": 45,
+            "color": "#202027"
         },
         {
             "id": "f6",
             "name": "read",
-            "sort": 60
+            "sort": 60,
+            "color": "#031801",
+            "icon": "ant-design:read-outlined"
         },
         {
             "id": "f17",
             "name": "watch",
-            "sort": 61
+            "sort": 61,
+            "color": "#202d25",
+            "icon": "icon-park-outline:video"
         },
         {
             "id": "f7",
             "name": "learn",
-            "sort": 70
+            "sort": 70,
+            "color": "#261f1b"
         },
         {
             "id": "69677db6d1620",
             "name": "project mgt",
-            "sort": 71
+            "sort": 71,
+            "color": "#28162e",
+            "icon": "fa7-solid:chart-gantt"
         },
         {
-            "id": "f696b5ab6b0891",
-            "name": "dev tools",
-            "sort": 75
+            "id": "f2",
+            "name": "media",
+            "sort": 77,
+            "color": "#1b0123",
+            "icon": "material-symbols-light:media-link"
         },
         {
             "id": "f696e207ff34bf",
             "name": "shopping",
-            "sort": 78
+            "sort": 78,
+            "color": "#1f2620",
+            "icon": "icon-park-outline:shopping"
         },
         {
             "id": "f8",
             "name": "ai",
-            "sort": 80
+            "sort": 80,
+            "color": "#1f181b",
+            "icon": "tabler:ai"
         },
         {
             "id": "f9",
             "name": "ai2",
-            "sort": 90
+            "sort": 90,
+            "color": "#1f191e",
+            "icon": "tabler:ai"
         },
         {
             "id": "f696e24573a261",
             "name": "automation",
-            "sort": 95
+            "sort": 95,
+            "color": "#162218"
         },
         {
             "id": "f10",
             "name": "coding",
-            "sort": 100
+            "sort": 100,
+            "color": "#1c0717",
+            "icon": "iconoir:laptop-dev-mode"
+        },
+        {
+            "id": "f696b5ab6b0891",
+            "name": "dev tools",
+            "sort": 105,
+            "color": "#271819",
+            "icon": "fluent:window-dev-tools-16-filled"
         },
         {
             "id": "f11",
             "name": "sports",
-            "sort": 110
+            "sort": 110,
+            "color": "#2d0801",
+            "icon": "ic:baseline-sports-soccer"
         },
         {
             "id": "f696d5956696b0",
             "name": "sports streaming",
-            "sort": 112
+            "sort": 112,
+            "color": "#321e01",
+            "icon": "ic:baseline-sports-soccer"
         },
         {
             "id": "f12",
             "name": "games",
-            "sort": 120
+            "sort": 120,
+            "color": "#2e3232",
+            "icon": "fluent-mdl2:game"
         },
         {
             "id": "f13",
             "name": "graphics",
-            "sort": 130
+            "sort": 130,
+            "color": "#262b1a",
+            "icon": "mdi:art"
         },
         {
             "id": "f14",
             "name": "templates",
-            "sort": 140
+            "sort": 140,
+            "color": "#14172e",
+            "icon": "octicon:project-template-24"
         },
         {
             "id": "f15",
             "name": "utilities",
-            "sort": 150
+            "sort": 150,
+            "color": "#2a1715",
+            "icon": "arcticons:amaze-utilities"
         },
         {
             "id": "f16",
             "name": "tools",
-            "sort": 160
+            "sort": 160,
+            "color": "#211b25",
+            "icon": "ri:tools-fill"
         },
         {
             "id": "f98",
             "name": "warez",
-            "sort": 980
+            "sort": 980,
+            "color": "#26241d",
+            "icon": "mdi:pirate"
+        },
+        {
+            "id": "f6979f7d126a8a",
+            "name": "temp",
+            "sort": 1000,
+            "color": "#262822"
         }
     ],
     "links": {
@@ -131,20 +183,6 @@
             "id": "l1",
             "label": "phpmyadmin",
             "url": "http:\/\/localhost\/phpmyadmin",
-            "folder_id": "f1",
-            "target": "_self"
-        },
-        "1": {
-            "id": "l2",
-            "label": "whatsapp",
-            "url": "https:\/\/web.whatsapp.com",
-            "folder_id": "f1",
-            "target": "_self"
-        },
-        "2": {
-            "id": "l3",
-            "label": "telegram",
-            "url": "https:\/\/web.telegram.org",
             "folder_id": "f1",
             "target": "_self"
         },
@@ -169,33 +207,21 @@
             "folder_id": "f1",
             "target": "_self"
         },
-        "7": {
-            "id": "l8",
-            "label": "sonarr - xps15",
-            "url": "http:\/\/esquire-xps15:8989",
-            "folder_id": "f2",
-            "target": "_self"
-        },
         "8": {
             "id": "l9",
-            "label": "sonarr - local",
+            "label": "sonarr",
             "url": "http:\/\/localhost:8989",
-            "folder_id": "f2",
-            "target": "_self"
-        },
-        "9": {
-            "id": "l10",
-            "label": "jellyfin - xps15",
-            "url": "http:\/\/esquire-xps15:8096",
-            "folder_id": "f2",
-            "target": "_self"
+            "folder_id": "f1",
+            "target": "_self",
+            "hidden": false
         },
         "10": {
             "id": "l11",
-            "label": "jellyfin - local",
+            "label": "jellyfin",
             "url": "http:\/\/localhost:8096",
-            "folder_id": "f2",
-            "target": "_self"
+            "folder_id": "f1",
+            "target": "_self",
+            "hidden": false
         },
         "11": {
             "id": "l12",
@@ -241,10 +267,11 @@
         },
         "17": {
             "id": "l18",
-            "label": "hcp lagos",
+            "label": "hcp websguy2",
             "url": "https:\/\/145.223.74.59:8083",
             "folder_id": "69679060f2f74",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "18": {
             "id": "l19",
@@ -265,28 +292,32 @@
             "label": "upwork",
             "url": "https:\/\/www.upwork.com",
             "folder_id": "69678e30457c9",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "21": {
             "id": "l22",
             "label": "freelancer",
             "url": "https:\/\/www.freelancer.com",
             "folder_id": "69678e30457c9",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "22": {
             "id": "l23",
             "label": "fiverr",
             "url": "https:\/\/www.fiverr.com",
             "folder_id": "69678e30457c9",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "23": {
             "id": "l24",
-            "label": "softalliance mail",
+            "label": "sarl mail",
             "url": "https:\/\/outlook.office365.com\/mail\/",
             "folder_id": "f4",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "24": {
             "id": "l25",
@@ -304,10 +335,11 @@
         },
         "26": {
             "id": "l27",
-            "label": "softalliance intranet",
+            "label": "intranet",
             "url": "https:\/\/intranet.softalliance.com",
             "folder_id": "f4",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "27": {
             "id": "l28",
@@ -321,7 +353,8 @@
             "label": "barterfly",
             "url": "https:\/\/barterfly.ca",
             "folder_id": "f5",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "29": {
             "id": "l30",
@@ -353,10 +386,11 @@
         },
         "33": {
             "id": "l34",
-            "label": "project management",
+            "label": "project mgt",
             "url": "https:\/\/www.projectmanagement.com",
             "folder_id": "69677db6d1620",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "34": {
             "id": "l35",
@@ -381,10 +415,11 @@
         },
         "38": {
             "id": "l39",
-            "label": "x",
+            "label": "x\/twitter",
             "url": "https:\/\/x.com",
             "folder_id": "f6",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "39": {
             "id": "l40",
@@ -398,7 +433,8 @@
             "label": "bored panda",
             "url": "https:\/\/boredpanda.com",
             "folder_id": "f6",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "41": {
             "id": "l42",
@@ -412,21 +448,24 @@
             "label": "daily dev",
             "url": "https:\/\/daily.dev",
             "folder_id": "f6",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "43": {
             "id": "l44",
             "label": "youtube",
             "url": "https:\/\/youtube.com",
-            "folder_id": "f17",
-            "target": "_blank"
+            "folder_id": "f2",
+            "target": "_blank",
+            "hidden": false
         },
         "44": {
             "id": "l45",
             "label": "wcofun",
             "url": "https:\/\/www.wcofun.net",
-            "folder_id": "f17",
-            "target": "_blank"
+            "folder_id": "f2",
+            "target": "_blank",
+            "hidden": false
         },
         "45": {
             "id": "l46",
@@ -482,7 +521,8 @@
             "label": "dall-e",
             "url": "https:\/\/labs.openai.com",
             "folder_id": "f8",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "53": {
             "id": "l54",
@@ -517,7 +557,8 @@
             "label": "heygen",
             "url": "https:\/\/app.heygen.com\/projects",
             "folder_id": "f8",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "58": {
             "id": "l59",
@@ -533,26 +574,21 @@
             "folder_id": "f8",
             "target": "_blank"
         },
-        "60": {
-            "id": "l61",
-            "label": "mojo",
-            "url": "https:\/\/www.modular.com\/max\/mojo",
-            "folder_id": "f10",
-            "target": "_blank"
-        },
         "61": {
             "id": "l62",
             "label": "onyx",
             "url": "https:\/\/onyxlang.io",
-            "folder_id": "f10",
-            "target": "_blank"
+            "folder_id": "f696b5ab6b0891",
+            "target": "_blank",
+            "hidden": false
         },
         "62": {
             "id": "l63",
             "label": "baserow",
             "url": "https:\/\/baserow.io",
-            "folder_id": "f10",
-            "target": "_blank"
+            "folder_id": "f696b5ab6b0891",
+            "target": "_blank",
+            "hidden": false
         },
         "63": {
             "id": "l64",
@@ -565,8 +601,9 @@
             "id": "l65",
             "label": "gdevelop",
             "url": "https:\/\/gdevelop.io",
-            "folder_id": "f10",
-            "target": "_blank"
+            "folder_id": "f696b5ab6b0891",
+            "target": "_blank",
+            "hidden": false
         },
         "65": {
             "id": "l66",
@@ -615,7 +652,8 @@
             "label": "play classic games",
             "url": "https:\/\/playclassic.games",
             "folder_id": "f12",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "73": {
             "id": "l74",
@@ -768,14 +806,14 @@
             "id": "l96",
             "label": "web check",
             "url": "https:\/\/web-check.xyz\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_blank"
         },
         "96": {
             "id": "l97",
             "label": "digger",
             "url": "https:\/\/digger.tools\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_blank"
         },
         "97": {
@@ -830,9 +868,10 @@
         "104": {
             "id": "l105",
             "label": "streamed",
-            "url": "https:\/\/streamed.pk",
+            "url": "https:\/\/strmd.link\/",
             "folder_id": "f696d5956696b0",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "105": {
             "id": "l106",
@@ -864,10 +903,11 @@
         },
         "109": {
             "id": "l6967962a086ae",
-            "label": "softalliance n8n",
+            "label": "sarl n8n",
             "url": "https:\/\/lab.rdlab.com.ng:5678",
             "folder_id": "f4",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "110": {
             "id": "l6967964052d5b",
@@ -892,10 +932,11 @@
         },
         "114": {
             "id": "l696b569641b24",
-            "label": "volunteer timebank",
+            "label": "vtb",
             "url": "https:\/\/volunteertimebank.com",
             "folder_id": "f5",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "115": {
             "id": "l696b56a751002",
@@ -924,34 +965,37 @@
             "label": "temu",
             "url": "https:\/\/temu.com",
             "folder_id": "f696e207ff34bf",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "119": {
             "id": "l696e2259e472b",
             "label": "konga",
             "url": "https:\/\/konga.com",
             "folder_id": "f696e207ff34bf",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "120": {
             "id": "l696e2265cb64a",
             "label": "jumia",
             "url": "https:\/\/jumia.com.ng",
             "folder_id": "f696e207ff34bf",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "121": {
             "id": "l696e246a3d74a",
             "label": "n8n",
             "url": "https:\/\/n8n.io",
-            "folder_id": "f696e24573a261",
+            "folder_id": "f696b5ab6b0891",
             "target": "_blank"
         },
         "122": {
             "id": "l696e4da87472f",
             "label": "dock",
             "url": "https:\/\/getdock.io\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_blank"
         },
         "123": {
@@ -967,6 +1011,147 @@
             "url": "https:\/\/www.uefa.com\/uefachampionsleague\/",
             "folder_id": "f11",
             "target": "_blank"
+        },
+        "125": {
+            "id": "l697115865019a",
+            "label": "afrotods",
+            "url": "https:\/\/afrotods-mobile.blujeansz.com\/",
+            "folder_id": "f5",
+            "target": "_blank"
+        },
+        "126": {
+            "id": "l6971cdbb05cc9",
+            "label": "scnsrc",
+            "url": "https:\/\/www.scnsrc.me",
+            "folder_id": "f98",
+            "target": "_blank"
+        },
+        "128": {
+            "id": "l6974e7ae130c2",
+            "label": "urban makes",
+            "url": "https:\/\/urbanmakes.com",
+            "folder_id": "f5",
+            "target": "_blank"
+        },
+        "129": {
+            "id": "l69762787e469c",
+            "label": "toxic game",
+            "url": "https:\/\/toxicgame.net\/",
+            "folder_id": "f98",
+            "target": "_blank",
+            "hidden": false
+        },
+        "130": {
+            "id": "l69762a8452add",
+            "label": "canva",
+            "url": "https:\/\/canva.com",
+            "folder_id": "f13",
+            "target": "_blank",
+            "hidden": false
+        },
+        "132": {
+            "id": "l697784e5851ca",
+            "label": "spotify",
+            "url": "https:\/\/spotify.com",
+            "folder_id": "f2",
+            "target": "_blank",
+            "hidden": false
+        },
+        "133": {
+            "id": "l6978976522f63",
+            "label": "svg repo",
+            "url": "https:\/\/www.svgrepo.com\/",
+            "folder_id": "f13",
+            "target": "_blank",
+            "hidden": false
+        },
+        "134": {
+            "id": "l6978979265925",
+            "label": "nsw (uat)",
+            "url": "https:\/\/uat.nsw.gov.ng\/",
+            "folder_id": "f4",
+            "target": "_blank",
+            "hidden": false
+        },
+        "135": {
+            "id": "l6979f7f376ac9",
+            "label": "phinx",
+            "url": "https:\/\/phinx.org\/",
+            "folder_id": "f696b5ab6b0891",
+            "target": "_self",
+            "hidden": false
+        },
+        "136": {
+            "id": "l697bada46ff93",
+            "label": "hcp vtb",
+            "url": "https:\/\/volunteertimebank.com:8083",
+            "folder_id": "69679060f2f74",
+            "target": "_self",
+            "hidden": false
+        },
+        "137": {
+            "id": "l697bae469e789",
+            "label": "hcp lagos ai",
+            "url": "https:\/\/srv1165987.hstgr.cloud:8083\/",
+            "folder_id": "69679060f2f74",
+            "target": "_self",
+            "hidden": false
+        },
+        "138": {
+            "id": "l697f70fbd566d",
+            "label": "iconify",
+            "url": "https:\/\/iconify.design\/",
+            "folder_id": "f13",
+            "target": "_blank",
+            "hidden": false
+        },
+        "139": {
+            "id": "l698080022e8e6",
+            "label": "youtube music",
+            "url": "https:\/\/music.youtube.com\/",
+            "folder_id": "f2",
+            "target": "_blank",
+            "hidden": false
+        },
+        "140": {
+            "id": "l6981bac47d308",
+            "label": "alternative",
+            "url": "https:\/\/alternativeto.net\/",
+            "folder_id": "f16",
+            "target": "_blank",
+            "hidden": false
+        },
+        "141": {
+            "id": "l6983172e1ba99",
+            "label": "qbittorrent",
+            "url": "http:\/\/localhost:8086\/",
+            "folder_id": "f1",
+            "target": "_self",
+            "hidden": true
+        },
+        "142": {
+            "id": "l698c77edd03b6",
+            "label": "hcp softalliance",
+            "url": "https:\/\/102.207.49.23:8083\/",
+            "folder_id": "f4",
+            "target": "_self",
+            "hidden": false
+        },
+        "143": {
+            "id": "l698df6c69e31f",
+            "label": "github",
+            "url": "https:\/\/github.com\/",
+            "folder_id": "f696b5ab6b0891",
+            "target": "_blank",
+            "hidden": false
+        },
+        "144": {
+            "id": "l698ef6479e988",
+            "label": "ahasend",
+            "url": "https:\/\/ahasend.com\/",
+            "folder_id": "f696b5ab6b0891",
+            "target": "_blank",
+            "hidden": false
         }
     }
 }
