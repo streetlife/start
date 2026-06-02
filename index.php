@@ -1,253 +1,52 @@
 <?php
-/**
- * index.php - Updated to support Folder IDs and Sort Index
- */
-function track_search($query) {
-    if (empty($query) || strlen($query) < 2) return;
-    $history_file = 'data/search_history.json';
-    $history = json_decode(@file_get_contents($history_file), true) ?: [];
-    
-    // Clean and check if it already exists
-    $query = strtolower(trim($query));
-    if (!in_array($query, $history)) {
-        array_unshift($history, $query); // Add to beginning
-        $history = array_slice($history, 0, 20); // Keep last 20 searches
-        file_put_contents($history_file, json_encode($history));
-    }
+// prevent caching
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Sat, 1 Jan 2000 00:00:00 GMT");
+
+include('functions.php');
+
+ini_set('display_errors', 1);
+
+define('SHOW_ICON', false);
+define('REFRESH_RATE', 600);
+define('SETTINGS_FILE', 'data/settings.json');
+define('TODO_FILE', 'data/todo.json');
+define('LINKS_FILE', 'data/links_v2.json');
+
+// Default Settings
+$defaults = [
+    'cols' => 7,
+    'show_icon' => false,
+    'selected_style' => 'css/bootstrap-default.css',
+    'search_history' => [],
+    'view_mode' => 'list'
+];
+
+// Load Settings
+$settings = json_decode(@file_get_contents(SETTINGS_FILE), true) ?: $defaults;
+$settings = array_merge($defaults, $settings);
+
+if (isset($_GET['private']) && $_GET['private'] === 'true') {
+    define('PRIVATE_MODE', true);
+} else {
+    define('PRIVATE_MODE', false);
 }
 
-// Load history for the datalist
-$search_history = json_decode(@file_get_contents('data/search_history.json'), true) ?: [];
+// Update Settings on Request
+if (isset($_GET['style'])) {
+    $settings['selected_style'] = $_GET['style'];
+    save_settings($settings);
+}
 
 // Process tracking if search is submitted
 if (isset($_GET['q'])) {
     track_search($_GET['q']);
 }
 
-function get_selected_style() {
-    if (isset($_GET['style'])) {
-        file_put_contents('selected_style.txt', $_GET['style']);
-    }
-    return file_exists('selected_style.txt') ? file_get_contents('selected_style.txt') : 'css/bootstrap-default.css';
-}
-
-function load_css_files() {
-    $css_files = glob('css/bootstrap-*.css');
-    $select_list = '<select name="style" onchange="this.form.submit()" class="form-control form-control-sm">';
-    foreach ($css_files as $css_file) {
-        $css_file_name = str_replace(['css/bootstrap-', '.min.css', '.css'], '', $css_file);
-        $selected_style = get_selected_style();
-        $strSelectedTheme = ($selected_style == $css_file) ? strtoupper($css_file_name) : 'Change theme to ' . strtoupper($css_file_name);
-        $select_list .= '<option value="' . $css_file . '" ' . ($selected_style == $css_file ? 'selected' : '') . '>'. $strSelectedTheme  . '</option>';
-    }
-    $select_list .= '</select>';
-    return '<form method="get" class="form">' . $select_list . '</form>';
-}
-
-function load_todo($completed_flag = false) {
-    global $todos;
-    if (empty($todos)) return '';
-    $result = '<ul class="list-group list-group-flush border-0 mb-2">';
-    foreach ($todos as $todo) {
-        if ($todo['done'] == $completed_flag) {
-            $result .= '<a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="list-group-item list-group-item-action" onclick="return confirm(\'Are you sure you want to delete - ' . addslashes($todo['text']) . '?\')">' . htmlspecialchars($todo['text']) . '</a>';
-        }
-    }
-    $result .= '</ul>';
-    return $result;
-}
-
-function load_todo_column($status) {
-    global $todos;
-    $titles = ['todo' => 'To Do', 'doing' => 'In Progress', 'done' => 'Completed'];
-    $bg = ['todo' => 'bg-secondary', 'doing' => 'bg-info', 'done' => 'bg-success'];
-    
-    // Count items for this column
-    $count = 0;
-    if (!empty($todos)) {
-        foreach ($todos as $t) {
-            $curr = $t['status'] ?? ($t['done'] ? 'done' : 'todo');
-            if ($curr === $status) $count++;
-        }
-    }
-
-    $result = '<div class="kanban-col mb-3">';
-    
-    // Header with Toggle for "Done"
-    $result .= '<div class="kanban-header p-1 mb-2 border-bottom d-flex justify-content-between align-items-center" ' . ($status === 'done' ? 'data-bs-toggle="collapse" data-bs-target="#collapseDone" style="cursor:pointer"' : '') . '>';
-    $result .= '<h6 class="m-0 small fw-bold text-uppercase">' . $titles[$status] . ' (' . $count . ')</h6>';
-    $result .= '<span class="badge rounded-pill ' . $bg[$status] . ' opacity-75" style="font-size:0.6rem">' . ($status === 'done' ? '↕' : '') . '</span>';
-    $result .= '</div>';
-    
-    // Wrap Done items in a collapse div
-    if ($status === 'done') {
-        $result .= '<div class="collapse" id="collapseDone">';
-    }
-
-    if ($count > 0) {
-        foreach ($todos as $todo) {
-            $currentStatus = $todo['status'] ?? ($todo['done'] ? 'done' : 'todo');
-            if ($currentStatus === $status) {
-                $result .= '<div class="card mb-1 shadow-sm kanban-card border-0">';
-                $result .= '<div class="card-body p-2 small d-flex justify-content-between align-items-center">';
-                $result .= '<span class="' . ($status === 'done' ? 'text-decoration-line-through text-muted' : '') . '">' . htmlspecialchars($todo['text']) . '</span>';
-                $result .= '<div class="dropdown">';
-                // Find this line inside your load_todo_column function:
-                $result .= '<button class="btn btn-sm p-0 opacity-50" data-bs-toggle="dropdown" data-bs-boundary="viewport">⋮</button>';
-                $result .= '<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 small">';
-                
-                if ($status != 'todo') $result .= '<li><a class="dropdown-item" href="index.php?action=move_todo&id='.$todo['id'].'&to=todo">Move to To-Do</a></li>';
-                if ($status != 'doing') $result .= '<li><a class="dropdown-item" href="index.php?action=move_todo&id='.$todo['id'].'&to=doing">Move to Doing</a></li>';
-                if ($status != 'done') $result .= '<li><a class="dropdown-item text-success" href="index.php?action=move_todo&id='.$todo['id'].'&to=done">Complete</a></li>';
-                
-                $result .= '<li><hr class="dropdown-divider"></li>';
-                $result .= '<li><a class="dropdown-item text-danger" href="index.php?action=delete_todo&id='.$todo['id'].'" onclick="return confirm(\'Delete?\')">Delete Permanently</a></li>';
-                $result .= '</ul></div></div></div>';
-            }
-        }
-    }
-    
-    if ($status === 'done') {
-        $result .= '</div>'; // Close collapse div
-    }
-
-    $result .= '</div>';
-    return $result;
-}
-
-// Generate a random color
-function rand_color() {
-	return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-	// return '#FFFFFF';
-}
-
-function randomDarkColor() {
-	// Define the maximum brightness for a dark color (adjustable)
-	$maxBrightness = 40;
-	
-	$red = rand(floor($maxBrightness / 2), $maxBrightness);
-    $green = rand(floor($maxBrightness / 2), $maxBrightness);
-    $blue = rand(floor($maxBrightness / 2), $maxBrightness);
-  
-	// Convert values to hex string and return as #rrggbb format
-	return '#' . dechex($red) . dechex($green) . dechex($blue);
-}
-
-function randomLightColor() {
-	// Define the maximum brightness for a dark color (adjustable)
-	$maxBrightness = 255;
-	
-	$red = rand($maxBrightness / 2, $maxBrightness);
-    $green = rand($maxBrightness / 2, $maxBrightness);
-    $blue = rand($maxBrightness / 2, $maxBrightness);
-  
-	// Convert values to hex string and return as #rrggbb format
-	return '#' . dechex($red) . dechex($green) . dechex($blue);
-
-}
-
-function createMenu($folders, $allLinks, $showIcon = false, $multiColumn = false) {
-    $output = '';
-    $local_name_offline = 'img/icon-local.png';
-    $multiColumnClass = $multiColumn ? 'multi-column-list' : '';
-
-    $output .= '<ul class="'.$multiColumnClass.' p-0 m-0" style="width:100%">';
-    foreach ($folders as $folder) {
-        // 1. Filter links belonging to this folder
-        $folderLinks = array_filter($allLinks, function($l) use ($folder) {
-            return $l['folder_id'] === $folder['id'];
-        });
-
-        // 2. NEW: Remove links explicitly marked as 'hidden' in JSON
-        $folderLinks = array_filter($folderLinks, function($l) {
-            return !(isset($l['hidden']) && $l['hidden'] === true);
-        });
-
-        // If no visible links exist, skip the folder entirely
-        if (empty($folderLinks)) continue;
-
-        if (isset($folder['color']) && !empty($folder['color'])) {
-            $bgColor = $folder['color'];
-        } else {
-            $bgColor = '#000000';
-        }
-
-        // Add a class 'folder-container' to make JS targeting easier
-        $output .= '
-        <li class="link folder-container bg-transparent">
-            <div class="card m-0 bg-transparent border-0">
-                <div class="card-body p-0 pb-3">
-                    <div class="card-header bg-transparent p-2 folder-header">
-                        <h6 class="m-0 fw-bold text-uppercase">
-                        <iconify-icon icon="' . (isset($folder['icon']) ? $folder['icon'] : 'mdi:home') . '"></iconify-icon>
-                        ' . $folder['name'] . '</h6>
-                    </div>
-                    <ul class="sub-menu p-1 px-3 m-0">';
-        
-        usort($folderLinks, fn($a, $b) => strnatcasecmp($a['label'], $b['label']));
-
-        foreach ($folderLinks as $link) {
-            $target = '_self';
-            // Added data-url attribute here
-            $output .= '<li class="link" style="" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">
-                <a href="' . htmlspecialchars($link['url']) . '" target="' . $target . '" class="nav-link p-0 m-0">';
-            
-            if ($showIcon) {
-                $safeLabel = preg_replace('/[^a-z0-9]/i', '_', $link['label']);
-                $local_name = 'img/icons/' . $safeLabel . '.png';
-                if (!file_exists($local_name) || filesize($local_name) == 0) {
-                    @copy($local_name_offline, $local_name);
-                }
-                $output .= '<img src="' . $local_name . '" class="icon" style="clear:both" /> ';
-            }
-
-            $displayLabel = strtolower(str_replace(['www.', '_',' '], ['', '.', '.'], $link['label']));
-            $output .= htmlspecialchars($displayLabel) . '</a></li>';
-        }
-        $output .= '</ul>
-                </div>
-            </div>
-        </li>';
-    }
-    $output .= '</ul>';
-    return $output;
-}
-
-function check_new_todo(&$todos) {
-    if (isset($_POST['action']) && $_POST['action'] == 'add_todo' && !empty($_POST['todo'])) {
-        $id = empty($todos) ? 1 : max(array_column($todos, 'id')) + 1;
-        $todos[] = ['id' => $id, 'text' => $_POST['todo'], 'done' => false];
-        file_put_contents(TODO_FILE, json_encode($todos));
-        header('Location: index.php'); exit;
-    }
-}
-
-function check_delete_todo(&$todos) {
-    // Move Todo Action
-    if (isset($_GET['action']) && $_GET['action'] == 'move_todo') {
-        foreach ($todos as &$todo) {
-            if ($todo['id'] == $_GET['id']) {
-                $todo['status'] = $_GET['to'];
-                // Sync with legacy boolean for safety
-                $todo['done'] = ($_GET['to'] === 'done');
-            }
-        }
-        file_put_contents(TODO_FILE, json_encode($todos, JSON_PRETTY_PRINT));
-        header('Location: index.php'); exit;
-    }
-}
-
-ini_set('display_errors', 1);
-define('SHOW_ICON', true);
-define('REFRESH_RATE', 600);
-define('TODO_FILE', 'data/todo.json');
-define('LINKS_FILE', 'data/links_v2.json');
-
-// Load Data
+$search_history = json_decode(@file_get_contents('data/search_history.json'), true) ?: [];
 $todos = json_decode(@file_get_contents(TODO_FILE), true) ?: [];
 $rawMenu = json_decode(@file_get_contents(LINKS_FILE), true) ?: ['folders' => [], 'links' => []];
 
-// Prepare Projects (Auto-discovery stays as a dynamic "Folder")
 $project_links = [];
 foreach (array_filter(glob('../' . '*'), 'is_dir') as $dir) {
     $val = strtolower(basename($dir));
@@ -260,21 +59,19 @@ $project_folder = [['id' => 'dev_root', 'name' => 'dev projects', 'sort' => -1]]
 $rawMenu['links'] = array_merge($project_links, $rawMenu['links']);
 $rawMenu['folders'] = array_merge($project_folder, $rawMenu['folders']);
 
-
-// print_r($rawMenu);
-// die();
 $css_form = load_css_files();
 $selected_style = get_selected_style();
 
-// check_new_todo($todos);
 check_delete_todo($todos);
+
+$stats = get_stats();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title> ~ esquire </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $selected_style; ?>" >
+    <link rel="stylesheet" type="text/css" href="<?php echo $settings['selected_style']; ?>" >
     <link rel="stylesheet" type="text/css" href="css/style.min.css">
     <meta http-equiv="refresh" content="<?php echo REFRESH_RATE; ?>" />
     <style>
@@ -310,7 +107,7 @@ check_delete_todo($todos);
             <div class="card bg-transparent m-0">
                 <div class="card-body">
                     <nav class="nav">
-                        <?php echo createMenu($rawMenu['folders'], $rawMenu['links'], true, true); ?>
+                        <?php echo createMenu($rawMenu['folders'], $rawMenu['links']); ?>
                     </nav>
                 </div>
             </div>
@@ -351,6 +148,11 @@ check_delete_todo($todos);
                         <?php echo load_todo_column('done'); ?>
                     </div>
                 </div>
+            </div>
+
+            <div class="card-body border-top">
+                <div class="card-header border-0 bg-transparent p-0"><h6>Stats</h6></div>
+                <pre style="font-size: 10px; max-height: 200px; overflow-y: auto;"><?php echo htmlspecialchars($stats); ?></pre>
             </div>
         </div>
     </div>
@@ -444,5 +246,6 @@ check_delete_todo($todos);
         });
     });
 </script>
+
 </body>
 </html>

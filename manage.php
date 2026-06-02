@@ -1,52 +1,18 @@
 <?php
-function ensure_folder_colors(&$data) {
-    $updated = false;
-    
-    foreach ($data['folders'] as &$folder) {
-        // Check if color is missing, empty, or default white
-        if (!isset($folder['color']) || empty($folder['color']) || $folder['color'] === '#ffffff') {
-            
-            // Generate a random dark color
-            $red = rand(20, 100);
-            $green = rand(20, 100);
-            $blue = rand(20, 100);
-            $folder['color'] = sprintf('#%02x%02x%02x', $red, $green, $blue);
-            
-            $updated = true;
-        }
-    }
+include('functions.php');
+set_time_limit(30000);
 
-    // Only write to disk if we actually changed something to save I/O
-    if ($updated) {
-        if (!is_dir('data')) mkdir('data', 0777, true);
-        file_put_contents(LINKS_FILE, json_encode($data, JSON_PRETTY_PRINT));
-    }
-}
 
-function fetch_favicon($label, $url) {
-    $iconDir = 'img/icons/';
-    if (!is_dir($iconDir)) mkdir($iconDir, 0777, true);
-
-    $safeLabel = preg_replace('/[^a-z0-9]/i', '_', $label);
-    $local_path = $iconDir . $safeLabel . '.png';
-    $local_name_offline = 'img/icon-local.png';
-
-    // Skip fetching for local .test links
-    if (strpos($url, ".test") !== false || strpos($url, "localhost") !== false) {
-        if (!file_exists($local_path)) @copy($local_name_offline, $local_path);
-        return;
-    }
-
-    $host = parse_url($url, PHP_URL_HOST);
-    $iconData = @file_get_contents('https://www.google.com/s2/favicons?domain=' . $host . '&sz=64');
-    
-    if ($iconData) {
-        file_put_contents($local_path, $iconData);
-    } elseif (!file_exists($local_path)) {
-        @copy($local_name_offline, $local_path);
-    }
-}
 define('DATA_FILE', 'data/links_v2.json');
+define('SETTINGS_FILE', 'data/settings.json');
+
+$settings = json_decode(@file_get_contents(SETTINGS_FILE), true) ?: [
+    'cols' => 7,
+    'show_icon' => true,
+    'selected_style' => 'css/bootstrap-default.css',
+    'view_mode' => 'list',
+    'search_history' => []
+];
 
 // --- DATA LOGIC ---
 $data = json_decode(@file_get_contents(DATA_FILE), true) ?: [
@@ -54,15 +20,17 @@ $data = json_decode(@file_get_contents(DATA_FILE), true) ?: [
     'links' => []
 ];
 
-
-function save($data) {
-    usort($data['folders'], fn($a, $b) => $a['sort'] <=> $b['sort']);
-    if (!is_dir('data')) mkdir('data', 0777, true);
-    file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT));
-}
-
 // --- ACTION HANDLERS ---
 $action = $_REQUEST['action'] ?? '';
+
+if ($action === 'update_settings') {
+    $settings['cols'] = (int)$_POST['cols'];
+    $settings['view_mode'] = $_POST['view_mode'];
+    $settings['show_icon'] = isset($_POST['show_icon']);
+    // We keep selected_style and search_history as they are unless changed elsewhere
+    file_put_contents(SETTINGS_FILE, json_encode($settings, JSON_PRETTY_PRINT));
+    header('Location: manage.php?settings_updated=1'); exit;
+}
 
 if ($action === 'upsert_folder') {
     $id = $_POST['id'] ?: uniqid('f');
@@ -132,12 +100,45 @@ if ($action === 'delete_link') {
     header('Location: manage.php'); exit;
 }
 
-// New Action: Refresh All Icons
 if ($action === 'refresh_icons') {
+    set_time_limit(120);
+    $maxAgeDays = 7; // Only refresh icons older than this
+    
     foreach ($data['links'] as $l) {
+        $safeLabel = preg_replace('/[^a-z0-9]/i', '_', $l['label']);
+        $local_path = 'img/icons/' . $safeLabel . '.png';
+        
+        // Check if file exists and is recent enough
+        if (file_exists($local_path)) {
+            $fileAgeDays = (time() - filemtime($local_path)) / 86400;
+            if ($fileAgeDays < $maxAgeDays) {
+                echo "Skipping (recent): " . htmlspecialchars($l['label']) . " (" . round($fileAgeDays, 1) . " days old)<br>";
+                ob_flush(); flush();
+                continue;
+            }
+        }
+        
+        echo "Refreshing icon for: " . htmlspecialchars($l['label']) . "<br>";
+        ob_flush(); flush();
+        
         fetch_favicon($l['label'], $l['url']);
+        usleep(100000); // 100ms delay between requests
     }
-    header('Location: manage.php?refreshed=1'); exit;
+    
+    // header('Location: manage.php?refreshed=1');
+    echo '<meta http-equiv="refresh" content="2;url=manage.php?refreshed=1">';
+    exit;
+}
+
+if ($action === 'refresh_single_icon') {
+    $id = $_GET['id'];
+    foreach ($data['links'] as $l) {
+        if ($l['id'] === $id) {
+            fetch_favicon($l['label'], $l['url']);
+            break;
+        }
+    }
+    header('Location: manage.php?refreshed_single=1'); exit;
 }
 ?>
 <!DOCTYPE html>
@@ -168,7 +169,41 @@ if ($action === 'refresh_icons') {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2"> <h6 class="fw-bold mb-3">Manage Folders</h6>
+            <div class="col-md-2"> 
+                <h6 class="fw-bold mb-3">Global Settings</h6>
+                <div class="card mb-4 bg-white border shadow-sm">
+                    <div class="card-body p-3">
+                        <form action="manage.php" method="post">
+                            <input type="hidden" name="action" value="update_settings">
+                            
+                            <div class="mb-3">
+                                <label class="small fw-bold mb-1 d-block">Default Columns</label>
+                                <select name="cols" class="form-select form-select-sm">
+                                    <?php foreach([3, 4, 5, 6,  7, 8, 9, 10, 11] as $num): ?>
+                                        <option value="<?= $num ?>" <?= $settings['cols'] == $num ? 'selected' : '' ?>><?= $num ?> Columns</option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small fw-bold mb-1 d-block">Default View</label>
+                                <select name="view_mode" class="form-select form-select-sm">
+                                    <option value="list" <?= $settings['view_mode'] == 'list' ? 'selected' : '' ?>>Explorer Tiles (List)</option>
+                                    <option value="grid" <?= $settings['view_mode'] == 'grid' ? 'selected' : '' ?>>Large Icons (Grid)</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="show_icon" id="set_show_icon" <?= $settings['show_icon'] ? 'checked' : '' ?>>
+                                <label class="form-check-label small fw-bold" for="set_show_icon">Display Icons</label>
+                            </div>
+
+                            <button class="btn btn-primary btn-sm w-100 fw-bold" type="submit">Apply Settings</button>
+                        </form>
+                    </div>
+                </div>    
+            
+                <h6 class="fw-bold mb-3">Manage Folders</h6>
 
                 <div class="card mb-4 bg-light border-0">
                     <div class="card-body p-3">
@@ -285,8 +320,15 @@ if ($action === 'refresh_icons') {
                             ?>
                             <tr class="align-middle link-row" data-folder-id="<?= $l['folder_id'] ?>">
                                 <td><span class="folder-badge"><?= htmlspecialchars($fName) ?></span></td>
-                                <td class="fw-bold"><?= htmlspecialchars($l['label']) ?></td>
-                                <td class="text-muted small"><code><?= htmlspecialchars($l['url']) ?></code></td>
+                                <td class="fw-bold">
+                                    <?php 
+                                    $iconPath = 'img/icons/' . preg_replace('/[^a-z0-9]/i', '_', $l['label']) . '.png';
+                                    if (file_exists($iconPath)) {
+                                        echo '<img src="' . $iconPath . '" alt="Icon" style="width:16px; height:16px; margin-right:5px; vertical-align:middle;">';
+                                    }
+                                    ?>
+                                    <?= htmlspecialchars($l['label']) ?></td>
+                                <td class="text-muted small"><code><a href="<?= $l['url'] ?>" target="_blank"><?= htmlspecialchars($l['url']) ?></a></code></td>
                                 <td>
                                     <?php if (isset($l['hidden']) && $l['hidden']): ?>
                                         <span class="text-danger">Yes</span>
@@ -296,6 +338,12 @@ if ($action === 'refresh_icons') {
                                 </td>
                                 <td class="text-end">
                                     <div class="btn-group">
+                                        <a href="manage.php?action=refresh_single_icon&id=<?= $l['id'] ?>" 
+                                        class="btn btn-sm btn-outline-info" 
+                                        title="Refresh Favicon">
+                                        <iconify-icon icon="mdi:refresh" style="vertical-align: middle;"></iconify-icon>
+                                        </a>
+                                        
                                         <button class="btn btn-sm btn-outline-secondary" onclick="editLink('<?= $l['id'] ?>', '<?= addslashes($l['label']) ?>', '<?= addslashes($l['url']) ?>', '<?= $l['folder_id'] ?>', '<?=  $l['target'] ?>', <?= isset($l['hidden'])?$l['hidden']:'0' ?>)">Edit</button>
                                         <a href="manage.php?action=delete_link&id=<?= $l['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete?')">Delete</a>
                                     </div>

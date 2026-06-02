@@ -1,5 +1,6 @@
 body {
-    padding: 30px;
+    padding: 0px;
+    background-color: #000000;
 }
 .nav {
     padding: 0;
@@ -22,7 +23,8 @@ a {
     opacity: 0.7;
     text-decoration: none;
     display: block;
-    font-size: .9em;
+    font-size: .6em;
+    text-overflow: ellipsis;
 }
 a:hover {
     opacity: 1;
@@ -52,8 +54,8 @@ a:hover {
 }
 
 .list-card {
-    margin: 0 0 20px 0;
-    padding: 5px;
+    margin: 0 0 5px 0;
+    padding: 2px;
 }
 .list-card:hover {
     background-color: rgb(255, 255, 255);
@@ -142,13 +144,25 @@ a:hover {
     text-decoration: line-through;
 }
 .multi-column-list {
-  /* Standard property */
-  columns: 7;
-  /* Vendor prefixes for broader browser support */
-  -webkit-columns: 7;
-  -moz-columns: 7;
-  /* Optional: Add a gap between columns */
-  column-gap: 0px;
+    /* Use the PHP variable, fallback to 7 if not found */
+    column-count: var(--col-count, 7);
+    column-gap: 0.5rem;
+    list-style: none;
+}
+
+/* Ensure folders don't break across columns */
+.folder-container {
+    break-inside: avoid-column;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustment: force 1 column on mobile regardless of PHP setting */
+@media (max-width: 768px) {
+    .multi-column-list {
+        column-count: 1 !important;
+    }
 }
 /* Ensure the column allows the dropdown to overflow the container */
 .kanban-wrapper {
@@ -191,4 +205,74 @@ a:hover {
 .folder-header {
     border-bottom-width: 50%;
     border-bottom: #FFF 0px solid;
+}
+
+
+/* Container Base */
+.folder-grid {
+    column-count: var(--col-count, 7);
+    column-gap: 20px;
+}
+
+.link-collection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* --- MODE: LIST (Explorer Tiles) --- */
+.mode-list .item-link {
+    flex: 1 1 100%;
+    text-decoration: none !important;
+    border-radius: 4px;
+    transition: background 0.1s;
+}
+.mode-list .item-content {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+}
+.mode-list .item-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.mode-list .item-label {
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- MODE: GRID (Large Icons) --- */
+.mode-grid .item-link {
+    width: 80px; /* Fixed width for icon blocks */
+    text-decoration: none !important;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 4px;
+}
+.mode-grid .item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mode-grid .item-icon {
+    width: 48px; /* Large Icon size */
+    height: 48px;
+    margin-bottom: 6px;
+}
+.mode-grid .item-label {
+    font-size: 0.7rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Wrap label to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.1;
+}
+
+/* Common Hover State */
+.item-link:hover {
+    background-color: rgba(0, 120, 215, 0.15);
+    outline: 1px solid rgba(0, 120, 215, 0.2);
 }

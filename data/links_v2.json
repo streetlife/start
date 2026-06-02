@@ -14,25 +14,28 @@
             "color": "#2b282a"
         },
         {
+            "id": "f4",
+            "name": "soft alliance",
+            "sort": 34,
+            "color": "#1b1c26",
+            "icon": "hugeicons:new-office",
+            "private": true
+        },
+        {
             "id": "69679060f2f74",
             "name": "hosting",
             "sort": 35,
             "color": "#001a33",
-            "icon": "lets-icons:server"
+            "icon": "lets-icons:server",
+            "private": true
         },
         {
             "id": "f5",
             "name": "projects",
             "sort": 37,
             "color": "#1c2400",
-            "icon": "iconoir:laptop-dev-mode"
-        },
-        {
-            "id": "f4",
-            "name": "soft alliance",
-            "sort": 40,
-            "color": "#1b1c26",
-            "icon": "hugeicons:new-office"
+            "icon": "iconoir:laptop-dev-mode",
+            "private": true
         },
         {
             "id": "69678e30457c9",
@@ -68,18 +71,18 @@
             "icon": "fa7-solid:chart-gantt"
         },
         {
-            "id": "f2",
-            "name": "media",
-            "sort": 77,
-            "color": "#1b0123",
-            "icon": "material-symbols-light:media-link"
-        },
-        {
             "id": "f696e207ff34bf",
             "name": "shopping",
             "sort": 78,
             "color": "#1f2620",
             "icon": "icon-park-outline:shopping"
+        },
+        {
+            "id": "f696b5ab6b0891",
+            "name": "dev tools",
+            "sort": 79,
+            "color": "#271819",
+            "icon": "fluent:window-dev-tools-16-filled"
         },
         {
             "id": "f8",
@@ -109,11 +112,11 @@
             "icon": "iconoir:laptop-dev-mode"
         },
         {
-            "id": "f696b5ab6b0891",
-            "name": "dev tools",
+            "id": "f2",
+            "name": "media",
             "sort": 105,
-            "color": "#271819",
-            "icon": "fluent:window-dev-tools-16-filled"
+            "color": "#1b0123",
+            "icon": "material-symbols-light:media-link"
         },
         {
             "id": "f11",
@@ -137,6 +140,13 @@
             "icon": "fluent-mdl2:game"
         },
         {
+            "id": "f69be8b91a5dae",
+            "name": "fun",
+            "sort": 125,
+            "color": "#000000",
+            "icon": "mdi:folder"
+        },
+        {
             "id": "f13",
             "name": "graphics",
             "sort": 130,
@@ -151,18 +161,18 @@
             "icon": "octicon:project-template-24"
         },
         {
+            "id": "f16",
+            "name": "tools",
+            "sort": 145,
+            "color": "#211b25",
+            "icon": "ri:tools-fill"
+        },
+        {
             "id": "f15",
             "name": "utilities",
             "sort": 150,
             "color": "#2a1715",
             "icon": "arcticons:amaze-utilities"
-        },
-        {
-            "id": "f16",
-            "name": "tools",
-            "sort": 160,
-            "color": "#211b25",
-            "icon": "ri:tools-fill"
         },
         {
             "id": "f98",
@@ -182,9 +192,10 @@
         "0": {
             "id": "l1",
             "label": "phpmyadmin",
-            "url": "http:\/\/localhost\/phpmyadmin",
+            "url": "https:\/\/start.test\/phpmyadmin\/",
             "folder_id": "f1",
-            "target": "_self"
+            "target": "_self",
+            "hidden": false
         },
         "3": {
             "id": "l4",
@@ -233,9 +244,10 @@
         "12": {
             "id": "l13",
             "label": "gmail",
-            "url": "https:\/\/mail.google.com",
+            "url": "https:\/\/mail.google.com\/mail\/u\/0\/#inbox",
             "folder_id": "f3",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "13": {
             "id": "l14",
@@ -361,14 +373,16 @@
             "label": "madina",
             "url": "https:\/\/madinawears.com.ng",
             "folder_id": "f5",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "30": {
             "id": "l31",
-            "label": "bbc sound effects",
+            "label": "sound effects",
             "url": "https:\/\/sound-effects.bbcrewind.co.uk",
             "folder_id": "f13",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "31": {
             "id": "l32",
@@ -514,22 +528,8 @@
             "label": "lexica",
             "url": "https:\/\/lexica.art\/aperture",
             "folder_id": "f8",
-            "target": "_blank"
-        },
-        "52": {
-            "id": "l53",
-            "label": "dall-e",
-            "url": "https:\/\/labs.openai.com",
-            "folder_id": "f8",
             "target": "_blank",
-            "hidden": true
-        },
-        "53": {
-            "id": "l54",
-            "label": "copilot",
-            "url": "https:\/\/copilot.microsoft.com",
-            "folder_id": "f8",
-            "target": "_blank"
+            "hidden": false
         },
         "54": {
             "id": "l55",
@@ -558,7 +558,7 @@
             "url": "https:\/\/app.heygen.com\/projects",
             "folder_id": "f8",
             "target": "_blank",
-            "hidden": true
+            "hidden": false
         },
         "58": {
             "id": "l59",
@@ -569,10 +569,11 @@
         },
         "59": {
             "id": "l60",
-            "label": "google ai",
+            "label": "ai studio",
             "url": "https:\/\/aistudio.google.com\/",
             "folder_id": "f8",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "61": {
             "id": "l62",
@@ -610,7 +611,8 @@
             "label": "arsenal",
             "url": "https:\/\/www.arsenal.com",
             "folder_id": "f11",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "66": {
             "id": "l67",
@@ -631,7 +633,8 @@
             "label": "sofa score",
             "url": "https:\/\/www.sofascore.com",
             "folder_id": "f11",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "70": {
             "id": "l71",
@@ -649,11 +652,11 @@
         },
         "72": {
             "id": "l73",
-            "label": "play classic games",
+            "label": "classic games",
             "url": "https:\/\/playclassic.games",
             "folder_id": "f12",
             "target": "_blank",
-            "hidden": true
+            "hidden": false
         },
         "73": {
             "id": "l74",
@@ -776,10 +779,11 @@
         },
         "91": {
             "id": "l92",
-            "label": "screenshot machine",
+            "label": "screenshot mchn",
             "url": "https:\/\/www.screenshotmachine.com",
             "folder_id": "f15",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "92": {
             "id": "l93",
@@ -868,7 +872,7 @@
         "104": {
             "id": "l105",
             "label": "streamed",
-            "url": "https:\/\/strmd.link\/",
+            "url": "https:\/\/streamed.pk",
             "folder_id": "f696d5956696b0",
             "target": "_blank",
             "hidden": false
@@ -876,21 +880,15 @@
         "105": {
             "id": "l106",
             "label": "eztv",
-            "url": "https:\/\/eztvx.to",
+            "url": "https:\/\/eztv.unblockninja.st\/",
             "folder_id": "f98",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "106": {
             "id": "l107",
             "label": "downloadly",
             "url": "https:\/\/downloadly.ir",
-            "folder_id": "f98",
-            "target": "_blank"
-        },
-        "107": {
-            "id": "l108",
-            "label": "audio bb",
-            "url": "https:\/\/AudioBB.net",
             "folder_id": "f98",
             "target": "_blank"
         },
@@ -966,7 +964,7 @@
             "url": "https:\/\/temu.com",
             "folder_id": "f696e207ff34bf",
             "target": "_blank",
-            "hidden": true
+            "hidden": false
         },
         "119": {
             "id": "l696e2259e472b",
@@ -974,7 +972,7 @@
             "url": "https:\/\/konga.com",
             "folder_id": "f696e207ff34bf",
             "target": "_blank",
-            "hidden": true
+            "hidden": false
         },
         "120": {
             "id": "l696e2265cb64a",
@@ -982,7 +980,7 @@
             "url": "https:\/\/jumia.com.ng",
             "folder_id": "f696e207ff34bf",
             "target": "_blank",
-            "hidden": true
+            "hidden": false
         },
         "121": {
             "id": "l696e246a3d74a",
@@ -1117,7 +1115,7 @@
             "id": "l6981bac47d308",
             "label": "alternative",
             "url": "https:\/\/alternativeto.net\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_blank",
             "hidden": false
         },
@@ -1133,7 +1131,7 @@
             "id": "l698c77edd03b6",
             "label": "hcp softalliance",
             "url": "https:\/\/102.207.49.23:8083\/",
-            "folder_id": "f4",
+            "folder_id": "69679060f2f74",
             "target": "_self",
             "hidden": false
         },
@@ -1151,6 +1149,302 @@
             "url": "https:\/\/ahasend.com\/",
             "folder_id": "f696b5ab6b0891",
             "target": "_blank",
+            "hidden": false
+        },
+        "145": {
+            "id": "l6991f22f67afa",
+            "label": "open notebook",
+            "url": "https:\/\/www.open-notebook.ai\/",
+            "folder_id": "f8",
+            "target": "_self",
+            "hidden": false
+        },
+        "146": {
+            "id": "l6995c01eebbbe",
+            "label": "hustlewp",
+            "url": "https:\/\/www.hustlewp.com\/",
+            "folder_id": "f98",
+            "target": "_self",
+            "hidden": false
+        },
+        "147": {
+            "id": "l6995dd20755fe",
+            "label": "whogohost",
+            "url": "https:\/\/whogohost.com\/host\/clientarea.php",
+            "folder_id": "69679060f2f74",
+            "target": "_self",
+            "hidden": false
+        },
+        "148": {
+            "id": "l6999dea63e620",
+            "label": "grok",
+            "url": "https:\/\/grok.com",
+            "folder_id": "f8",
+            "target": "_self",
+            "hidden": false
+        },
+        "150": {
+            "id": "l699dde7d99eed",
+            "label": "virtual meeting",
+            "url": "https:\/\/virtuallymeeting.me",
+            "folder_id": "f16",
+            "target": "_self",
+            "hidden": false
+        },
+        "151": {
+            "id": "l699ed1c2eec91",
+            "label": "plex",
+            "url": "https:\/\/watch.plex.tv\/",
+            "folder_id": "f2",
+            "target": "_self",
+            "hidden": false
+        },
+        "152": {
+            "id": "l69a0253a75546",
+            "label": "stitch",
+            "url": "https:\/\/stitch.withgoogle.com\/",
+            "folder_id": "f8",
+            "target": "_self",
+            "hidden": false
+        },
+        "153": {
+            "id": "l69a04fc57fbbe",
+            "label": "calvary",
+            "url": "https:\/\/cavalry.scenegroup.co\/",
+            "folder_id": "f13",
+            "target": "_self",
+            "hidden": false
+        },
+        "154": {
+            "id": "l69a0bb8d03734",
+            "label": "droid claw",
+            "url": "https:\/\/github.com\/unitedbyai\/droidclaw",
+            "folder_id": "f8",
+            "target": "_self",
+            "hidden": false
+        },
+        "155": {
+            "id": "l69a1f1171e1bb",
+            "label": "calendar",
+            "url": "https:\/\/calendar.google.com\/calendar\/u\/0\/r",
+            "folder_id": "f3",
+            "target": "_self",
+            "hidden": false
+        },
+        "156": {
+            "id": "l69a2ea76e5803",
+            "label": "whatsapp",
+            "url": "https:\/\/web.whatsapp.com",
+            "folder_id": "f1",
+            "target": "_self",
+            "hidden": false
+        },
+        "157": {
+            "id": "l69a435fb35f72",
+            "label": "video compress",
+            "url": "https:\/\/compress.addy.ie\/",
+            "folder_id": "f16",
+            "target": "_self",
+            "hidden": false
+        },
+        "158": {
+            "id": "l69a80ae35057e",
+            "label": "netflix",
+            "url": "https:\/\/netflix.com",
+            "folder_id": "f2",
+            "target": "_self",
+            "hidden": false
+        },
+        "159": {
+            "id": "l69a80afa40bf8",
+            "label": "prime video",
+            "url": "https:\/\/www.primevideo.com",
+            "folder_id": "f2",
+            "target": "_self",
+            "hidden": false
+        },
+        "160": {
+            "id": "l69afe67c47471",
+            "label": "jackett",
+            "url": "http:\/\/localhost:9117\/UI\/Dashboard",
+            "folder_id": "f1",
+            "target": "_self",
+            "hidden": false
+        },
+        "161": {
+            "id": "l69b04fbbcb34a",
+            "label": "site24x7",
+            "url": "https:\/\/www.site24x7.com\/",
+            "folder_id": "f16",
+            "target": "_self",
+            "hidden": false
+        },
+        "162": {
+            "id": "l69b04fcdaf85c",
+            "label": "semonto",
+            "url": "https:\/\/semonto.com\/",
+            "folder_id": "f16",
+            "target": "_self",
+            "hidden": false
+        },
+        "163": {
+            "id": "l69b04fdf4122d",
+            "label": "uptime",
+            "url": "https:\/\/uptime.com\/",
+            "folder_id": "f16",
+            "target": "_self",
+            "hidden": false
+        },
+        "164": {
+            "id": "l69b51d4cd58a4",
+            "label": "cloudflare",
+            "url": "https:\/\/cloudflare.com",
+            "folder_id": "69679060f2f74",
+            "target": "_self",
+            "hidden": false
+        },
+        "165": {
+            "id": "l69b95658084e6",
+            "label": "limetorrent",
+            "url": "https:\/\/limetorrent.net\/",
+            "folder_id": "f98",
+            "target": "_self",
+            "hidden": false
+        },
+        "166": {
+            "id": "l69bae80c002f0",
+            "label": "fotmob",
+            "url": "https:\/\/www.fotmob.com\/",
+            "folder_id": "f11",
+            "target": "_self",
+            "hidden": false
+        },
+        "167": {
+            "id": "l69be8b9a56824",
+            "label": "bored",
+            "url": "https:\/\/bored.com\/",
+            "folder_id": "f69be8b91a5dae",
+            "target": "_self",
+            "hidden": false
+        },
+        "169": {
+            "id": "l69c42c6004679",
+            "label": "web app creator",
+            "url": "https:\/\/webappcreator.amethystlab.org\/",
+            "folder_id": "f696b5ab6b0891",
+            "target": "_self",
+            "hidden": false
+        },
+        "170": {
+            "id": "l69c793277eed1",
+            "label": "stoat",
+            "url": "https:\/\/stoat.chat\/discover\/servers",
+            "folder_id": "f6",
+            "target": "_self",
+            "hidden": false
+        },
+        "171": {
+            "id": "l69c7933d22387",
+            "label": "nerimity",
+            "url": "https:\/\/nerimity.com\/app",
+            "folder_id": "f6",
+            "target": "_self",
+            "hidden": false
+        },
+        "172": {
+            "id": "l69c7934ddfc76",
+            "label": "fluxer",
+            "url": "https:\/\/web.fluxer.app\/channels\/@me",
+            "folder_id": "f6",
+            "target": "_self",
+            "hidden": false
+        },
+        "173": {
+            "id": "l69ca8e1767c19",
+            "label": "zero store",
+            "url": "https:\/\/zerostore.com.ng",
+            "folder_id": "f5",
+            "target": "_self",
+            "hidden": false
+        },
+        "174": {
+            "id": "l69d50ee547d6c",
+            "label": "openclaw",
+            "url": "    http:\/\/localhost:18789\/#token=8116aff63dba2700ddd64580d7da656e0d4d71b394f9bc87",
+            "folder_id": "f1",
+            "target": "_self",
+            "hidden": false
+        },
+        "175": {
+            "id": "l69d80bc642a12",
+            "label": "css loaders",
+            "url": "https:\/\/css-loaders.com\/",
+            "folder_id": "f15",
+            "target": "_self",
+            "hidden": false
+        },
+        "176": {
+            "id": "l69dbfadac60c6",
+            "label": "glorify",
+            "url": "https:\/\/glorify.dev\/dashboard",
+            "folder_id": "f8",
+            "target": "_self",
+            "hidden": false
+        },
+        "177": {
+            "id": "l69ddd87d0fc9e",
+            "label": "convertico",
+            "url": "https:\/\/convertico.com\/",
+            "folder_id": "f15",
+            "target": "_self",
+            "hidden": false
+        },
+        "178": {
+            "id": "l69df82d393283",
+            "label": "udemy sarl",
+            "url": "https:\/\/softalliance.udemy.com",
+            "folder_id": "f7",
+            "target": "_self",
+            "hidden": false
+        },
+        "179": {
+            "id": "l69e00123270ae",
+            "label": "sekreets",
+            "url": "https:\/\/sekreets.vercel.app\/secrets",
+            "folder_id": "f15",
+            "target": "_self",
+            "hidden": false
+        },
+        "180": {
+            "id": "l69ebda5f8b7c2",
+            "label": "crazy games",
+            "url": "http:\/\/crazygames.com\/",
+            "folder_id": "f12",
+            "target": "_self",
+            "hidden": false
+        },
+        "181": {
+            "id": "l69f3ba57f18aa",
+            "label": "streamex",
+            "url": "https:\/\/streamex.sh\/",
+            "folder_id": "f98",
+            "target": "_self",
+            "hidden": false
+        },
+        "182": {
+            "id": "l69f4878a32a6c",
+            "label": "kimi",
+            "url": "https:\/\/www.kimi.com\/en",
+            "folder_id": "f8",
+            "target": "_self",
+            "hidden": false
+        },
+        "183": {
+            "id": "l6a0c79d0ca6a0",
+            "label": "radarr",
+            "url": "http:\/\/localhost:7878",
+            "folder_id": "f1",
+            "target": "_self",
             "hidden": false
         }
     }

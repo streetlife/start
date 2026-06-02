@@ -1,0 +1,145 @@
+/* Container Layout */
+.folder-grid {
+    column-count: var(--col-count, 7);
+    column-gap: 20px;
+    width: 100%;
+}
+
+.folder-container {
+    break-inside: avoid-column;
+    display: inline-block;
+    width: 100%;
+    /* background: rgba(255,255,255,0.4); */
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.folder-header h6 {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: #666;
+}
+
+/* Tile Grid System */
+.tile-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px;
+}
+
+.link-tile {
+    text-decoration: none !important;
+    color: inherit;
+    flex: 1 1 calc(50% - 4px); /* Two tiles per row inside a column */
+    max-width: 100%;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease-in-out;
+}
+
+.link-tile:hover {
+    background-color: rgba(0, 120, 215, 0.1);
+    border-color: rgba(0, 120, 215, 0.2);
+}
+
+.tile-content {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.tile-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.tile-label {
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* color: #444; */
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+/* Responsive */
+@media (max-width: 1200px) { .folder-grid { column-count: 4; } }
+@media (max-width: 768px) { 
+    .folder-grid { column-count: 1; } 
+    .link-tile { flex: 1 1 100%; }
+}
+
+
+/* Container Base */
+.folder-grid {
+    column-count: var(--col-count, 7);
+    column-gap: 20px;
+}
+
+.link-collection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* --- MODE: LIST (Explorer Tiles) --- */
+.mode-list .item-link {
+    flex: 1 1 100%;
+    text-decoration: none !important;
+    border-radius: 4px;
+    transition: background 0.1s;
+}
+.mode-list .item-content {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+}
+.mode-list .item-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.mode-list .item-label {
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- MODE: GRID (Large Icons) --- */
+.mode-grid .item-link {
+    width: 80px; /* Fixed width for icon blocks */
+    text-decoration: none !important;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 4px;
+}
+.mode-grid .item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mode-grid .item-icon {
+    width: 48px; /* Large Icon size */
+    height: 48px;
+    margin-bottom: 6px;
+}
+.mode-grid .item-label {
+    font-size: 0.7rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Wrap label to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.1;
+}
+
+/* Common Hover State */
+.item-link:hover {
+    background-color: rgba(0, 120, 215, 0.15);
+    outline: 1px solid rgba(0, 120, 215, 0.2);
+}
