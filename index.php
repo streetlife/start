@@ -1,7 +1,7 @@
 <?php
 // prevent caching
-header("Cache-Control: no-cache, must-revalidate");
-header("Expires: Sat, 1 Jan 2000 00:00:00 GMT");
+// header("Cache-Control: no-cache, must-revalidate");
+// header("Expires: Sat, 1 Jan 2000 00:00:00 GMT");
 
 include('functions.php');
 
@@ -15,7 +15,7 @@ define('LINKS_FILE', 'data/links_v2.json');
 
 // Default Settings
 $defaults = [
-    'cols' => 7,
+    'cols' => 6,
     'show_icon' => false,
     'selected_style' => 'css/bootstrap-default.css',
     'search_history' => [],
@@ -56,15 +56,17 @@ foreach (array_filter(glob('../' . '*'), 'is_dir') as $dir) {
 $project_folder = [['id' => 'dev_root', 'name' => 'dev projects', 'sort' => -1]];
 
 // Merge project links into main links
-$rawMenu['links'] = array_merge($project_links, $rawMenu['links']);
-$rawMenu['folders'] = array_merge($project_folder, $rawMenu['folders']);
+$projectsMenu['links'] = $project_links;
+$projectsMenu['folders'] = $project_folder;
+// $rawMenu['links'] = array_merge($project_links, $rawMenu['links']);
+// $rawMenu['folders'] = array_merge($project_folder, $rawMenu['folders']);
 
 $css_form = load_css_files();
 $selected_style = get_selected_style();
 
 check_delete_todo($todos);
 
-$stats = get_stats();
+// $stats = get_stats();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +74,7 @@ $stats = get_stats();
     <title> ~ esquire </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="<?php echo $settings['selected_style']; ?>" >
-    <link rel="stylesheet" type="text/css" href="css/style.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta http-equiv="refresh" content="<?php echo REFRESH_RATE; ?>" />
     <style>
         li { list-style-type: none; }
@@ -87,6 +89,28 @@ $stats = get_stats();
 <div class="container-fluid">
     <div class="row g-0">
         <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="card bg-transparent m-0">
+                        <div class="card-body">
+                            <nav class="nav">
+                                <?php echo createMenu($projectsMenu['folders'], $projectsMenu['links'], 1); ?>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="card bg-transparent m-0">
+                        <div class="card-body">
+                            <nav class="nav">
+                                <?php echo createMenu($rawMenu['folders'], $rawMenu['links'], 6); ?>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">  
             <div class="card">
                 <div class="card-body p-2">
                     <form id="search-form" method="get" onsubmit="return handleSearch();" class="form">
@@ -104,15 +128,6 @@ $stats = get_stats();
                     </form>
                 </div>
             </div>
-            <div class="card bg-transparent m-0">
-                <div class="card-body">
-                    <nav class="nav">
-                        <?php echo createMenu($rawMenu['folders'], $rawMenu['links']); ?>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">  
             <div class="card bg-transparent m-0">
                 <div class="card-body">
                     <a href="manage.php" class="btn btn-sm btn-outline-secondary w-100">Manage Links</a>
@@ -148,11 +163,6 @@ $stats = get_stats();
                         <?php echo load_todo_column('done'); ?>
                     </div>
                 </div>
-            </div>
-
-            <div class="card-body border-top">
-                <div class="card-header border-0 bg-transparent p-0"><h6>Stats</h6></div>
-                <pre style="font-size: 10px; max-height: 200px; overflow-y: auto;"><?php echo htmlspecialchars($stats); ?></pre>
             </div>
         </div>
     </div>

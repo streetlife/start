@@ -10,15 +10,31 @@
         {
             "id": "f3",
             "name": "work",
-            "sort": 30,
-            "color": "#2b282a"
+            "sort": 20,
+            "color": "#2b282a",
+            "icon": "mdi:folder"
         },
         {
             "id": "f4",
             "name": "soft alliance",
-            "sort": 34,
+            "sort": 30,
             "color": "#1b1c26",
             "icon": "hugeicons:new-office",
+            "private": true
+        },
+        {
+            "id": "f6a58fbb289e03",
+            "name": "smart",
+            "sort": 32,
+            "color": "#000000",
+            "icon": "fa-solid:at"
+        },
+        {
+            "id": "f5",
+            "name": "projects",
+            "sort": 33,
+            "color": "#1c2400",
+            "icon": "iconoir:laptop-dev-mode",
             "private": true
         },
         {
@@ -27,14 +43,6 @@
             "sort": 35,
             "color": "#001a33",
             "icon": "lets-icons:server",
-            "private": true
-        },
-        {
-            "id": "f5",
-            "name": "projects",
-            "sort": 37,
-            "color": "#1c2400",
-            "icon": "iconoir:laptop-dev-mode",
             "private": true
         },
         {
@@ -58,6 +66,13 @@
             "icon": "icon-park-outline:video"
         },
         {
+            "id": "f69be8b91a5dae",
+            "name": "fun",
+            "sort": 65,
+            "color": "#000000",
+            "icon": "mdi:folder"
+        },
+        {
             "id": "f7",
             "name": "learn",
             "sort": 70,
@@ -69,13 +84,6 @@
             "sort": 71,
             "color": "#28162e",
             "icon": "fa7-solid:chart-gantt"
-        },
-        {
-            "id": "f696e207ff34bf",
-            "name": "shopping",
-            "sort": 78,
-            "color": "#1f2620",
-            "icon": "icon-park-outline:shopping"
         },
         {
             "id": "f696b5ab6b0891",
@@ -92,17 +100,48 @@
             "icon": "tabler:ai"
         },
         {
+            "id": "f2",
+            "name": "media",
+            "sort": 80,
+            "color": "#1b0123",
+            "icon": "material-symbols-light:media-link",
+            "hidden": false
+        },
+        {
             "id": "f9",
             "name": "ai2",
             "sort": 90,
             "color": "#1f191e",
-            "icon": "tabler:ai"
+            "icon": "tabler:ai",
+            "hidden": true
+        },
+        {
+            "id": "f696e207ff34bf",
+            "name": "shopping",
+            "sort": 93,
+            "color": "#1f2620",
+            "icon": "icon-park-outline:shopping"
+        },
+        {
+            "id": "f13",
+            "name": "graphics",
+            "sort": 94,
+            "color": "#262b1a",
+            "icon": "mdi:art"
+        },
+        {
+            "id": "f14",
+            "name": "templates",
+            "sort": 95,
+            "color": "#14172e",
+            "icon": "octicon:project-template-24"
         },
         {
             "id": "f696e24573a261",
             "name": "automation",
-            "sort": 95,
-            "color": "#162218"
+            "sort": 98,
+            "color": "#162218",
+            "icon": "mdi:folder"
         },
         {
             "id": "f10",
@@ -110,13 +149,6 @@
             "sort": 100,
             "color": "#1c0717",
             "icon": "iconoir:laptop-dev-mode"
-        },
-        {
-            "id": "f2",
-            "name": "media",
-            "sort": 105,
-            "color": "#1b0123",
-            "icon": "material-symbols-light:media-link"
         },
         {
             "id": "f11",
@@ -127,8 +159,8 @@
         },
         {
             "id": "f696d5956696b0",
-            "name": "sports streaming",
-            "sort": 112,
+            "name": "streaming",
+            "sort": 115,
             "color": "#321e01",
             "icon": "ic:baseline-sports-soccer"
         },
@@ -138,27 +170,6 @@
             "sort": 120,
             "color": "#2e3232",
             "icon": "fluent-mdl2:game"
-        },
-        {
-            "id": "f69be8b91a5dae",
-            "name": "fun",
-            "sort": 125,
-            "color": "#000000",
-            "icon": "mdi:folder"
-        },
-        {
-            "id": "f13",
-            "name": "graphics",
-            "sort": 130,
-            "color": "#262b1a",
-            "icon": "mdi:art"
-        },
-        {
-            "id": "f14",
-            "name": "templates",
-            "sort": 140,
-            "color": "#14172e",
-            "icon": "octicon:project-template-24"
         },
         {
             "id": "f16",
@@ -209,14 +220,16 @@
             "label": "n8n",
             "url": "http:\/\/localhost:5678",
             "folder_id": "f1",
-            "target": "_self"
+            "target": "_self",
+            "hidden": true
         },
         "6": {
             "id": "l7",
             "label": "adminneo",
-            "url": "https:\/\/start.test\/adminneo.php",
+            "url": "https:\/\/start.test\/adminneo-5.5.0.php",
             "folder_id": "f1",
-            "target": "_self"
+            "target": "_self",
+            "hidden": false
         },
         "8": {
             "id": "l9",
@@ -238,8 +251,9 @@
             "id": "l12",
             "label": "smartwork",
             "url": "https:\/\/smartwork.ng",
-            "folder_id": "f3",
-            "target": "_blank"
+            "folder_id": "f6a58fbb289e03",
+            "target": "_blank",
+            "hidden": false
         },
         "12": {
             "id": "l13",
@@ -267,8 +281,9 @@
             "id": "l16",
             "label": "client sites",
             "url": "https:\/\/clients.ibsnigeria.com\/wp-admin",
-            "folder_id": "f3",
-            "target": "_blank"
+            "folder_id": "69679060f2f74",
+            "target": "_blank",
+            "hidden": false
         },
         "16": {
             "id": "l17",
@@ -290,7 +305,8 @@
             "label": "hcp starlink",
             "url": "https:\/\/191.101.232.210:8083",
             "folder_id": "69679060f2f74",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "19": {
             "id": "l20",
@@ -411,7 +427,8 @@
             "label": "pm templates",
             "url": "https:\/\/www.stakeholdermap.com\/project-templates\/project-management-templates.html",
             "folder_id": "69677db6d1620",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "36": {
             "id": "l37",
@@ -455,7 +472,8 @@
             "label": "discord",
             "url": "https:\/\/discord.com\/app",
             "folder_id": "f6",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "42": {
             "id": "l43",
@@ -479,35 +497,39 @@
             "url": "https:\/\/www.wcofun.net",
             "folder_id": "f2",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "45": {
             "id": "l46",
             "label": "coursera",
             "url": "https:\/\/coursera.org",
             "folder_id": "f7",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "46": {
             "id": "l47",
             "label": "udemy",
             "url": "https:\/\/udemy.com",
             "folder_id": "f7",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "47": {
             "id": "l48",
             "label": "freecodecamp",
             "url": "https:\/\/freecodecamp.org",
             "folder_id": "f7",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "48": {
             "id": "l49",
             "label": "great learning",
             "url": "https:\/\/www.mygreatlearning.com",
             "folder_id": "f7",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "49": {
             "id": "l50",
@@ -536,14 +558,8 @@
             "label": "use anything",
             "url": "https:\/\/useanything.com",
             "folder_id": "f8",
-            "target": "_blank"
-        },
-        "55": {
-            "id": "l56",
-            "label": "meta ai",
-            "url": "https:\/\/meta.ai",
-            "folder_id": "f8",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "56": {
             "id": "l57",
@@ -581,7 +597,7 @@
             "url": "https:\/\/onyxlang.io",
             "folder_id": "f696b5ab6b0891",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "62": {
             "id": "l63",
@@ -589,14 +605,15 @@
             "url": "https:\/\/baserow.io",
             "folder_id": "f696b5ab6b0891",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "63": {
             "id": "l64",
             "label": "pocketbase",
             "url": "https:\/\/pocketbase.io",
             "folder_id": "f696b5ab6b0891",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "64": {
             "id": "l65",
@@ -604,7 +621,7 @@
             "url": "https:\/\/gdevelop.io",
             "folder_id": "f696b5ab6b0891",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "65": {
             "id": "l66",
@@ -875,7 +892,7 @@
             "url": "https:\/\/streamed.pk",
             "folder_id": "f696d5956696b0",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "105": {
             "id": "l106",
@@ -897,7 +914,8 @@
             "label": "champagne piracy",
             "url": "https:\/\/champagne.pages.dev",
             "folder_id": "f98",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "109": {
             "id": "l6967962a086ae",
@@ -964,7 +982,7 @@
             "url": "https:\/\/temu.com",
             "folder_id": "f696e207ff34bf",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "119": {
             "id": "l696e2259e472b",
@@ -972,7 +990,7 @@
             "url": "https:\/\/konga.com",
             "folder_id": "f696e207ff34bf",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "120": {
             "id": "l696e2265cb64a",
@@ -980,7 +998,7 @@
             "url": "https:\/\/jumia.com.ng",
             "folder_id": "f696e207ff34bf",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "121": {
             "id": "l696e246a3d74a",
@@ -1053,7 +1071,7 @@
             "url": "https:\/\/spotify.com",
             "folder_id": "f2",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "133": {
             "id": "l6978976522f63",
@@ -1077,7 +1095,7 @@
             "url": "https:\/\/phinx.org\/",
             "folder_id": "f696b5ab6b0891",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "136": {
             "id": "l697bada46ff93",
@@ -1109,7 +1127,7 @@
             "url": "https:\/\/music.youtube.com\/",
             "folder_id": "f2",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "140": {
             "id": "l6981bac47d308",
@@ -1130,7 +1148,7 @@
         "142": {
             "id": "l698c77edd03b6",
             "label": "hcp softalliance",
-            "url": "https:\/\/102.207.49.23:8083\/",
+            "url": "https:\/\/server.rdlab.com.ng:8083\/login\/",
             "folder_id": "69679060f2f74",
             "target": "_self",
             "hidden": false
@@ -1141,7 +1159,7 @@
             "url": "https:\/\/github.com\/",
             "folder_id": "f696b5ab6b0891",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "144": {
             "id": "l698ef6479e988",
@@ -1157,7 +1175,7 @@
             "url": "https:\/\/www.open-notebook.ai\/",
             "folder_id": "f8",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "146": {
             "id": "l6995c01eebbbe",
@@ -1181,13 +1199,13 @@
             "url": "https:\/\/grok.com",
             "folder_id": "f8",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "150": {
             "id": "l699dde7d99eed",
             "label": "virtual meeting",
             "url": "https:\/\/virtuallymeeting.me",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_self",
             "hidden": false
         },
@@ -1197,7 +1215,7 @@
             "url": "https:\/\/watch.plex.tv\/",
             "folder_id": "f2",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "152": {
             "id": "l69a0253a75546",
@@ -1219,9 +1237,9 @@
             "id": "l69a0bb8d03734",
             "label": "droid claw",
             "url": "https:\/\/github.com\/unitedbyai\/droidclaw",
-            "folder_id": "f8",
+            "folder_id": "f9",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "155": {
             "id": "l69a1f1171e1bb",
@@ -1243,7 +1261,7 @@
             "id": "l69a435fb35f72",
             "label": "video compress",
             "url": "https:\/\/compress.addy.ie\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_self",
             "hidden": false
         },
@@ -1253,7 +1271,7 @@
             "url": "https:\/\/netflix.com",
             "folder_id": "f2",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "159": {
             "id": "l69a80afa40bf8",
@@ -1261,7 +1279,7 @@
             "url": "https:\/\/www.primevideo.com",
             "folder_id": "f2",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "160": {
             "id": "l69afe67c47471",
@@ -1275,7 +1293,7 @@
             "id": "l69b04fbbcb34a",
             "label": "site24x7",
             "url": "https:\/\/www.site24x7.com\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_self",
             "hidden": false
         },
@@ -1283,7 +1301,7 @@
             "id": "l69b04fcdaf85c",
             "label": "semonto",
             "url": "https:\/\/semonto.com\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_self",
             "hidden": false
         },
@@ -1291,7 +1309,7 @@
             "id": "l69b04fdf4122d",
             "label": "uptime",
             "url": "https:\/\/uptime.com\/",
-            "folder_id": "f16",
+            "folder_id": "f15",
             "target": "_self",
             "hidden": false
         },
@@ -1341,7 +1359,7 @@
             "url": "https:\/\/stoat.chat\/discover\/servers",
             "folder_id": "f6",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "171": {
             "id": "l69c7933d22387",
@@ -1349,7 +1367,7 @@
             "url": "https:\/\/nerimity.com\/app",
             "folder_id": "f6",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "172": {
             "id": "l69c7934ddfc76",
@@ -1357,21 +1375,13 @@
             "url": "https:\/\/web.fluxer.app\/channels\/@me",
             "folder_id": "f6",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "173": {
             "id": "l69ca8e1767c19",
             "label": "zero store",
             "url": "https:\/\/zerostore.com.ng",
             "folder_id": "f5",
-            "target": "_self",
-            "hidden": false
-        },
-        "174": {
-            "id": "l69d50ee547d6c",
-            "label": "openclaw",
-            "url": "    http:\/\/localhost:18789\/#token=8116aff63dba2700ddd64580d7da656e0d4d71b394f9bc87",
-            "folder_id": "f1",
             "target": "_self",
             "hidden": false
         },
@@ -1389,7 +1399,7 @@
             "url": "https:\/\/glorify.dev\/dashboard",
             "folder_id": "f8",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "177": {
             "id": "l69ddd87d0fc9e",
@@ -1427,15 +1437,7 @@
             "id": "l69f3ba57f18aa",
             "label": "streamex",
             "url": "https:\/\/streamex.sh\/",
-            "folder_id": "f98",
-            "target": "_self",
-            "hidden": false
-        },
-        "182": {
-            "id": "l69f4878a32a6c",
-            "label": "kimi",
-            "url": "https:\/\/www.kimi.com\/en",
-            "folder_id": "f8",
+            "folder_id": "f696d5956696b0",
             "target": "_self",
             "hidden": false
         },
@@ -1444,6 +1446,118 @@
             "label": "radarr",
             "url": "http:\/\/localhost:7878",
             "folder_id": "f1",
+            "target": "_self",
+            "hidden": false
+        },
+        "184": {
+            "id": "l6a327bb09b250",
+            "label": "iwebfusion",
+            "url": "https:\/\/my.iwebfusion.net\/",
+            "folder_id": "69679060f2f74",
+            "target": "_self",
+            "hidden": false
+        },
+        "185": {
+            "id": "l6a34096c24602",
+            "label": "outlook",
+            "url": "https:\/\/outlook.live.com\/mail\/",
+            "folder_id": "f3",
+            "target": "_self",
+            "hidden": true
+        },
+        "186": {
+            "id": "l6a378ff74fdc7",
+            "label": "cron jobs",
+            "url": "https:\/\/cron-job.org\/en\/",
+            "folder_id": "f15",
+            "target": "_self",
+            "hidden": false
+        },
+        "187": {
+            "id": "l6a398f397543a",
+            "label": "neal",
+            "url": "https:\/\/neal.fun\/",
+            "folder_id": "f69be8b91a5dae",
+            "target": "_self",
+            "hidden": false
+        },
+        "188": {
+            "id": "l6a39909ca5fcc",
+            "label": "famelack - world tv",
+            "url": "https:\/\/famelack.com\/",
+            "folder_id": "f69be8b91a5dae",
+            "target": "_self",
+            "hidden": false
+        },
+        "189": {
+            "id": "l6a3c3c9019dbd",
+            "label": "strmd",
+            "url": "https:\/\/strmd.link\/",
+            "folder_id": "f696d5956696b0",
+            "target": "_self",
+            "hidden": false
+        },
+        "191": {
+            "id": "l6a4b8c70e2f58",
+            "label": "smarthotel",
+            "url": "https:\/\/smarthotel.ng",
+            "folder_id": "f6a58fbb289e03",
+            "target": "_self",
+            "hidden": false
+        },
+        "192": {
+            "id": "l6a5134ec3e270",
+            "label": "osint4all",
+            "url": "https:\/\/osint4all.com\/",
+            "folder_id": "f15",
+            "target": "_self",
+            "hidden": false
+        },
+        "193": {
+            "id": "l6a576661981ab",
+            "label": "smartoffice",
+            "url": "https:\/\/smartoffice.ng",
+            "folder_id": "f6a58fbb289e03",
+            "target": "_self",
+            "hidden": false
+        },
+        "194": {
+            "id": "l6a58f689e005c",
+            "label": "namecheap",
+            "url": "https:\/\/namecheap.com",
+            "folder_id": "69679060f2f74",
+            "target": "_self",
+            "hidden": false
+        },
+        "195": {
+            "id": "l6a5907f98d296",
+            "label": "smarthospital",
+            "url": "https:\/\/smarthospital.ng",
+            "folder_id": "f6a58fbb289e03",
+            "target": "_self",
+            "hidden": true
+        },
+        "196": {
+            "id": "l6a593d7463fdd",
+            "label": "timer tab",
+            "url": "https:\/\/www.timer-tab.com\/",
+            "folder_id": "f15",
+            "target": "_self",
+            "hidden": false
+        },
+        "197": {
+            "id": "l6a59422ae8e1a",
+            "label": "informal tax",
+            "url": "https:\/\/informaltax.webz.com.ng\/",
+            "folder_id": "f5",
+            "target": "_self",
+            "hidden": false
+        },
+        "198": {
+            "id": "l6a5ccc33142fc",
+            "label": "resend",
+            "url": "https:\/\/resend.com\/emails",
+            "folder_id": "f696b5ab6b0891",
             "target": "_self",
             "hidden": false
         }

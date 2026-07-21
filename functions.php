@@ -139,19 +139,22 @@ function randomLightColor() {
 
 }
 
-function createMenu($folders, $allLinks) {
+function createMenu($folders, $allLinks, $colCount = 1) {
     global $settings;
-    $output = '';
-    $colCount = $settings['cols'];
+    // $colCount = $settings['cols'];
     $showIcon = $settings['show_icon'];
     $multiColumn = ($colCount > 1);
 
     $multiColumnClass = $multiColumn ? 'multi-column-list' : '';
     // We inject the column count into a CSS variable --col-count
-    $output .= '<ul class="'.$multiColumnClass.' p-0 m-0" style="width:100%; --col-count: '.$colCount.';">';
+    $output = '';
+    $output .= '<ul class="'.$multiColumnClass.' p-0 m-0" style="width:100%; column-count: '.$colCount.';">';
 
     // $output .= '<ul class="'.$multiColumnClass.' p-0 m-0" style="width:100%">';
     foreach ($folders as $folder) {
+        // Skip hidden folders
+        if (!empty($folder['hidden'])) continue;
+
         // 1. Filter links belonging to this folder
         $folderLinks = array_filter($allLinks, function($l) use ($folder) {
             return $l['folder_id'] === $folder['id'];
@@ -233,6 +236,9 @@ function createMenu2($folders, $allLinks) {
     $output .= '<div class="folder-grid mode-' . $viewMode . '" style="--col-count: ' . $colCount . ';">';
 
     foreach ($folders as $folder) {
+        // Skip hidden folders
+        if (!empty($folder['hidden'])) continue;
+
         $folderLinks = array_filter($allLinks, fn($l) => $l['folder_id'] === $folder['id'] && !(isset($l['hidden']) && $l['hidden']));
         if (empty($folderLinks)) continue;
 

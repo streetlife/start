@@ -36,6 +36,7 @@ if ($action === 'upsert_folder') {
     $id = $_POST['id'] ?: uniqid('f');
     $color = $_POST['color'] ?: '#050000';
     $icon = $_POST['icon'] ?: 'mdi:folder'; // Default icon if empty
+    $hidden = isset($_POST['folder_hidden']) && $_POST['folder_hidden'] === 'true';
     
     $found = false;
     foreach ($data['folders'] as &$f) {
@@ -44,6 +45,7 @@ if ($action === 'upsert_folder') {
             $f['sort'] = (int)$_POST['sort'];
             $f['color'] = $color;
             $f['icon'] = $icon; // Save icon
+            $f['hidden'] = $hidden;
             $found = true;
         }
     }
@@ -53,7 +55,8 @@ if ($action === 'upsert_folder') {
             'name' => $_POST['name'], 
             'sort' => (int)$_POST['sort'], 
             'color' => $color,
-            'icon' => $icon // Save icon for new folder
+            'icon' => $icon, // Save icon for new folder
+            'hidden' => $hidden
         ];
     }
     save($data);
@@ -73,17 +76,22 @@ if ($action === 'upsert_link') {
     $label = $_POST['label'];
     $url = $_POST['url'];
     $hidden = $_POST['hidden'] ?? false;
-    
+    $visible = $_POST['visible'] ?? null;
+
+    if ($visible !== null) {
+        $hidden = ($visible !== '1');
+    }
+
     // Trigger favicon fetch
     fetch_favicon($label, $url);
 
     $newLink = [
-        'id' => $id, 
-        'label' => $_POST['label'], 
-        'url' => $_POST['url'], 
+        'id' => $id,
+        'label' => $_POST['label'],
+        'url' => $_POST['url'],
         'folder_id' => $_POST['folder_id'] ?: 'root',
-        'target' => $_POST['target'] ?? '_self', // Capture the target
-        'hidden' => $hidden ? true : false // Capture the hidden status
+        'target' => $_POST['target'] ?? '_self',
+        'hidden' => $hidden ? true : false
     ];
     // $id = $_POST['link_id'] ?: uniqid('l');
     // $newLink = ['id' => $id, 'label' => $_POST['label'], 'url' => $_POST['url'], 'folder_id' => $_POST['folder_id'] ?: 'root'];
@@ -221,6 +229,10 @@ if ($action === 'refresh_single_icon') {
                                     <input type="number" name="sort" id="f_sort" class="form-control" style="max-width:60px" placeholder="Idx">
                                     <input type="color" name="color" id="f_color" class="form-control form-control-color" style="max-width:45px" title="Folder Color">
                                 </div>
+                                <div class="mb-2 form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="folder_hidden" id="f_hidden" value="true">
+                                    <label class="form-check-label small fw-bold" for="f_hidden">Hide from menu</label>
+                                </div>
                                 <button class="btn btn-dark btn-sm w-100" type="submit">Save Folder</button>
                             </div>
                         </form>
@@ -231,9 +243,12 @@ if ($action === 'refresh_single_icon') {
                                 <span>
                                     <iconify-icon icon="<?= $f['icon'] ?? 'mdi:folder' ?>" class="icon-preview" style="color: <?= $f['color'] ?? '#000' ?>"></iconify-icon>
                                     <strong><?= htmlspecialchars($f['name']) ?> </strong> 
+                                    <?php if (!empty($f['hidden'])): ?>
+                                        <span class="badge bg-secondary ms-1" style="font-size:0.6rem">Hidden</span>
+                                    <?php endif; ?>
                                 </span>
                                 <span><?= htmlspecialchars($f['sort']) ?></span>
-                                <a href="javascript:void(0)" onclick="editFolder('<?= $f['id'] ?>', '<?= addslashes($f['name']) ?>', <?= $f['sort'] ?>, '<?= $f['color'] ?? '#0f0202' ?>', '<?= $f['icon'] ?? 'mdi:folder' ?>')" class="text-primary text-decoration-none">Edit</a>
+                                <a href="javascript:void(0)" onclick="editFolder('<?= $f['id'] ?>', '<?= addslashes($f['name']) ?>', <?= $f['sort'] ?>, '<?= $f['color'] ?? '#0f0202' ?>', '<?= $f['icon'] ?? 'mdi:folder' ?>', <?= !empty($f['hidden']) ? 'true' : 'false' ?>)" class="text-primary text-decoration-none">Edit</a>
                             </div>
                             <?php endforeach; ?>
                         </div>
@@ -308,7 +323,7 @@ if ($action === 'refresh_single_icon') {
                                 <th onclick="sortTable(0)" style="cursor:pointer">Folder ↕</th>
                                 <th onclick="sortTable(1)" style="cursor:pointer">Label ↕</th>
                                 <th>URL</th>
-                                <th>Hidden</th>
+                                <th>Visible</th>
                                 <th class="text-end">Actions</th>
                             </tr>
                         </thead>
@@ -330,11 +345,22 @@ if ($action === 'refresh_single_icon') {
                                     <?= htmlspecialchars($l['label']) ?></td>
                                 <td class="text-muted small"><code><a href="<?= $l['url'] ?>" target="_blank"><?= htmlspecialchars($l['url']) ?></a></code></td>
                                 <td>
-                                    <?php if (isset($l['hidden']) && $l['hidden']): ?>
-                                        <span class="text-danger">Yes</span>
-                                    <?php else: ?>
-                                        <span class="text-success">No</span>
-                                    <?php endif; ?>
+                                    <form method="post" action="manage.php" class="d-inline-flex align-items-center gap-2 mb-0">
+                                        <input type="hidden" name="action" value="upsert_link">
+                                        <input type="hidden" name="visible" value="0">
+                                        <input type="hidden" name="link_id" value="<?= htmlspecialchars($l['id']) ?>">
+                                        <input type="hidden" name="label" value="<?= htmlspecialchars($l['label'], ENT_QUOTES) ?>">
+                                        <input type="hidden" name="url" value="<?= htmlspecialchars($l['url'], ENT_QUOTES) ?>">
+                                        <input type="hidden" name="folder_id" value="<?= htmlspecialchars($l['folder_id']) ?>">
+                                        <input type="hidden" name="target" value="<?= htmlspecialchars($l['target'] ?? '_self') ?>">
+                                        <input type="checkbox"
+                                            class="form-check-input"
+                                            name="visible"
+                                            value="1"
+                                            <?= !(isset($l['hidden']) && $l['hidden']) ? 'checked' : '' ?>
+                                            onchange="this.form.submit()"
+                                            title="Toggle visibility in menu">
+                                    </form>
                                 </td>
                                 <td class="text-end">
                                     <div class="btn-group">
@@ -376,12 +402,13 @@ if ($action === 'refresh_single_icon') {
         }
 
         // Form Helpers
-        function editFolder(id, name, sort, color, icon) {
+        function editFolder(id, name, sort, color, icon, hidden) {
             document.getElementById('f_id').value = id;
             document.getElementById('f_name').value = name;
             document.getElementById('f_sort').value = sort;
             document.getElementById('f_color').value = color || '#000000';
             document.getElementById('f_icon').value = icon || 'mdi:folder';
+            document.getElementById('f_hidden').checked = hidden === true;
             document.getElementById('f_name').focus();
         }
 
