@@ -242,13 +242,28 @@ if ($action === 'refresh_single_icon') {
                             <div class="d-flex justify-content-between border-bottom py-2 align-items-center">
                                 <span>
                                     <iconify-icon icon="<?= $f['icon'] ?? 'mdi:folder' ?>" class="icon-preview" style="color: <?= $f['color'] ?? '#000' ?>"></iconify-icon>
-                                    <strong><?= htmlspecialchars($f['name']) ?> </strong> 
-                                    <?php if (!empty($f['hidden'])): ?>
-                                        <span class="badge bg-secondary ms-1" style="font-size:0.6rem">Hidden</span>
-                                    <?php endif; ?>
+                                    <strong><?= htmlspecialchars($f['name']) ?></strong>
                                 </span>
-                                <span><?= htmlspecialchars($f['sort']) ?></span>
-                                <a href="javascript:void(0)" onclick="editFolder('<?= $f['id'] ?>', '<?= addslashes($f['name']) ?>', <?= $f['sort'] ?>, '<?= $f['color'] ?? '#0f0202' ?>', '<?= $f['icon'] ?? 'mdi:folder' ?>', <?= !empty($f['hidden']) ? 'true' : 'false' ?>)" class="text-primary text-decoration-none">Edit</a>
+                                <span class="d-flex align-items-center gap-2">
+                                    <span class="text-muted small"><?= htmlspecialchars($f['sort']) ?></span>
+                                    <form method="post" action="manage.php" class="d-inline-flex align-items-center gap-1 mb-0">
+                                        <input type="hidden" name="action" value="upsert_folder">
+                                        <input type="hidden" name="id" value="<?= htmlspecialchars($f['id']) ?>">
+                                        <input type="hidden" name="name" value="<?= htmlspecialchars($f['name'], ENT_QUOTES) ?>">
+                                        <input type="hidden" name="sort" value="<?= htmlspecialchars($f['sort']) ?>">
+                                        <input type="hidden" name="color" value="<?= htmlspecialchars($f['color'] ?? '#000000') ?>">
+                                        <input type="hidden" name="icon" value="<?= htmlspecialchars($f['icon'] ?? 'mdi:folder') ?>">
+                                        <input type="hidden" name="folder_hidden" value="<?= !empty($f['hidden']) ? 'true' : 'false' ?>">
+                                        <input type="checkbox"
+                                            class="form-check-input"
+                                            name="folder_hidden"
+                                            value="true"
+                                            <?= !empty($f['hidden']) ? '' : 'checked' ?>
+                                            onchange="this.form.querySelector('[name=folder_hidden][type=hidden]').value = this.checked ? 'false' : 'true'; this.form.submit()"
+                                            title="Toggle folder visibility in menu">
+                                    </form>
+                                    <a href="javascript:void(0)" onclick="editFolder('<?= $f['id'] ?>', '<?= addslashes($f['name']) ?>', <?= $f['sort'] ?>, '<?= $f['color'] ?? '#0f0202' ?>', '<?= $f['icon'] ?? 'mdi:folder' ?>', <?= !empty($f['hidden']) ? 'true' : 'false' ?>)" class="text-primary text-decoration-none">Edit</a>
+                                </span>
                             </div>
                             <?php endforeach; ?>
                         </div>

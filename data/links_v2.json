@@ -158,13 +158,6 @@
             "icon": "ic:baseline-sports-soccer"
         },
         {
-            "id": "f696d5956696b0",
-            "name": "streaming",
-            "sort": 115,
-            "color": "#321e01",
-            "icon": "ic:baseline-sports-soccer"
-        },
-        {
             "id": "f12",
             "name": "games",
             "sort": 120,
@@ -184,6 +177,14 @@
             "sort": 150,
             "color": "#2a1715",
             "icon": "arcticons:amaze-utilities"
+        },
+        {
+            "id": "f696d5956696b0",
+            "name": "streaming",
+            "sort": 500,
+            "color": "#321e01",
+            "icon": "ic:baseline-sports-soccer",
+            "hidden": false
         },
         {
             "id": "f98",
@@ -306,14 +307,15 @@
             "url": "https:\/\/191.101.232.210:8083",
             "folder_id": "69679060f2f74",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "19": {
             "id": "l20",
             "label": "hcp quickbase",
             "url": "https:\/\/quickbaseserver.com:8083",
             "folder_id": "69679060f2f74",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "20": {
             "id": "l21",
@@ -915,7 +917,7 @@
             "url": "https:\/\/champagne.pages.dev",
             "folder_id": "f98",
             "target": "_blank",
-            "hidden": true
+            "hidden": false
         },
         "109": {
             "id": "l6967962a086ae",
@@ -1005,14 +1007,16 @@
             "label": "n8n",
             "url": "https:\/\/n8n.io",
             "folder_id": "f696b5ab6b0891",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "122": {
             "id": "l696e4da87472f",
             "label": "dock",
             "url": "https:\/\/getdock.io\/",
             "folder_id": "f15",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "123": {
             "id": "l696f92f415e19",
@@ -1111,12 +1115,12 @@
             "url": "https:\/\/srv1165987.hstgr.cloud:8083\/",
             "folder_id": "69679060f2f74",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "138": {
             "id": "l697f70fbd566d",
             "label": "iconify",
-            "url": "https:\/\/iconify.design\/",
+            "url": "https:\/\/icon-sets.iconify.design\/",
             "folder_id": "f13",
             "target": "_blank",
             "hidden": false
@@ -1293,7 +1297,7 @@
             "id": "l69b04fbbcb34a",
             "label": "site24x7",
             "url": "https:\/\/www.site24x7.com\/",
-            "folder_id": "f15",
+            "folder_id": "f13",
             "target": "_self",
             "hidden": false
         },
@@ -1389,7 +1393,7 @@
             "id": "l69d80bc642a12",
             "label": "css loaders",
             "url": "https:\/\/css-loaders.com\/",
-            "folder_id": "f15",
+            "folder_id": "f13",
             "target": "_self",
             "hidden": false
         },
