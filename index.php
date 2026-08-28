@@ -74,7 +74,7 @@ check_delete_todo($todos);
     <title> ~ esquire </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="<?php echo $settings['selected_style']; ?>" >
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
     <meta http-equiv="refresh" content="<?php echo REFRESH_RATE; ?>" />
     <style>
         li { list-style-type: none; }
@@ -157,22 +157,53 @@ check_delete_todo($todos);
             </div>
             
             <div class="card-body border-top">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <?php $open_tasks = count(array_filter($todos, fn($t) => ($t['status'] ?? ($t['done'] ? 'done' : 'todo')) !== 'done')); ?>
+                <div class="d-flex justify-content-between align-items-center mb-2">
                     <h6 class="m-0 fw-bold">Tasks</h6>
-                    <button class="btn btn-sm btn-light py-0 px-1 border" type="button" data-bs-toggle="collapse" data-bs-target="#kanbanContainer">+</button>
+                    <span class="badge rounded-pill bg-secondary" id="openTaskCount" style="font-size:0.6rem"><?php echo $open_tasks; ?> open</span>
                 </div>
-                
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#kanbanModal">
+                    Open Kanban Board
+                </button>
+                <?php
+                $open_list = array_filter($todos, fn($t) => ($t['status'] ?? ($t['done'] ? 'done' : 'todo')) !== 'done');
+                usort($open_list, fn($a, $b) => (($b['status'] ?? 'todo') === 'doing') <=> (($a['status'] ?? 'todo') === 'doing'));
+                ?>
+                <div id="taskSummary" class="mt-2 small">
+                    <?php if (empty($open_list)): ?>
+                        <div class="text-muted fst-italic">No open tasks</div>
+                    <?php else: foreach ($open_list as $t):
+                        $st = $t['status'] ?? 'todo';
+                        $dot = ($st === 'doing') ? 'bg-info' : 'bg-secondary';
+                    ?>
+                        <div class="d-flex align-items-center gap-1 py-1" data-id="<?php echo $t['id']; ?>">
+                            <span class="badge rounded-pill <?php echo $dot; ?> flex-shrink-0" style="width:6px;height:6px;padding:0"></span>
+                            <span class="text-truncate" title="<?php echo htmlspecialchars($t['text']); ?>"><?php echo htmlspecialchars($t['text']); ?></span>
+                        </div>
+                    <?php endforeach; endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Kanban Board Overlay -->
+<div class="modal fade" id="kanbanModal" tabindex="-1" aria-labelledby="kanbanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="kanbanModalLabel">Tasks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <form action="index.php" method="post" class="mb-3">
                     <input type="text" name="todo" class="form-control form-control-sm" placeholder="New task + Enter" required>
                     <input type="hidden" name="action" value="add_todo">
                 </form>
-
-                <div id="kanbanContainer" class="collapse show">
-                    <div class="kanban-wrapper" style="max-height: 500px; overflow-y: auto; overflow-x: hidden;">
-                        <?php echo load_todo_column('todo'); ?>
-                        <?php echo load_todo_column('doing'); ?>
-                        <?php echo load_todo_column('done'); ?>
-                    </div>
+                <div class="kanban-board" id="kanbanBoard">
+                    <?php echo load_todo_column('todo'); ?>
+                    <?php echo load_todo_column('doing'); ?>
+                    <?php echo load_todo_column('done'); ?>
                 </div>
             </div>
         </div>
@@ -275,6 +306,135 @@ check_delete_todo($todos);
         document.body.classList.toggle('show-hidden', this.checked);
         localStorage.setItem('showHidden', this.checked);
     });
+
+    // Kanban drag and drop
+    (function() {
+        const board = document.getElementById('kanbanBoard');
+        if (!board) return;
+        let dragCard = null;
+
+        board.addEventListener('dragstart', function(e) {
+            const card = e.target.closest('.kanban-card');
+            if (!card) return;
+            dragCard = card;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', card.dataset.id);
+            card.classList.add('dragging');
+        });
+
+        board.addEventListener('dragend', function() {
+            if (dragCard) dragCard.classList.remove('dragging');
+            dragCard = null;
+            clearHighlights();
+        });
+
+        board.addEventListener('dragover', function(e) {
+            if (!dragCard) return;
+            const col = e.target.closest('.kanban-col');
+            if (!col) return;
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            board.querySelectorAll('.kanban-col.drop-target').forEach(function(c) {
+                if (c !== col) c.classList.remove('drop-target');
+            });
+            col.classList.add('drop-target');
+            // Auto-expand a collapsed "Done" column while dragging over it
+            const collapsed = col.querySelector('.collapse:not(.show)');
+            if (collapsed) collapsed.classList.add('show');
+        });
+
+        board.addEventListener('drop', function(e) {
+            if (!dragCard) return;
+            const col = e.target.closest('.kanban-col');
+            if (!col) return;
+            e.preventDefault();
+            moveCard(dragCard, col);
+            clearHighlights();
+        });
+
+        board.addEventListener('dragleave', function(e) {
+            if (!board.contains(e.relatedTarget)) clearHighlights();
+        });
+
+        function clearHighlights() {
+            board.querySelectorAll('.kanban-col.drop-target').forEach(function(c) {
+                c.classList.remove('drop-target');
+            });
+        }
+
+        function moveCard(card, targetCol) {
+            const fromCol = card.closest('.kanban-col');
+            const from = fromCol.dataset.status;
+            const to = targetCol.dataset.status;
+            if (from === to) return;
+
+            fetch('index.php?action=move_todo&id=' + encodeURIComponent(card.dataset.id) + '&to=' + encodeURIComponent(to))
+                .then(function(r) { if (!r.ok) throw new Error('move failed'); })
+                .then(function() {
+                    targetCol.querySelector('.kanban-cards').appendChild(card);
+
+                    // Update column counts
+                    const dec = fromCol.querySelector('.kanban-count');
+                    const inc = targetCol.querySelector('.kanban-count');
+                    if (dec) dec.textContent = Math.max(0, parseInt(dec.textContent, 10) - 1);
+                    if (inc) inc.textContent = parseInt(inc.textContent, 10) + 1;
+
+                    // Strike-through styling
+                    const text = card.querySelector('.kanban-text');
+                    if (text) {
+                        text.classList.toggle('text-decoration-line-through', to === 'done');
+                        text.classList.toggle('text-muted', to === 'done');
+                    }
+
+                    // Refresh dropdown visibility (hide "move to" link for the new column)
+                    card.querySelectorAll('.move-link').forEach(function(a) {
+                        a.classList.toggle('d-none', a.dataset.to === to);
+                    });
+
+                    // Update sidebar open-task badge
+                    const badge = document.getElementById('openTaskCount');
+                    if (badge) {
+                        let n = parseInt(badge.textContent, 10);
+                        if (to === 'done') n--; else if (from === 'done') n++;
+                        badge.textContent = Math.max(0, n);
+                    }
+
+                    // Sync sidebar summary list
+                    const summary = document.getElementById('taskSummary');
+                    if (summary) {
+                        const textEl = card.querySelector('.kanban-text');
+                        if (to === 'done') {
+                            const row = summary.querySelector('[data-id="' + card.dataset.id + '"]');
+                            if (row) row.remove();
+                            if (!summary.children.length) {
+                                const empty = document.createElement('div');
+                                empty.className = 'text-muted fst-italic';
+                                empty.textContent = 'No open tasks';
+                                summary.appendChild(empty);
+                            }
+                        } else if (textEl) {
+                            const empty = summary.querySelector('.fst-italic');
+                            if (empty) empty.remove();
+                            if (!summary.querySelector('[data-id="' + card.dataset.id + '"]')) {
+                                const row = document.createElement('div');
+                                row.className = 'd-flex align-items-center gap-1 py-1';
+                                row.dataset.id = card.dataset.id;
+                                const dot = document.createElement('span');
+                                dot.className = 'badge rounded-pill ' + (to === 'doing' ? 'bg-info' : 'bg-secondary') + ' flex-shrink-0';
+                                dot.style.cssText = 'width:6px;height:6px;padding:0';
+                                const text = document.createElement('span');
+                                text.className = 'text-truncate';
+                                text.title = textEl.textContent;
+                                text.textContent = textEl.textContent;
+                                row.append(dot, text);
+                                summary.prepend(row);
+                            }
+                        }
+                    }
+                })
+                .catch(function() { window.location.reload(); });
+        }
+    })();
 </script>
 
 </body>

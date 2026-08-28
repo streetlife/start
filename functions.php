@@ -54,52 +54,53 @@ function load_todo_column($status) {
     global $todos;
     $titles = ['todo' => 'To Do', 'doing' => 'In Progress', 'done' => 'Completed'];
     $bg = ['todo' => 'bg-secondary', 'doing' => 'bg-info', 'done' => 'bg-success'];
-    
-    // Count items for this column
-    $count = 0;
+
+    $items = [];
     if (!empty($todos)) {
         foreach ($todos as $t) {
             $curr = $t['status'] ?? ($t['done'] ? 'done' : 'todo');
-            if ($curr === $status) $count++;
+            if ($curr === $status) $items[] = $t;
         }
     }
+    $count = count($items);
 
-    $result = '<div class="kanban-col mb-3">';
-    
+    $result = '<div class="kanban-col" data-status="' . $status . '">';
+
     // Header with Toggle for "Done"
     $result .= '<div class="kanban-header p-1 mb-2 border-bottom d-flex justify-content-between align-items-center" ' . ($status === 'done' ? 'data-bs-toggle="collapse" data-bs-target="#collapseDone" style="cursor:pointer"' : '') . '>';
-    $result .= '<h6 class="m-0 small fw-bold text-uppercase">' . $titles[$status] . ' (' . $count . ')</h6>';
+    $result .= '<h6 class="m-0 small fw-bold text-uppercase">' . $titles[$status] . ' (<span class="kanban-count">' . $count . '</span>)</h6>';
     $result .= '<span class="badge rounded-pill ' . $bg[$status] . ' opacity-75" style="font-size:0.6rem">' . ($status === 'done' ? '↕' : '') . '</span>';
     $result .= '</div>';
-    
-    // Wrap Done items in a collapse div
+
+    // Wrap Done items in a collapse div (expanded by default so it's a drop target)
     if ($status === 'done') {
-        $result .= '<div class="collapse" id="collapseDone">';
+        $result .= '<div class="collapse show" id="collapseDone">';
     }
 
-    if ($count > 0) {
-        foreach ($todos as $todo) {
-            $currentStatus = $todo['status'] ?? ($todo['done'] ? 'done' : 'todo');
-            if ($currentStatus === $status) {
-                $result .= '<div class="card mb-1 shadow-sm kanban-card border-0">';
-                $result .= '<div class="card-body p-2 small d-flex justify-content-between align-items-center">';
-                $result .= '<span class="' . ($status === 'done' ? 'text-decoration-line-through text-muted' : '') . '">' . htmlspecialchars($todo['text']) . '</span>';
-                $result .= '<div class="dropdown">';
-                // Find this line inside your load_todo_column function:
-                $result .= '<button class="btn btn-sm p-0 opacity-50" data-bs-toggle="dropdown" data-bs-boundary="viewport">⋮</button>';
-                $result .= '<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 small">';
-                
-                if ($status != 'todo') $result .= '<li><a class="dropdown-item" href="index.php?action=move_todo&id='.$todo['id'].'&to=todo">Move to To-Do</a></li>';
-                if ($status != 'doing') $result .= '<li><a class="dropdown-item" href="index.php?action=move_todo&id='.$todo['id'].'&to=doing">Move to Doing</a></li>';
-                if ($status != 'done') $result .= '<li><a class="dropdown-item text-success" href="index.php?action=move_todo&id='.$todo['id'].'&to=done">Complete</a></li>';
-                
-                $result .= '<li><hr class="dropdown-divider"></li>';
-                $result .= '<li><a class="dropdown-item text-danger" href="index.php?action=delete_todo&id='.$todo['id'].'" onclick="return confirm(\'Delete?\')">Delete Permanently</a></li>';
-                $result .= '</ul></div></div></div>';
-            }
+    $result .= '<div class="kanban-cards">';
+    foreach ($items as $todo) {
+        $doneClass = ($status === 'done') ? ' text-decoration-line-through text-muted' : '';
+        $result .= '<div class="card mb-1 shadow-sm kanban-card border-0" draggable="true" data-id="' . $todo['id'] . '">';
+        $result .= '<div class="card-body p-2 small d-flex justify-content-between align-items-center">';
+        $result .= '<span class="kanban-text' . $doneClass . '">' . htmlspecialchars($todo['text']) . '</span>';
+        $result .= '<div class="dropdown">';
+        $result .= '<button class="btn btn-sm p-0 opacity-50" data-bs-toggle="dropdown" data-bs-boundary="viewport">⋮</button>';
+        $result .= '<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 small">';
+
+        // Always render all move links; hide the one matching the current column (JS toggles on drag)
+        $moves = ['todo' => 'Move to To-Do', 'doing' => 'Move to Doing', 'done' => 'Complete'];
+        foreach ($moves as $to => $label) {
+            $hidden = ($to === $status) ? ' d-none' : '';
+            $cls = ($to === 'done') ? ' text-success' : '';
+            $result .= '<li><a class="dropdown-item move-link' . $cls . $hidden . '" data-to="' . $to . '" href="index.php?action=move_todo&id=' . $todo['id'] . '&to=' . $to . '">' . $label . '</a></li>';
         }
+
+        $result .= '<li><hr class="dropdown-divider"></li>';
+        $result .= '<li><a class="dropdown-item text-danger" href="index.php?action=delete_todo&id=' . $todo['id'] . '" onclick="return confirm(\'Delete?\')">Delete Permanently</a></li>';
+        $result .= '</ul></div></div></div>';
     }
-    
+    $result .= '</div>';
+
     if ($status === 'done') {
         $result .= '</div>'; // Close collapse div
     }
