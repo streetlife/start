@@ -148,6 +148,17 @@ if ($action === 'refresh_single_icon') {
     }
     header('Location: manage.php?refreshed_single=1'); exit;
 }
+
+if ($action === 'reorder_folders') {
+    usort($data['folders'], fn($a, $b) => $a['sort'] <=> $b['sort']);
+    $i = 10;
+    foreach ($data['folders'] as &$f) {
+        $f['sort'] = $i;
+        $i += 10;
+    }
+    save($data);
+    header('Location: manage.php?reordered=1'); exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -267,6 +278,10 @@ if ($action === 'refresh_single_icon') {
                             </div>
                             <?php endforeach; ?>
                         </div>
+                        <form action="manage.php" method="post" class="mt-3">
+                            <input type="hidden" name="action" value="reorder_folders">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary w-100">Reorder (evenly space)</button>
+                        </form>
                     </div>
                 </div>
             </div>

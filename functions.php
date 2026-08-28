@@ -139,7 +139,7 @@ function randomLightColor() {
 
 }
 
-function createMenu($folders, $allLinks, $colCount = 1) {
+function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = false) {
     global $settings;
     // $colCount = $settings['cols'];
     $showIcon = $settings['show_icon'];
@@ -152,21 +152,22 @@ function createMenu($folders, $allLinks, $colCount = 1) {
 
     // $output .= '<ul class="'.$multiColumnClass.' p-0 m-0" style="width:100%">';
     foreach ($folders as $folder) {
-        // Skip hidden folders
-        if (!empty($folder['hidden'])) continue;
+        $folderHidden = !empty($folder['hidden']);
 
-        // 1. Filter links belonging to this folder
         $folderLinks = array_filter($allLinks, function($l) use ($folder) {
             return $l['folder_id'] === $folder['id'];
         });
 
-        // 2. NEW: Remove links explicitly marked as 'hidden' in JSON
-        $folderLinks = array_filter($folderLinks, function($l) {
-            return !(isset($l['hidden']) && $l['hidden'] === true);
-        });
-
-        // If no visible links exist, skip the folder entirely
         if (empty($folderLinks)) continue;
+
+        $hasVisibleLink = false;
+        foreach ($folderLinks as $l) {
+            if (!(isset($l['hidden']) && $l['hidden'] === true)) {
+                $hasVisibleLink = true;
+                break;
+            }
+        }
+        if (!$hasVisibleLink) $folderHidden = true;
 
         if (isset($folder['private']) && $folder['private'] == 'true') {
             if (PRIVATE_MODE) {
@@ -181,13 +182,19 @@ function createMenu($folders, $allLinks, $colCount = 1) {
         }
 
         // Add a class 'folder-container' to make JS targeting easier
+        if ($flexibleFolderLayout) {
+            $folderContainerClass = 'folder-container-flexible';
+        } else {
+            $folderContainerClass = 'folder-container';
+        }
+        $hiddenClass = $folderHidden ? ' is-hidden' : '';
         $output .= '
-        <li class="link folder-container bg-transparent">
+        <li class="link ' . $folderContainerClass . ' bg-transparent' . $hiddenClass . '">
             <div class="card m-0 bg-transparent border-0 pb-2">
                 <div class="card-body p-0">
                     <div class="card-header bg-transparent folder-header">
                         <h6 class="m-0 fw-bold text-uppercase">
-                        <!-- <iconify-icon icon="' . (isset($folder['icon']) ? $folder['icon'] : 'mdi:home') . '"></iconify-icon> -->
+                        <iconify-icon icon="' . (isset($folder['icon']) ? $folder['icon'] : 'mdi:home') . '"></iconify-icon>
                         ' . $folder['name'] . '</h6>
                     </div>
                     <ul class="sub-menu p-0 px-3 m-0">';
@@ -196,8 +203,9 @@ function createMenu($folders, $allLinks, $colCount = 1) {
 
         foreach ($folderLinks as $link) {
             $target = '_self';
-            // Added data-url attribute here
-            $output .= '<li class="link" style="" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">
+            $linkHidden = isset($link['hidden']) && $link['hidden'] === true;
+            $linkHiddenClass = $linkHidden ? ' is-hidden' : '';
+            $output .= '<li class="link' . $linkHiddenClass . '" style="" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">
                 <a href="' . htmlspecialchars($link['url']) . '" target="' . $target . '" class="nav-link p-0 m-0">';
             
             if ($showIcon) {
@@ -211,7 +219,7 @@ function createMenu($folders, $allLinks, $colCount = 1) {
             }
 
             $displayLabel = strtolower(str_replace(['www.'], [''], $link['label']));
-            $displayLabel = textrim($displayLabel, 14);
+            $displayLabel = textrim($displayLabel, 13);
             $output .= htmlspecialchars($displayLabel) . '</a></li>';
         }
         $output .= '</ul>
@@ -236,13 +244,21 @@ function createMenu2($folders, $allLinks) {
     $output .= '<div class="folder-grid mode-' . $viewMode . '" style="--col-count: ' . $colCount . ';">';
 
     foreach ($folders as $folder) {
-        // Skip hidden folders
-        if (!empty($folder['hidden'])) continue;
+        $folderHidden = !empty($folder['hidden']);
 
-        $folderLinks = array_filter($allLinks, fn($l) => $l['folder_id'] === $folder['id'] && !(isset($l['hidden']) && $l['hidden']));
+        $folderLinks = array_filter($allLinks, fn($l) => $l['folder_id'] === $folder['id']);
         if (empty($folderLinks)) continue;
 
-        $output .= '<div class="folder-container mb-4">';
+        $hasVisibleLink = false;
+        foreach ($folderLinks as $l) {
+            if (!(isset($l['hidden']) && $l['hidden'] === true)) {
+                $hasVisibleLink = true;
+                break;
+            }
+        }
+        if (!$hasVisibleLink) $folderHidden = true;
+
+        $output .= '<div class="folder-container mb-4' . ($folderHidden ? ' is-hidden' : '') . '">';
         $output .= '<div class="folder-header d-flex align-items-center mb-2 px-2">';
         $output .= '<iconify-icon icon="' . ($folder['icon'] ?? 'mdi:folder') . '" style="font-size: 1.2rem; margin-right: 8px;"></iconify-icon>';
         $output .= '<h6 class="m-0 fw-bold text-uppercase small">' . $folder['name'] . '</h6>';
@@ -259,7 +275,9 @@ function createMenu2($folders, $allLinks) {
             // Generate icon with cache-busting timestamp
             $imgSrc = (file_exists($iconPath)) ? $iconPath . '?v=' . filemtime($iconPath) : $local_name_offline;
 
-            $output .= '<a href="' . htmlspecialchars($link['url']) . '" class="item-link" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">';
+            $linkHidden = isset($link['hidden']) && $link['hidden'] === true;
+            $linkHiddenClass = $linkHidden ? ' is-hidden' : '';
+            $output .= '<a href="' . htmlspecialchars($link['url']) . '" class="item-link' . $linkHiddenClass . '" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">';
             $output .= '<div class="item-content">';
             if ($showIcon) {
                 $output .= '<img src="' . $imgSrc . '" class="item-icon" />';
@@ -381,5 +399,5 @@ function get_stats() {
 
 function textrim($text, $maxLength = 16) {
     if (strlen($text) <= $maxLength) return $text;
-    return substr($text, 0, $maxLength - 3) . '...';
+    return substr($text, 0, $maxLength - 3) . '.';
 }

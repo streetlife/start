@@ -79,6 +79,8 @@ check_delete_todo($todos);
     <style>
         li { list-style-type: none; }
         .hidden { display: none; }
+        .is-hidden { display: none; }
+        body.show-hidden .is-hidden { display: revert; opacity: 0.3; }
         #search { margin-bottom: 20px; padding: 10px; width: 300px; font-size: 16px; }
         .link { padding: 0; margin: 0; }
     </style>
@@ -90,20 +92,20 @@ check_delete_todo($todos);
     <div class="row g-0">
         <div class="col-md-10">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="card bg-transparent m-0">
                         <div class="card-body">
                             <nav class="nav">
-                                <?php echo createMenu($projectsMenu['folders'], $projectsMenu['links'], 1); ?>
+                                <?php echo createMenu($projectsMenu['folders'], $projectsMenu['links'], 2, true); ?>
                             </nav>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                     <div class="card bg-transparent m-0">
                         <div class="card-body">
                             <nav class="nav">
-                                <?php echo createMenu($rawMenu['folders'], $rawMenu['links'], 6); ?>
+                                <?php echo createMenu($rawMenu['folders'], $rawMenu['links'], 6, true); ?>
                             </nav>
                         </div>
                     </div>
@@ -131,6 +133,15 @@ check_delete_todo($todos);
             <div class="card bg-transparent m-0">
                 <div class="card-body">
                     <a href="manage.php" class="btn btn-sm btn-outline-secondary w-100">Manage Links</a>
+                </div>
+                <div class="card-body">
+                    <a href="phpinfo.php" class="btn btn-sm btn-outline-secondary w-100">PHP Info</a>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="showHidden">
+                        <label class="form-check-label small" for="showHidden">Show hidden</label>
+                    </div>
                 </div>
                 <div class="card-body">
                     <?php echo $css_form; ?>
@@ -254,6 +265,15 @@ check_delete_todo($todos);
         document.querySelectorAll(".nav li.link").forEach(item => {
             item.style.display = item.textContent.toLowerCase().includes(filter) ? "" : "none";
         });
+    });
+
+    const showHiddenCheckbox = document.getElementById('showHidden');
+    const saved = localStorage.getItem('showHidden') === 'true';
+    showHiddenCheckbox.checked = saved;
+    document.body.classList.toggle('show-hidden', saved);
+    showHiddenCheckbox.addEventListener('change', function() {
+        document.body.classList.toggle('show-hidden', this.checked);
+        localStorage.setItem('showHidden', this.checked);
     });
 </script>
 

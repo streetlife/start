@@ -15,6 +15,15 @@
             "icon": "mdi:folder"
         },
         {
+            "id": "f5",
+            "name": "projects",
+            "sort": 25,
+            "color": "#1c2400",
+            "icon": "iconoir:laptop-dev-mode",
+            "private": true,
+            "hidden": false
+        },
+        {
             "id": "f4",
             "name": "soft alliance",
             "sort": 30,
@@ -25,22 +34,14 @@
         {
             "id": "f6a58fbb289e03",
             "name": "smart",
-            "sort": 32,
+            "sort": 40,
             "color": "#000000",
             "icon": "fa-solid:at"
         },
         {
-            "id": "f5",
-            "name": "projects",
-            "sort": 33,
-            "color": "#1c2400",
-            "icon": "iconoir:laptop-dev-mode",
-            "private": true
-        },
-        {
             "id": "69679060f2f74",
             "name": "hosting",
-            "sort": 35,
+            "sort": 60,
             "color": "#001a33",
             "icon": "lets-icons:server",
             "private": true
@@ -48,140 +49,149 @@
         {
             "id": "69678e30457c9",
             "name": "freelance",
-            "sort": 45,
+            "sort": 70,
             "color": "#202027"
         },
         {
             "id": "f6",
             "name": "read",
-            "sort": 60,
+            "sort": 80,
             "color": "#031801",
             "icon": "ant-design:read-outlined"
         },
         {
             "id": "f17",
             "name": "watch",
-            "sort": 61,
+            "sort": 90,
             "color": "#202d25",
             "icon": "icon-park-outline:video"
         },
         {
-            "id": "f69be8b91a5dae",
-            "name": "fun",
-            "sort": 65,
-            "color": "#000000",
-            "icon": "mdi:folder"
-        },
-        {
             "id": "f7",
             "name": "learn",
-            "sort": 70,
+            "sort": 110,
             "color": "#261f1b"
         },
         {
             "id": "69677db6d1620",
             "name": "project mgt",
-            "sort": 71,
+            "sort": 120,
             "color": "#28162e",
             "icon": "fa7-solid:chart-gantt"
         },
         {
             "id": "f696b5ab6b0891",
             "name": "dev tools",
-            "sort": 79,
+            "sort": 130,
             "color": "#271819",
             "icon": "fluent:window-dev-tools-16-filled"
         },
         {
+            "id": "f6a74bbec2bbaa",
+            "name": "writing",
+            "sort": 135,
+            "color": "#000000",
+            "icon": "streamline:hand-held-tablet-writing-remix",
+            "hidden": false
+        },
+        {
             "id": "f8",
             "name": "ai",
-            "sort": 80,
+            "sort": 140,
             "color": "#1f181b",
             "icon": "tabler:ai"
         },
         {
+            "id": "f9",
+            "name": "ai2",
+            "sort": 145,
+            "color": "#1f191e",
+            "icon": "tabler:ai",
+            "hidden": false
+        },
+        {
             "id": "f2",
             "name": "media",
-            "sort": 80,
+            "sort": 150,
             "color": "#1b0123",
             "icon": "material-symbols-light:media-link",
             "hidden": false
         },
         {
-            "id": "f9",
-            "name": "ai2",
-            "sort": 90,
-            "color": "#1f191e",
-            "icon": "tabler:ai",
-            "hidden": true
-        },
-        {
             "id": "f696e207ff34bf",
             "name": "shopping",
-            "sort": 93,
+            "sort": 170,
             "color": "#1f2620",
             "icon": "icon-park-outline:shopping"
         },
         {
             "id": "f13",
             "name": "graphics",
-            "sort": 94,
+            "sort": 180,
             "color": "#262b1a",
             "icon": "mdi:art"
         },
         {
             "id": "f14",
             "name": "templates",
-            "sort": 95,
+            "sort": 190,
             "color": "#14172e",
             "icon": "octicon:project-template-24"
         },
         {
             "id": "f696e24573a261",
             "name": "automation",
-            "sort": 98,
+            "sort": 200,
             "color": "#162218",
             "icon": "mdi:folder"
         },
         {
             "id": "f10",
             "name": "coding",
-            "sort": 100,
+            "sort": 210,
             "color": "#1c0717",
             "icon": "iconoir:laptop-dev-mode"
         },
         {
+            "id": "f69be8b91a5dae",
+            "name": "fun",
+            "sort": 215,
+            "color": "#000000",
+            "icon": "mdi:folder",
+            "hidden": false
+        },
+        {
             "id": "f11",
             "name": "sports",
-            "sort": 110,
+            "sort": 220,
             "color": "#2d0801",
             "icon": "ic:baseline-sports-soccer"
         },
         {
             "id": "f12",
             "name": "games",
-            "sort": 120,
+            "sort": 230,
             "color": "#2e3232",
             "icon": "fluent-mdl2:game"
         },
         {
             "id": "f16",
             "name": "tools",
-            "sort": 145,
+            "sort": 240,
             "color": "#211b25",
             "icon": "ri:tools-fill"
         },
         {
             "id": "f15",
             "name": "utilities",
-            "sort": 150,
+            "sort": 250,
             "color": "#2a1715",
             "icon": "arcticons:amaze-utilities"
         },
         {
             "id": "f696d5956696b0",
             "name": "streaming",
-            "sort": 500,
+            "sort": 260,
             "color": "#321e01",
             "icon": "ic:baseline-sports-soccer",
             "hidden": false
@@ -189,14 +199,14 @@
         {
             "id": "f98",
             "name": "warez",
-            "sort": 980,
+            "sort": 270,
             "color": "#26241d",
             "icon": "mdi:pirate"
         },
         {
             "id": "f6979f7d126a8a",
             "name": "temp",
-            "sort": 1000,
+            "sort": 280,
             "color": "#262822"
         }
     ],
@@ -227,7 +237,7 @@
         "6": {
             "id": "l7",
             "label": "adminneo",
-            "url": "https:\/\/start.test\/adminneo-5.5.0.php",
+            "url": "https:\/\/start.test\/adminneo\/adminneo-5.7.0.php",
             "folder_id": "f1",
             "target": "_self",
             "hidden": false
@@ -250,9 +260,9 @@
         },
         "11": {
             "id": "l12",
-            "label": "smartwork",
+            "label": "smart work",
             "url": "https:\/\/smartwork.ng",
-            "folder_id": "f6a58fbb289e03",
+            "folder_id": "f5",
             "target": "_blank",
             "hidden": false
         },
@@ -787,7 +797,8 @@
             "label": "convertio",
             "url": "https:\/\/convertio.co",
             "folder_id": "f15",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": false
         },
         "90": {
             "id": "l91",
@@ -871,13 +882,6 @@
             "id": "l102",
             "label": "steamrip",
             "url": "https:\/\/steamrip.com",
-            "folder_id": "f98",
-            "target": "_blank"
-        },
-        "102": {
-            "id": "l103",
-            "label": "ext",
-            "url": "https:\/\/ext.to",
             "folder_id": "f98",
             "target": "_blank"
         },
@@ -1037,7 +1041,8 @@
             "label": "afrotods",
             "url": "https:\/\/afrotods-mobile.blujeansz.com\/",
             "folder_id": "f5",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "126": {
             "id": "l6971cdbb05cc9",
@@ -1139,7 +1144,7 @@
             "url": "https:\/\/alternativeto.net\/",
             "folder_id": "f15",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "141": {
             "id": "l6983172e1ba99",
@@ -1411,7 +1416,7 @@
             "url": "https:\/\/convertico.com\/",
             "folder_id": "f15",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "178": {
             "id": "l69df82d393283",
@@ -1503,9 +1508,9 @@
         },
         "191": {
             "id": "l6a4b8c70e2f58",
-            "label": "smarthotel",
+            "label": "smart hotel",
             "url": "https:\/\/smarthotel.ng",
-            "folder_id": "f6a58fbb289e03",
+            "folder_id": "f5",
             "target": "_self",
             "hidden": false
         },
@@ -1519,9 +1524,9 @@
         },
         "193": {
             "id": "l6a576661981ab",
-            "label": "smartoffice",
+            "label": "smart office",
             "url": "https:\/\/smartoffice.ng",
-            "folder_id": "f6a58fbb289e03",
+            "folder_id": "f5",
             "target": "_self",
             "hidden": false
         },
@@ -1533,21 +1538,13 @@
             "target": "_self",
             "hidden": false
         },
-        "195": {
-            "id": "l6a5907f98d296",
-            "label": "smarthospital",
-            "url": "https:\/\/smarthospital.ng",
-            "folder_id": "f6a58fbb289e03",
-            "target": "_self",
-            "hidden": true
-        },
         "196": {
             "id": "l6a593d7463fdd",
             "label": "timer tab",
             "url": "https:\/\/www.timer-tab.com\/",
             "folder_id": "f15",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "197": {
             "id": "l6a59422ae8e1a",
@@ -1562,6 +1559,110 @@
             "label": "resend",
             "url": "https:\/\/resend.com\/emails",
             "folder_id": "f696b5ab6b0891",
+            "target": "_self",
+            "hidden": false
+        },
+        "199": {
+            "id": "l6a63546a2b45b",
+            "label": "care credit",
+            "url": "https:\/\/carecredit.webz.com.ng\/",
+            "folder_id": "f5",
+            "target": "_self",
+            "hidden": false
+        },
+        "200": {
+            "id": "l6a64d92842405",
+            "label": "sportytv youtube",
+            "url": "https:\/\/www.youtube.com\/@sportytvafrica",
+            "folder_id": "f696d5956696b0",
+            "target": "_self",
+            "hidden": false
+        },
+        "201": {
+            "id": "l6a673ad0593c7",
+            "label": "ddlcode",
+            "url": "https:\/\/ddlcode.com\/",
+            "folder_id": "f98",
+            "target": "_self",
+            "hidden": false
+        },
+        "202": {
+            "id": "l6a6bb52a67158",
+            "label": "google ai internship",
+            "url": "https:\/\/labs.google\/aifuturesfund\/africaailab",
+            "folder_id": "f6979f7d126a8a",
+            "target": "_self",
+            "hidden": false
+        },
+        "203": {
+            "id": "l6a71c78fa14f9",
+            "label": "appz",
+            "url": "https:\/\/appz.ng",
+            "folder_id": "f5",
+            "target": "_self",
+            "hidden": false
+        },
+        "204": {
+            "id": "l6a73aeff2ca73",
+            "label": "mureka",
+            "url": "https:\/\/www.mureka.ai\/",
+            "folder_id": "f9",
+            "target": "_self",
+            "hidden": false
+        },
+        "205": {
+            "id": "l6a74bbdb69ed6",
+            "label": "reedsy",
+            "url": "https:\/\/editor.reedsy.com\/",
+            "folder_id": "f6a74bbec2bbaa",
+            "target": "_self",
+            "hidden": false
+        },
+        "206": {
+            "id": "l6a77108147eeb",
+            "label": "suno",
+            "url": "https:\/\/suno.com\/discover",
+            "folder_id": "f9",
+            "target": "_self",
+            "hidden": false
+        },
+        "207": {
+            "id": "l6a818d77ef70a",
+            "label": "paypro",
+            "url": "https:\/\/paypro.com.ng\/",
+            "folder_id": "f5",
+            "target": "_self",
+            "hidden": false
+        },
+        "208": {
+            "id": "l6a832722a65cf",
+            "label": "vidbox",
+            "url": "https:\/\/vidbox.vc\/home",
+            "folder_id": "f696d5956696b0",
+            "target": "_self",
+            "hidden": false
+        },
+        "209": {
+            "id": "l6a85c11a7752b",
+            "label": "flow",
+            "url": "https:\/\/labs.google\/fx\/tools\/flow",
+            "folder_id": "f8",
+            "target": "_self",
+            "hidden": false
+        },
+        "210": {
+            "id": "l6a871470deb37",
+            "label": "smart login",
+            "url": "https:\/\/smartlogin.appz.ng",
+            "folder_id": "f5",
+            "target": "_self",
+            "hidden": false
+        },
+        "211": {
+            "id": "l6a871dfd5fa31",
+            "label": "fitvibes",
+            "url": "https:\/\/fitvibes.appz.ng",
+            "folder_id": "f5",
             "target": "_self",
             "hidden": false
         }
