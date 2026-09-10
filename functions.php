@@ -80,7 +80,7 @@ function load_todo_column($status) {
     $result .= '<div class="kanban-cards">';
     foreach ($items as $todo) {
         $doneClass = ($status === 'done') ? ' text-decoration-line-through text-muted' : '';
-        $result .= '<div class="card mb-1 shadow-sm kanban-card border-0" draggable="true" data-id="' . $todo['id'] . '">';
+        $result .= '<div class="card mb-1 shadow-sm kanban-card kanban-status-' . $status . ' border-0" draggable="true" data-id="' . $todo['id'] . '">';
         $result .= '<div class="card-body p-2 small d-flex justify-content-between align-items-center">';
         $result .= '<span class="kanban-text' . $doneClass . '">' . htmlspecialchars($todo['text']) . '</span>';
         $result .= '<div class="dropdown">';
@@ -140,10 +140,10 @@ function randomLightColor() {
 
 }
 
-function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = false) {
+function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = false, $showIcon = true) {
     global $settings;
     // $colCount = $settings['cols'];
-    $showIcon = $settings['show_icon'];
+    // $showIcon = $settings['show_icon'];
     $multiColumn = ($colCount > 1);
 
     $multiColumnClass = $multiColumn ? 'multi-column-list' : '';
@@ -183,20 +183,21 @@ function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = 
         }
 
         // Add a class 'folder-container' to make JS targeting easier
+        $folderContainerClass = 'folder-container';
         if ($flexibleFolderLayout) {
-            $folderContainerClass = 'folder-container-flexible';
-        } else {
-            $folderContainerClass = 'folder-container';
-        }
+            $folderContainerClass .= 'flexible';
+        } 
         $hiddenClass = $folderHidden ? ' is-hidden' : '';
+
+        $folderName = strtolower(str_replace(['www.',' '], [''], $folder['name']));
         $output .= '
         <li class="link ' . $folderContainerClass . ' bg-transparent' . $hiddenClass . '">
             <div class="card m-0 bg-transparent border-0 pb-2">
                 <div class="card-body p-0">
                     <div class="card-header bg-transparent folder-header">
                         <h6 class="m-0 fw-bold text-uppercase">
-                        <iconify-icon icon="' . (isset($folder['icon']) ? $folder['icon'] : 'mdi:home') . '"></iconify-icon>
-                        ' . $folder['name'] . '</h6>
+                        <!-- <iconify-icon icon="' . (isset($folder['icon']) ? $folder['icon'] : 'mdi:home') . '"></iconify-icon>' . $folderName . '</h6> -->
+                        ' . $folderName . '
                     </div>
                     <ul class="sub-menu p-0 px-3 m-0">';
         
@@ -219,8 +220,9 @@ function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = 
                 $output .= '<img src="' . $local_name . '" class="icon" style="clear:both" /> ';
             }
 
-            $displayLabel = strtolower(str_replace(['www.'], [''], $link['label']));
-            $displayLabel = textrim($displayLabel, 13);
+            $displayLabel = strtolower($link['label']);
+            // $displayLabel = strtolower(str_replace(['www.',' '], [''], $link['label']));
+            // $displayLabel = textrim($displayLabel, LABEL_LENGTH);
             $output .= htmlspecialchars($displayLabel) . '</a></li>';
         }
         $output .= '</ul>
@@ -399,6 +401,7 @@ function get_stats() {
 }
 
 function textrim($text, $maxLength = 16) {
+    if ($maxLength <= 0) return $text;
     if (strlen($text) <= $maxLength) return $text;
     return substr($text, 0, $maxLength - 3) . '.';
 }

@@ -65,9 +65,12 @@ if ($action === 'upsert_folder') {
 
 if ($action === 'delete_folder') {
     $target = $_GET['id'];
-    $data['folders'] = array_filter($data['folders'], fn($f) => $f['id'] !== $target);
-    foreach ($data['links'] as &$l) { if ($l['folder_id'] === $target) $l['folder_id'] = 'root'; }
-    save($data);
+    $folderExists = array_filter($data['folders'], fn($f) => $f['id'] === $target);
+    $hasLinks = array_filter($data['links'], fn($l) => $l['folder_id'] === $target);
+    if ($target !== 'root' && $folderExists && !$hasLinks) {
+        $data['folders'] = array_filter($data['folders'], fn($f) => $f['id'] !== $target);
+        save($data);
+    }
     header('Location: manage.php'); exit;
 }
 
@@ -99,7 +102,7 @@ if ($action === 'upsert_link') {
     foreach ($data['links'] as &$l) { if ($l['id'] === $id) { $l = $newLink; $found = true; } }
     if (!$found) $data['links'][] = $newLink;
     save($data);
-    header('Location: manage.php'); exit;
+    header('Location: manage.php' . (isset($_POST['folder']) ? '?folder=' . urlencode($_POST['folder']) : '')); exit;
 }
 
 if ($action === 'delete_link') {
@@ -220,8 +223,9 @@ if ($action === 'reorder_folders') {
                             <button class="btn btn-primary btn-sm w-100 fw-bold" type="submit">Apply Settings</button>
                         </form>
                     </div>
-                </div>    
-            
+                </div>
+            </div>
+            <div class="col-md-2">     
                 <h6 class="fw-bold mb-3">Manage Folders</h6>
 
                 <div class="card mb-4 bg-light border-0">
@@ -249,11 +253,16 @@ if ($action === 'reorder_folders') {
                         </form>
 
                         <div class="small overflow-auto">
-                            <?php foreach ($data['folders'] as $f): ?>
+                            <?php foreach ($data['folders'] as $f):
+                                $folderLinks = array_filter($data['links'], fn($l) => $l['folder_id'] === $f['id']);
+                                $visibleCount = count(array_filter($folderLinks, fn($l) => !isset($l['hidden']) || !$l['hidden']));
+                                $hiddenCount = count($folderLinks) - $visibleCount;
+                            ?>
                             <div class="d-flex justify-content-between border-bottom py-2 align-items-center">
                                 <span>
                                     <iconify-icon icon="<?= $f['icon'] ?? 'mdi:folder' ?>" class="icon-preview" style="color: <?= $f['color'] ?? '#000' ?>"></iconify-icon>
                                     <strong><?= htmlspecialchars($f['name']) ?></strong>
+                                    <span class="text-muted small ms-1">(<?= $visibleCount ?>  / <?= $hiddenCount ?>)</span>
                                 </span>
                                 <span class="d-flex align-items-center gap-2">
                                     <span class="text-muted small"><?= htmlspecialchars($f['sort']) ?></span>
@@ -274,6 +283,10 @@ if ($action === 'reorder_folders') {
                                             title="Toggle folder visibility in menu">
                                     </form>
                                     <a href="javascript:void(0)" onclick="editFolder('<?= $f['id'] ?>', '<?= addslashes($f['name']) ?>', <?= $f['sort'] ?>, '<?= $f['color'] ?? '#0f0202' ?>', '<?= $f['icon'] ?? 'mdi:folder' ?>', <?= !empty($f['hidden']) ? 'true' : 'false' ?>)" class="text-primary text-decoration-none">Edit</a>
+                                    <?php $folderIsEmpty = $f['id'] !== 'root' && !array_filter($data['links'], fn($l) => $l['folder_id'] === $f['id']); ?>
+                                    <?php if ($folderIsEmpty): ?>
+                                    <a href="manage.php?action=delete_folder&id=<?= $f['id'] ?>" class="text-danger text-decoration-none" onclick="return confirm('Delete this empty folder?')">Delete</a>
+                                    <?php endif; ?>
                                 </span>
                             </div>
                             <?php endforeach; ?>
@@ -290,6 +303,7 @@ if ($action === 'reorder_folders') {
                     <h6 class="fw-bold mb-3" id="l_title">Add New Link</h6>
                     <input type="hidden" name="action" value="upsert_link">
                     <input type="hidden" name="link_id" id="l_id">
+                    <input type="hidden" name="folder" id="l_folder_filter">
                     
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Link Label</label>
@@ -329,7 +343,7 @@ if ($action === 'reorder_folders') {
                     </a>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h6 class="fw-bold mb-3" id="l_title">Link Inventor</h6>
                     <div style="width: 350px;">
@@ -337,10 +351,11 @@ if ($action === 'reorder_folders') {
                     </div>
                 </div>
 
-                <div class="mb-4 d-flex gap-2 flex-wrap">
-                    <button class="btn btn-sm btn-dark rounded-pill px-3" onclick="filterFolder('all')">All Folders</button>
+                <?php $activeFolder = $_GET['folder'] ?? 'all'; ?>
+                <div class="mb-4 d-flex gap-2 flex-wrap" id="folder-filters">
+                    <button class="btn btn-sm rounded-pill px-3 <?= $activeFolder === 'all' ? 'btn-dark' : 'btn-white border bg-white' ?>" data-folder="all" onclick="filterFolder('all')">All Folders</button>
                     <?php foreach ($data['folders'] as $f): ?>
-                        <button class="btn btn-sm btn-white border rounded-pill px-3 bg-white" onclick="filterFolder('<?= $f['id'] ?>')">
+                        <button class="btn btn-sm rounded-pill px-3 <?= $activeFolder === $f['id'] ? 'btn-dark' : 'btn-white border bg-white' ?>" data-folder="<?= $f['id'] ?>" onclick="filterFolder('<?= $f['id'] ?>')">
                             <?= htmlspecialchars($f['name']) ?>
                         </button>
                     <?php endforeach; ?>
@@ -429,7 +444,28 @@ if ($action === 'reorder_folders') {
             document.querySelectorAll('.link-row').forEach(row => {
                 row.style.display = (folderId === 'all' || row.getAttribute('data-folder-id') === folderId) ? '' : 'none';
             });
+            document.querySelectorAll('#folder-filters button').forEach(btn => {
+                btn.classList.toggle('btn-dark', btn.getAttribute('data-folder') === folderId);
+                btn.classList.toggle('btn-white', btn.getAttribute('data-folder') !== folderId);
+                btn.classList.toggle('border', btn.getAttribute('data-folder') !== folderId);
+                btn.classList.toggle('bg-white', btn.getAttribute('data-folder') !== folderId);
+            });
+            var url = new URL(window.location);
+            if (folderId === 'all') {
+                url.searchParams.delete('folder');
+            } else {
+                url.searchParams.set('folder', folderId);
+            }
+            history.replaceState(null, '', url);
+            var hidden = document.getElementById('l_folder_filter');
+            if (hidden) hidden.value = (folderId === 'all') ? '' : folderId;
         }
+
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var folder = params.get('folder');
+            if (folder) filterFolder(folder);
+        })();
 
         // Form Helpers
         function editFolder(id, name, sort, color, icon, hidden) {
