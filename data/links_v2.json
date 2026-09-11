@@ -46,37 +46,29 @@
             "hidden": false
         },
         {
-            "id": "f2",
-            "name": "media_old",
-            "sort": 70,
-            "color": "#1b0123",
-            "icon": "material-symbols-light:media-link",
-            "hidden": false
-        },
-        {
             "id": "f7",
             "name": "learn",
-            "sort": 80,
+            "sort": 70,
             "color": "#261f1b"
         },
         {
             "id": "69677db6d1620",
             "name": "project mgt",
-            "sort": 90,
+            "sort": 80,
             "color": "#28162e",
             "icon": "fa7-solid:chart-gantt"
         },
         {
             "id": "f696b5ab6b0891",
             "name": "dev tools",
-            "sort": 100,
+            "sort": 90,
             "color": "#271819",
             "icon": "fluent:window-dev-tools-16-filled"
         },
         {
             "id": "f6a74bbec2bbaa",
             "name": "writing",
-            "sort": 110,
+            "sort": 100,
             "color": "#000000",
             "icon": "streamline:hand-held-tablet-writing-remix",
             "hidden": false
@@ -84,42 +76,42 @@
         {
             "id": "f8",
             "name": "ai",
-            "sort": 120,
+            "sort": 110,
             "color": "#1f181b",
             "icon": "tabler:ai"
         },
         {
             "id": "f696e207ff34bf",
             "name": "shopping",
-            "sort": 140,
+            "sort": 120,
             "color": "#1f2620",
             "icon": "icon-park-outline:shopping"
         },
         {
             "id": "f13",
             "name": "graphics",
-            "sort": 150,
+            "sort": 130,
             "color": "#262b1a",
             "icon": "mdi:art"
         },
         {
             "id": "f14",
             "name": "templates",
-            "sort": 160,
+            "sort": 140,
             "color": "#14172e",
             "icon": "octicon:project-template-24"
         },
         {
             "id": "f11",
             "name": "sports",
-            "sort": 170,
+            "sort": 150,
             "color": "#2d0801",
             "icon": "ic:baseline-sports-soccer"
         },
         {
             "id": "f696d5956696b0",
             "name": "streaming",
-            "sort": 180,
+            "sort": 160,
             "color": "#321e01",
             "icon": "ic:baseline-sports-soccer",
             "hidden": false
@@ -127,22 +119,16 @@
         {
             "id": "f15",
             "name": "utilities",
-            "sort": 190,
+            "sort": 170,
             "color": "#2a1715",
             "icon": "arcticons:amaze-utilities"
         },
         {
             "id": "f98",
             "name": "warez",
-            "sort": 200,
+            "sort": 180,
             "color": "#26241d",
             "icon": "mdi:pirate"
-        },
-        {
-            "id": "f6979f7d126a8a",
-            "name": "temp",
-            "sort": 210,
-            "color": "#262822"
         }
     ],
     "links": {
@@ -727,7 +713,8 @@
             "label": "123apps",
             "url": "https:\/\/123apps.com",
             "folder_id": "f15",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "87": {
             "id": "l88",
@@ -758,14 +745,15 @@
             "url": "https:\/\/www.screenshotmachine.com",
             "folder_id": "f15",
             "target": "_blank",
-            "hidden": false
+            "hidden": true
         },
         "92": {
             "id": "l93",
             "label": "playphrase",
             "url": "https:\/\/playphrase.me",
             "folder_id": "f15",
-            "target": "_blank"
+            "target": "_blank",
+            "hidden": true
         },
         "93": {
             "id": "l94",
@@ -1018,7 +1006,7 @@
             "id": "l697784e5851ca",
             "label": "spotify",
             "url": "https:\/\/spotify.com",
-            "folder_id": "f2",
+            "folder_id": "f6",
             "target": "_blank",
             "hidden": true
         },
@@ -1066,7 +1054,7 @@
             "id": "l698080022e8e6",
             "label": "youtube music",
             "url": "https:\/\/music.youtube.com\/",
-            "folder_id": "f2",
+            "folder_id": "f6",
             "target": "_blank",
             "hidden": true
         },
@@ -1154,7 +1142,7 @@
             "id": "l699ed1c2eec91",
             "label": "plex",
             "url": "https:\/\/watch.plex.tv\/",
-            "folder_id": "f2",
+            "folder_id": "f6",
             "target": "_self",
             "hidden": true
         },
@@ -1202,7 +1190,7 @@
             "id": "l69a80ae35057e",
             "label": "netflix",
             "url": "https:\/\/netflix.com",
-            "folder_id": "f2",
+            "folder_id": "f6",
             "target": "_self",
             "hidden": true
         },
@@ -1210,7 +1198,7 @@
             "id": "l69a80afa40bf8",
             "label": "prime video",
             "url": "https:\/\/www.primevideo.com",
-            "folder_id": "f2",
+            "folder_id": "f6",
             "target": "_self",
             "hidden": true
         },
@@ -1228,7 +1216,7 @@
             "url": "https:\/\/www.site24x7.com\/",
             "folder_id": "f15",
             "target": "_self",
-            "hidden": false
+            "hidden": true
         },
         "162": {
             "id": "l69b04fcdaf85c",

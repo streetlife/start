@@ -1,6 +1,7 @@
 <?php
 include('functions.php');
 
+ini_set('display_errors', 0);
 define('LINKS_FILE', 'data/links_v2.json');
 define('REFRESH_RATE', 600);
 
@@ -50,7 +51,7 @@ $selected_style = get_selected_style();
     <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
     <style>
         * { box-sizing: border-box; }
-        body { background: #0a0a0a; color: #e0e0e0; margin: 0; padding: 0; overflow-x: hidden; }
+        html, body { height: 100%; background: #0a0a0a; color: #e0e0e0; margin: 0; padding: 0; overflow: hidden; }
         .hidden { display: none; }
         .is-hidden { display: none; }
         body.show-hidden .is-hidden { display: revert; opacity: 0.3; }
@@ -59,7 +60,7 @@ $selected_style = get_selected_style();
         .topbar {
             display: flex; align-items: center; gap: 12px;
             padding: 12px 20px; background: #111; border-bottom: 1px solid #222;
-            position: sticky; top: 0; z-index: 100;
+            z-index: 100; flex-shrink: 0;
         }
         .topbar input[type="text"] {
             flex: 1; max-width: 400px;
@@ -79,16 +80,19 @@ $selected_style = get_selected_style();
         .clock strong { color: #aaa; }
 
         /* Main grid */
+        body { display: flex; flex-direction: column; }
         .main-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-rows: repeat(auto-fill, 1fr);
             gap: 1px; padding: 0; background: #111;
+            flex: 1; min-height: 0;
         }
 
         /* Folder card */
         .folder-card {
-            background: #0d0d0d; padding: 16px; min-height: 120px;
-            transition: background 0.15s;
+            background: #0d0d0d; padding: 16px; min-height: 0;
+            transition: background 0.15s; overflow: hidden;
         }
         .folder-card:hover { background: #141414; }
         .folder-head {
@@ -105,14 +109,15 @@ $selected_style = get_selected_style();
         .link-list { list-style: none; padding: 0; margin: 0; }
         .link-list li { margin: 0; }
         .link-list a {
-            display: flex; align-items: center; gap: 8px;
-            padding: 4px 6px; border-radius: 4px; text-decoration: none;
-            color: #bbb; font-size: 13px; transition: all 0.12s;
+            display: flex; align-items: center; gap: 6px;
+            padding: 2px 4px; border-radius: 4px; text-decoration: none;
+            color: #bbb; font-size: 12px; transition: all 0.12s;
             font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+            line-height: 1.4;
         }
         .link-list a:hover { background: #1e1e1e; color: #fff; }
         .link-list .icon {
-            width: 16px; height: 16px; border-radius: 3px;
+            width: 14px; height: 14px; border-radius: 3px;
             opacity: 0.7; flex-shrink: 0;
         }
         .link-list .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -5,7 +5,7 @@
 
 include('functions.php');
 
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 define('SHOW_ICON', true);
 define('REFRESH_RATE', 600);
@@ -96,7 +96,7 @@ check_delete_todo($todos);
         li { list-style-type: none; }
         .hidden { display: none; }
         .is-hidden { display: none; }
-        body.show-hidden .is-hidden { display: revert; opacity: 0.3; }
+        body.show-hidden .is-hidden { display: revert; opacity: 1; }
         #search { margin-bottom: 20px; padding: 10px; width: 300px; font-size: 16px; }
         .link { padding: 0; margin: 0; }
     </style>
@@ -108,12 +108,12 @@ check_delete_todo($todos);
     <div class="row g-0">
         <div class="col-md-2">
             <nav class="nav">
-                <?php echo createMenu($projectsMenu['folders'], $projectsMenu['links'], 1, true, SHOW_ICON); ?>
+                <?php echo createMenu($projectsMenu['folders'], $projectsMenu['links'], 2, true, SHOW_ICON); ?>
             </nav>
         </div>
         <div class="col-md-8">
             <nav class="nav">
-                <?php echo createMenu($rawMenu['folders'], $rawMenu['links'], 5, false, SHOW_ICON); ?>
+                <?php echo createMenu($rawMenu['folders'], $rawMenu['links'], 8, false, SHOW_ICON); ?>
             </nav>
         </div>
         <div class="col-md-2">  
