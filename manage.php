@@ -101,6 +101,7 @@ if ($action === 'upsert_link') {
     $found = false;
     foreach ($data['links'] as &$l) { if ($l['id'] === $id) { $l = $newLink; $found = true; } }
     if (!$found) $data['links'][] = $newLink;
+    sort_links($data);
     save($data);
     header('Location: manage.php' . (isset($_POST['folder']) ? '?folder=' . urlencode($_POST['folder']) : '')); exit;
 }
@@ -150,6 +151,12 @@ if ($action === 'refresh_single_icon') {
         }
     }
     header('Location: manage.php?refreshed_single=1'); exit;
+}
+
+if ($action === 'sort_links') {
+    sort_links($data);
+    save($data);
+    header('Location: manage.php?sorted=1'); exit;
 }
 
 if ($action === 'reorder_folders') {
@@ -346,8 +353,16 @@ if ($action === 'reorder_folders') {
             <div class="col-md-6">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h6 class="fw-bold mb-3" id="l_title">Link Inventor</h6>
-                    <div style="width: 350px;">
-                        <input type="text" id="search-admin" class="form-control border-0 shadow-sm" placeholder="Filter by name, URL or folder...">
+                    <div class="d-flex align-items-center gap-2">
+                        <form action="manage.php" method="post" class="mb-0">
+                            <input type="hidden" name="action" value="sort_links">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary" title="Sort links by folder order, then alphabetically">
+                                Sort by Folder + A-Z
+                            </button>
+                        </form>
+                        <div style="width: 350px;">
+                            <input type="text" id="search-admin" class="form-control border-0 shadow-sm" placeholder="Filter by name, URL or folder...">
+                        </div>
                     </div>
                 </div>
 

@@ -201,7 +201,7 @@ function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = 
                     </div>
                     <ul class="sub-menu p-0 px-3 m-0">';
         
-        usort($folderLinks, fn($a, $b) => strnatcasecmp($a['label'], $b['label']));
+        // usort($folderLinks, fn($a, $b) => strnatcasecmp($a['label'], $b['label']));
 
         foreach ($folderLinks as $link) {
             $target = '_self';
@@ -388,6 +388,19 @@ function fetch_favicon($label, $url) {
     }
 
     return false;
+}
+
+function sort_links(&$data) {
+    $folderSort = [];
+    foreach ($data['folders'] as $f) {
+        $folderSort[$f['id']] = $f['sort'];
+    }
+    usort($data['links'], function($a, $b) use ($folderSort) {
+        $fa = $folderSort[$a['folder_id']] ?? 0;
+        $fb = $folderSort[$b['folder_id']] ?? 0;
+        if ($fa !== $fb) return $fa <=> $fb;
+        return strnatcasecmp($a['label'], $b['label']);
+    });
 }
 
 function save($data) {
