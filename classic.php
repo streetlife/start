@@ -11,7 +11,7 @@ define('SHOW_ICON', true);
 define('REFRESH_RATE', 600);
 define('SETTINGS_FILE', 'data/settings.json');
 define('TODO_FILE', 'data/todo.json');
-define('LINKS_FILE', 'data/links_v2.json');
+define('LINKS_FILE', 'data/links.json');
 define('LABEL_LENGTH', 0);
 define('MAIN_LIST_TYPE', 'separate'); // Options: 'merged', 'separate'
 

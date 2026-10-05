@@ -3,7 +3,7 @@ include('functions.php');
 
 ini_set('display_errors', 0);
 
-define('LINKS_FILE', 'data/links_v2.json');
+define('LINKS_FILE', 'data/links.json');
 define('TODO_FILE', 'data/todo.json');
 define('PRIVATE_MODE', isset($_GET['private']) && $_GET['private'] === 'true');
 
@@ -145,7 +145,7 @@ foreach ($links as $l) {
         'label'  => $l['label'],
         'url'    => $l['url'],
         'icon'   => $icon,
-        'target' => $l['target'] ?? '_blank',
+        'target' => '_self',
     ];
 }
 ?>
@@ -805,7 +805,7 @@ foreach ($links as $l) {
             </div>
 
             <?php foreach ($favoriteLinks as $l): ?>
-                <a class="desk-icon" href="<?php echo htmlspecialchars($l['url']); ?>" target="_blank" title="<?php echo htmlspecialchars($l['label']); ?>">
+                <a class="desk-icon" href="<?php echo htmlspecialchars($l['url']); ?>" title="<?php echo htmlspecialchars($l['label']); ?>">
                     <span class="appicon"><img src="<?php echo htmlspecialchars($l['icon']); ?>" alt="" onerror="this.style.visibility='hidden'"></span>
                     <span class="lbl"><?php echo htmlspecialchars($l['label']); ?></span>
                 </a>
@@ -965,7 +965,7 @@ foreach ($links as $l) {
             <div class="flyout" data-folder="<?php echo htmlspecialchars($f['id']); ?>" style="columns:<?php echo $f['cols']; ?>; width:<?php echo 214 * $f['cols']; ?>px;">
                 <div class="flyout-title"><?php echo htmlspecialchars($f['name']); ?></div>
                 <?php foreach ($f['links'] as $l): ?>
-                    <a class="sm-link<?php echo $l['hidden'] ? ' is-hidden' : ''; ?>" href="<?php echo htmlspecialchars($l['url']); ?>" target="_blank"
+                    <a class="sm-link<?php echo $l['hidden'] ? ' is-hidden' : ''; ?>" href="<?php echo htmlspecialchars($l['url']); ?>"
                        data-label="<?php echo htmlspecialchars(strtolower($l['label'])); ?>"
                        data-url="<?php echo htmlspecialchars(strtolower($l['url'])); ?>">
                         <img src="<?php echo htmlspecialchars($l['icon']); ?>" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
@@ -1288,7 +1288,7 @@ foreach ($links as $l) {
             hits.forEach(function (l) {
                 var a = document.createElement('a');
                 a.className = 'search-hit';
-                a.href = l.url; a.target = '_blank';
+                a.href = l.url; a.target = '_self';
                 a.innerHTML = '<img src="' + l.icon + '" alt=""><span class="lbl">' + escapeHtml(l.label) + '</span><span class="cat">' + escapeHtml(l.folder) + '</span>';
                 searchResults.appendChild(a);
             });
