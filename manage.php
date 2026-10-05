@@ -3,7 +3,7 @@ include('functions.php');
 set_time_limit(30000);
 
 
-define('DATA_FILE', 'data/links_v2.json');
+define('DATA_FILE', 'data/links.json');
 define('SETTINGS_FILE', 'data/settings.json');
 
 $settings = json_decode(@file_get_contents(SETTINGS_FILE), true) ?: [
