@@ -43,11 +43,22 @@ function load_todo($completed_flag = false) {
     $result = '<ul class="list-group list-group-flush border-0 mb-2">';
     foreach ($todos as $todo) {
         if ($todo['done'] == $completed_flag) {
-            $result .= '<a href="index.php?action=delete_todo&id=' . $todo['id'] . '" class="list-group-item list-group-item-action" onclick="return confirm(\'Are you sure you want to delete - ' . addslashes($todo['text']) . '?\')">' . htmlspecialchars($todo['text']) . '</a>';
+            $result .= '<a href="classic.php?action=delete_todo&id=' . $todo['id'] . '" class="list-group-item list-group-item-action" onclick="return confirm(\'Are you sure you want to delete - ' . addslashes($todo['text']) . '?\')">' . htmlspecialchars($todo['text']) . '</a>';
         }
     }
     $result .= '</ul>';
     return $result;
+}
+
+function clear_completed_todos(&$todos) {
+    foreach ($todos as $key => $todo) {
+        if ($todo['done']) {
+            unset($todos[$key]);
+        }
+    }
+    file_put_contents(TODO_FILE, json_encode(array_values($todos), JSON_PRETTY_PRINT));
+
+    // $todos = json_decode(@file_get_contents(TODO_FILE), true) ?: [];
 }
 
 function load_todo_column($status) {
@@ -92,11 +103,11 @@ function load_todo_column($status) {
         foreach ($moves as $to => $label) {
             $hidden = ($to === $status) ? ' d-none' : '';
             $cls = ($to === 'done') ? ' text-success' : '';
-            $result .= '<li><a class="dropdown-item move-link' . $cls . $hidden . '" data-to="' . $to . '" href="index.php?action=move_todo&id=' . $todo['id'] . '&to=' . $to . '">' . $label . '</a></li>';
+            $result .= '<li><a class="dropdown-item move-link' . $cls . $hidden . '" data-to="' . $to . '" href="classic.php?action=move_todo&id=' . $todo['id'] . '&to=' . $to . '">' . $label . '</a></li>';
         }
 
         $result .= '<li><hr class="dropdown-divider"></li>';
-        $result .= '<li><a class="dropdown-item text-danger" href="index.php?action=delete_todo&id=' . $todo['id'] . '" onclick="return confirm(\'Delete?\')">Delete Permanently</a></li>';
+        $result .= '<li><a class="dropdown-item text-danger" href="classic.php?action=delete_todo&id=' . $todo['id'] . '" onclick="return confirm(\'Delete?\')">Delete Permanently</a></li>';
         $result .= '</ul></div></div></div>';
     }
     $result .= '</div>';
@@ -198,8 +209,8 @@ function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = 
                         <h6 class="m-0 fw-bold text-uppercase">
                         <!-- <iconify-icon icon="' . (isset($folder['icon']) ? $folder['icon'] : 'mdi:home') . '"></iconify-icon>' . $folderName . '</h6> -->
                         ' . $folderName . '
-                    </div>
-                    <ul class="sub-menu p-0 px-3 m-0">';
+                    </div>';
+        $output .= '<ul class="sub-menu p-0 px-3 m-0">';
         
         // usort($folderLinks, fn($a, $b) => strnatcasecmp($a['label'], $b['label']));
 
@@ -225,7 +236,8 @@ function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = 
             // $displayLabel = textrim($displayLabel, LABEL_LENGTH);
             $output .= htmlspecialchars($displayLabel) . '</a></li>';
         }
-        $output .= '</ul>
+        $output .= '</ul>';
+        $output .= '
                 </div>
             </div>
         </li>';
@@ -234,63 +246,39 @@ function createMenu($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = 
     return $output;
 }
 
-function createMenu2($folders, $allLinks) {
+function createMenuMerged($folders, $allLinks, $colCount = 1, $flexibleFolderLayout = false, $showIcon = true) {
     global $settings;
-    $output = '';
-    $local_name_offline = 'img/icon-local.png';
-    $colCount = $settings['cols'];
-    $showIcon = $settings['show_icon'];
-    
-    // Determine view mode: 'list' (Explorer Tiles) or 'grid' (Large Icons)
-    $viewMode = $settings['view_mode'] ?? 'list'; 
+    $multiColumn = ($colCount > 1);
+    $multiColumnClass = $multiColumn ? 'multi-column-list' : '';
+    $output = '<ul class="'.$multiColumnClass.' p-0 m-0" style="width:100%; column-count: '.$colCount.';">';
 
-    $output .= '<div class="folder-grid mode-' . $viewMode . '" style="--col-count: ' . $colCount . ';">';
-
-    foreach ($folders as $folder) {
-        $folderHidden = !empty($folder['hidden']);
-
-        $folderLinks = array_filter($allLinks, fn($l) => $l['folder_id'] === $folder['id']);
-        if (empty($folderLinks)) continue;
-
-        $hasVisibleLink = false;
-        foreach ($folderLinks as $l) {
-            if (!(isset($l['hidden']) && $l['hidden'] === true)) {
-                $hasVisibleLink = true;
-                break;
-            }
-        }
-        if (!$hasVisibleLink) $folderHidden = true;
-
-        $output .= '<div class="folder-container mb-4' . ($folderHidden ? ' is-hidden' : '') . '">';
-        $output .= '<div class="folder-header d-flex align-items-center mb-2 px-2">';
-        $output .= '<iconify-icon icon="' . ($folder['icon'] ?? 'mdi:folder') . '" style="font-size: 1.2rem; margin-right: 8px;"></iconify-icon>';
-        $output .= '<h6 class="m-0 fw-bold text-uppercase small">' . $folder['name'] . '</h6>';
-        $output .= '</div>';
+    // sort all links by label
+    usort($allLinks, function($a, $b) {
+        return strnatcasecmp($a['label'], $b['label']);
+    });
+    // Merge all links into a single list, ignoring folders
+    foreach ($allLinks as $link) {
+        // if (isset($link['hidden']) && $link['hidden'] === true) {
+        //     continue; // Skip hidden links
+        // }
+        $target = '_self';
+        $output .= '<li class="link" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">
+            <a href="' . htmlspecialchars($link['url']) . '" target="' . $target . '" class="nav-link p-0 m-0">';
         
-        $output .= '<div class="link-collection">';
-        usort($folderLinks, fn($a, $b) => strnatcasecmp($a['label'], $b['label']));
-
-        foreach ($folderLinks as $link) {
+        if ($showIcon) {
             $safeLabel = preg_replace('/[^a-z0-9]/i', '_', $link['label']);
-            $iconPath = 'img/icons/' . $safeLabel . '.png';
-            $displayLabel = strtolower(str_replace(['www.', '_', ' '], ['', '.', '.'], $link['label']));
-            
-            // Generate icon with cache-busting timestamp
-            $imgSrc = (file_exists($iconPath)) ? $iconPath . '?v=' . filemtime($iconPath) : $local_name_offline;
-
-            $linkHidden = isset($link['hidden']) && $link['hidden'] === true;
-            $linkHiddenClass = $linkHidden ? ' is-hidden' : '';
-            $output .= '<a href="' . htmlspecialchars($link['url']) . '" class="item-link' . $linkHiddenClass . '" data-url="' . htmlspecialchars(strtolower($link['url'])) . '">';
-            $output .= '<div class="item-content">';
-            if ($showIcon) {
-                $output .= '<img src="' . $imgSrc . '" class="item-icon" />';
+            $local_name = 'img/icons/' . $safeLabel . '.png';
+            if (!file_exists($local_name) || filesize($local_name) == 0) {
+                fetch_favicon($safeLabel, $link['url']);
             }
-            $output .= '<span class="item-label">' . htmlspecialchars($displayLabel) . '</span>';
-            $output .= '</div></a>';
+            $output .= '<img src="' . $local_name . '" class="icon" style="clear:both" /> ';
         }
-        $output .= '</div></div>';
+
+        $displayLabel = strtolower($link['label']);
+        $output .= htmlspecialchars($displayLabel) . '</a></li>';
     }
-    $output .= '</div>';
+
+    $output .= '</ul>';
     return $output;
 }
 
@@ -299,7 +287,7 @@ function check_new_todo(&$todos) {
         $id = empty($todos) ? 1 : max(array_column($todos, 'id')) + 1;
         $todos[] = ['id' => $id, 'text' => $_POST['todo'], 'done' => false];
         file_put_contents(TODO_FILE, json_encode($todos));
-        header('Location: index.php'); exit;
+        header('Location: classic.php'); exit;
     }
 }
 
@@ -314,7 +302,7 @@ function check_delete_todo(&$todos) {
             }
         }
         file_put_contents(TODO_FILE, json_encode($todos, JSON_PRETTY_PRINT));
-        header('Location: index.php'); exit;
+        header('Location: classic.php'); exit;
     }
 }
 

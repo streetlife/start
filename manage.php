@@ -85,6 +85,14 @@ if ($action === 'upsert_link') {
         $hidden = ($visible !== '1');
     }
 
+    // Favorite flag (preserve existing when not provided, e.g. visibility toggle)
+    $favorite = isset($_POST['favorite']) && $_POST['favorite'] === '1';
+    if (!isset($_POST['favorite'])) {
+        foreach ($data['links'] as $existing) {
+            if ($existing['id'] === $id) { $favorite = !empty($existing['favorite']); break; }
+        }
+    }
+
     // Trigger favicon fetch
     fetch_favicon($label, $url);
 
@@ -94,7 +102,8 @@ if ($action === 'upsert_link') {
         'url' => $_POST['url'],
         'folder_id' => $_POST['folder_id'] ?: 'root',
         'target' => $_POST['target'] ?? '_self',
-        'hidden' => $hidden ? true : false
+        'hidden' => $hidden ? true : false,
+        'favorite' => $favorite
     ];
     // $id = $_POST['link_id'] ?: uniqid('l');
     // $newLink = ['id' => $id, 'label' => $_POST['label'], 'url' => $_POST['url'], 'folder_id' => $_POST['folder_id'] ?: 'root'];
@@ -108,6 +117,18 @@ if ($action === 'upsert_link') {
 
 if ($action === 'delete_link') {
     $data['links'] = array_filter($data['links'], fn($l) => $l['id'] !== $_GET['id']);
+    save($data);
+    header('Location: manage.php'); exit;
+}
+
+if ($action === 'toggle_favorite') {
+    $id = $_GET['id'] ?? '';
+    foreach ($data['links'] as &$l) {
+        if ($l['id'] === $id) {
+            $l['favorite'] = !(!empty($l['favorite']));
+        }
+    }
+    unset($l);
     save($data);
     header('Location: manage.php'); exit;
 }
@@ -169,6 +190,60 @@ if ($action === 'reorder_folders') {
     save($data);
     header('Location: manage.php?reordered=1'); exit;
 }
+
+if ($action === 'import_csv') {
+    $folder_id = $_POST['folder_id'] ?? 'root';
+    if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['csv_file']['tmp_name'];
+        if (($handle = fopen($file, 'r')) !== false) {
+            $header = fgetcsv($handle);
+            $count = 0;
+            while (($row = fgetcsv($handle)) !== false) {
+                if (empty($row) || (count($row) === 1 && trim($row[0]) === '')) {
+                    continue;
+                }
+                $columns = [];
+                if ($header) {
+                    foreach ($header as $i => $h) {
+                        $columns[strtolower(trim($h))] = isset($row[$i]) ? trim($row[$i]) : '';
+                    }
+                } else {
+                    if (isset($row[0])) $columns['label'] = trim($row[0]);
+                    if (isset($row[1])) $columns['url'] = trim($row[1]);
+                }
+                if (empty($columns['label']) || empty($columns['url'])) {
+                    continue;
+                }
+                $label = $columns['label'];
+                $url = $columns['url'];
+                $hidden = isset($columns['hidden']) ? filter_var($columns['hidden'], FILTER_VALIDATE_BOOLEAN) : false;
+                $favorite = isset($columns['favorite']) ? filter_var($columns['favorite'], FILTER_VALIDATE_BOOLEAN) : false;
+                $target = isset($columns['target']) && $columns['target'] === '_blank' ? '_blank' : '_self';
+                if (isset($columns['target']) && strtolower($columns['target']) === 'blank') {
+                    $target = '_blank';
+                }
+                $id = uniqid('l');
+                $newLink = [
+                    'id' => $id,
+                    'label' => $label,
+                    'url' => $url,
+                    'folder_id' => $folder_id,
+                    'target' => $target,
+                    'hidden' => $hidden,
+                    'favorite' => $favorite
+                ];
+                $data['links'][] = $newLink;
+                fetch_favicon($label, $url);
+                $count++;
+            }
+            fclose($handle);
+            sort_links($data);
+            save($data);
+            header('Location: manage.php?imported=' . $count); exit;
+        }
+    }
+    header('Location: manage.php?import_failed=1'); exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -199,42 +274,7 @@ if ($action === 'reorder_folders') {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2"> 
-                <h6 class="fw-bold mb-3">Global Settings</h6>
-                <div class="card mb-4 bg-white border shadow-sm">
-                    <div class="card-body p-3">
-                        <form action="manage.php" method="post">
-                            <input type="hidden" name="action" value="update_settings">
-                            
-                            <div class="mb-3">
-                                <label class="small fw-bold mb-1 d-block">Default Columns</label>
-                                <select name="cols" class="form-select form-select-sm">
-                                    <?php foreach([3, 4, 5, 6,  7, 8, 9, 10, 11] as $num): ?>
-                                        <option value="<?= $num ?>" <?= $settings['cols'] == $num ? 'selected' : '' ?>><?= $num ?> Columns</option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="small fw-bold mb-1 d-block">Default View</label>
-                                <select name="view_mode" class="form-select form-select-sm">
-                                    <option value="list" <?= $settings['view_mode'] == 'list' ? 'selected' : '' ?>>Explorer Tiles (List)</option>
-                                    <option value="grid" <?= $settings['view_mode'] == 'grid' ? 'selected' : '' ?>>Large Icons (Grid)</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3 form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="show_icon" id="set_show_icon" <?= $settings['show_icon'] ? 'checked' : '' ?>>
-                                <label class="form-check-label small fw-bold" for="set_show_icon">Display Icons</label>
-                            </div>
-
-                            <button class="btn btn-primary btn-sm w-100 fw-bold" type="submit">Apply Settings</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">     
                 <h6 class="fw-bold mb-3">Manage Folders</h6>
-
                 <div class="card mb-4 bg-light border-0">
                     <div class="card-body p-3">
                         <label class="small fw-bold mb-2 d-block">Folder Editor</label>
@@ -304,6 +344,39 @@ if ($action === 'reorder_folders') {
                         </form>
                     </div>
                 </div>
+                
+                <h6 class="fw-bold mb-3">Global Settings</h6>
+                <div class="card mb-4 bg-white border shadow-sm">
+                    <div class="card-body p-3">
+                        <form action="manage.php" method="post">
+                            <input type="hidden" name="action" value="update_settings">
+                            
+                            <div class="mb-3">
+                                <label class="small fw-bold mb-1 d-block">Default Columns</label>
+                                <select name="cols" class="form-select form-select-sm">
+                                    <?php foreach([3, 4, 5, 6,  7, 8, 9, 10, 11] as $num): ?>
+                                        <option value="<?= $num ?>" <?= $settings['cols'] == $num ? 'selected' : '' ?>><?= $num ?> Columns</option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small fw-bold mb-1 d-block">Default View</label>
+                                <select name="view_mode" class="form-select form-select-sm">
+                                    <option value="list" <?= $settings['view_mode'] == 'list' ? 'selected' : '' ?>>Explorer Tiles (List)</option>
+                                    <option value="grid" <?= $settings['view_mode'] == 'grid' ? 'selected' : '' ?>>Large Icons (Grid)</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="show_icon" id="set_show_icon" <?= $settings['show_icon'] ? 'checked' : '' ?>>
+                                <label class="form-check-label small fw-bold" for="set_show_icon">Display Icons</label>
+                            </div>
+
+                            <button class="btn btn-primary btn-sm w-100 fw-bold" type="submit">Apply Settings</button>
+                        </form>
+                    </div>
+                </div>   
             </div>
             <div class="col-md-2">
                 <form action="manage.php" method="post" id="link-form">
@@ -336,6 +409,11 @@ if ($action === 'reorder_folders') {
                         <input class="form-check-input" type="checkbox" name="hidden" id="l_hidden" value="true" <?php if (isset($l['hidden']) && $l['hidden'] === true) echo 'checked'; ?>>
                         <label class="form-check-label small fw-bold" for="l_hidden">Hide from menu</label>
                     </div>
+                    <input type="hidden" name="favorite" value="0">
+                    <div class="mb-3 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="favorite" id="l_favorite" value="1">
+                        <label class="form-check-label small fw-bold" for="l_favorite">Favorite (desktop icon)</label>
+                    </div>
                     <button type="submit" class="btn btn-primary w-100 fw-bold">Save Link</button>
                     <button type="button" class="btn btn-link btn-sm w-100 mt-2 text-muted" onclick="location.reload()">Reset Form</button>
                 </form>
@@ -348,6 +426,31 @@ if ($action === 'reorder_folders') {
                     <a href="manage.php?action=refresh_icons" class="btn btn-sm btn-outline-info w-100" onclick="return confirm('This may take a moment. Proceed?')">
                         🔄 Refresh All Favicons
                     </a>
+                </div>
+
+                <div class="mt-4 pt-4 border-top">
+                    <h6 class="fw-bold mb-3">Import CSV</h6>
+                    <div class="card bg-white border shadow-sm">
+                        <div class="card-body p-3">
+                            <form action="manage.php" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="action" value="import_csv">
+                                <div class="mb-2">
+                                    <label class="small fw-bold mb-1 d-block">CSV File</label>
+                                    <input type="file" name="csv_file" class="form-control form-control-sm" accept=".csv,.txt" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="small fw-bold mb-1 d-block">Import to Folder</label>
+                                    <select name="folder_id" class="form-select form-select-sm" required>
+                                        <?php foreach ($data['folders'] as $f): ?>
+                                        <option value="<?= $f['id'] ?>"><?= htmlspecialchars($f['name']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <small class="text-muted d-block mb-2">Expected columns: label, url (optional: target, hidden, favorite)</small>
+                                <button type="submit" class="btn btn-sm btn-success w-100 fw-bold">Import CSV</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -424,13 +527,18 @@ if ($action === 'reorder_folders') {
                                 </td>
                                 <td class="text-end">
                                     <div class="btn-group">
+                                        <a href="manage.php?action=toggle_favorite&id=<?= $l['id'] ?>" 
+                                        class="btn btn-sm btn-outline-warning" 
+                                        title="Toggle favorite (desktop icon)">
+                                        <iconify-icon icon="<?= !empty($l['favorite']) ? 'mdi:star' : 'mdi:star-outline' ?>" style="vertical-align: middle;"></iconify-icon>
+                                        </a>
                                         <a href="manage.php?action=refresh_single_icon&id=<?= $l['id'] ?>" 
                                         class="btn btn-sm btn-outline-info" 
                                         title="Refresh Favicon">
                                         <iconify-icon icon="mdi:refresh" style="vertical-align: middle;"></iconify-icon>
                                         </a>
                                         
-                                        <button class="btn btn-sm btn-outline-secondary" onclick="editLink('<?= $l['id'] ?>', '<?= addslashes($l['label']) ?>', '<?= addslashes($l['url']) ?>', '<?= $l['folder_id'] ?>', '<?=  $l['target'] ?>', <?= isset($l['hidden'])?$l['hidden']:'0' ?>)">Edit</button>
+                                        <button class="btn btn-sm btn-outline-secondary" onclick='editLink(<?= json_encode($l["id"]) ?>, <?= json_encode($l["label"]) ?>, <?= json_encode($l["url"]) ?>, <?= json_encode($l["folder_id"]) ?>, <?= json_encode($l["target"] ?? "_self") ?>, <?= isset($l["hidden"]) && $l["hidden"] ? "true" : "false" ?>, <?= !empty($l["favorite"]) ? "true" : "false" ?>)'>Edit</button>
                                         <a href="manage.php?action=delete_link&id=<?= $l['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete?')">Delete</a>
                                     </div>
                                 </td>
@@ -493,14 +601,15 @@ if ($action === 'reorder_folders') {
             document.getElementById('f_name').focus();
         }
 
-        function editLink(id, label, url, folderId, target, hidden) {
+        function editLink(id, label, url, folderId, target, hidden, favorite) {
             document.getElementById('l_title').innerText = "Update Link";
             document.getElementById('l_id').value = id;
             document.getElementById('l_label').value = label;
             document.getElementById('l_url').value = url;
             document.getElementById('l_folder').value = folderId;
             document.getElementById('l_target').checked = (target === '_blank');
-            document.getElementById('l_hidden').checked = (hidden === 1);
+            document.getElementById('l_hidden').checked = (hidden === true || hidden === 1);
+            document.getElementById('l_favorite').checked = (favorite === true || favorite === 'true');
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
